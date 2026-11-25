@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080e1b">
+<meta name="description" content="화성을 추적하고 관측 자료와 공전 모형으로 겉보기 역행운동을 탐구하는 오프라인 과학 게임. ASTRA-7 탐구 에디션.">
+<title>ASTRA-7 · 화성 역행 탐구</title>
+<style>
+/* ASTRA-7 · Exploration Edition. No external fonts, assets or dependencies. */
+:root{color-scheme:dark;--bg:#080e1b;--surface:#101c2d;--surface2:#142338;--line:#30445d;--ink:#eef4fa;--muted:#a9bdd1;--accent:#8af0d8;--accent-dim:#193e40;--mars:#ffa78b;--gold:#ffe1a0;--bad:#ffacba;--shadow:0 18px 60px #0005;--radius:20px;font-family:system-ui,-apple-system,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 90% 0,#172d47 0,transparent 48%),var(--bg);color:var(--ink);line-height:1.65}button,input,select,textarea{font:inherit}button{touch-action:manipulation;cursor:pointer}button,a,input,select,textarea,summary,canvas[tabindex]{outline-offset:4px}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,canvas:focus-visible{outline:3px solid var(--gold)}button:disabled{opacity:.45;cursor:not-allowed}button,a,summary{-webkit-tap-highlight-color:transparent}[hidden]{display:none!important}h1,h2,h3,p{margin:0}h1,h2,h3{line-height:1.4;letter-spacing:-.04em}h2{font-size:clamp(22px,2.6vw,31px)}h3{font-size:17px}a{color:var(--accent);text-underline-offset:3px}small,.small{font-size:12px}.muted{color:var(--muted)}.mono{font-family:Consolas,"SFMono-Regular",monospace;font-variant-numeric:tabular-nums}.eyebrow{font:700 11px Consolas,monospace;letter-spacing:.15em;color:var(--accent);margin-bottom:7px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}.skip-link{position:fixed;left:12px;top:-80px;z-index:100;background:var(--accent);color:#092829;padding:12px;border-radius:8px}.skip-link:focus{top:10px}.app{max-width:1420px;margin:auto;padding:22px clamp(14px,3vw,42px) 28px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px}.brand{display:flex;align-items:center;gap:11px}.brand-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid #6ad9c8;border-radius:13px;background:#17373d;color:var(--accent);font-size:24px}.brand strong{font:800 22px Consolas,monospace;letter-spacing:.08em}.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:.07em}.header-actions,.actions,.chips,.toolbar,.segmented{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.header-actions{justify-content:flex-end}.btn{min-height:44px;padding:10px 16px;border:1px solid var(--line);border-radius:11px;background:#16273b;color:var(--ink);font-weight:750;font-size:13px;line-height:1.5;transition:background .15s,border-color .15s}.btn:hover:not(:disabled){border-color:var(--accent);background:#203c4b}.btn.primary{background:var(--accent);color:#092e33;border-color:transparent}.btn.primary:hover:not(:disabled){background:#b1ffe9}.btn.mars{background:var(--mars);color:#422331;border-color:transparent}.btn.quiet{background:transparent}.btn.small{font-size:12px;padding:8px 12px}.btn.wide{width:100%;justify-content:center}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 11px;font-size:11px;color:var(--muted);background:#101d2e;white-space:nowrap}.pill.accent{color:var(--accent);border-color:#397b73;background:#103332}.pill.warning{color:var(--gold);border-color:#836b46;background:#342b25}.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:18px}.step{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 16px;border:1px solid var(--line);border-radius:13px;background:#0f1a2b;color:var(--muted);min-height:62px}.step .number{font:800 18px Consolas,monospace;opacity:.75}.step b{display:block;font-size:13px}.step small{font-size:10px}.step[aria-current=step]{background:#163638;border-color:#70cfbc;color:var(--ink)}.step.done .number{color:var(--accent)}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:20px;align-items:start}.panel{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(130deg,#142237eb,#0d1828f5);box-shadow:var(--shadow);min-width:0}.main-panel{padding:24px}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:17px}.section-head p{font-size:13px;color:var(--muted);margin-top:6px;max-width:65ch}.section-head .pill{flex-shrink:0}.side{display:grid;gap:16px}.side .panel{padding:20px}.side h3{margin-bottom:9px}.side p{font-size:13px;color:var(--muted)}.side ol,.side ul{font-size:13px;color:var(--muted);padding-left:20px;margin:12px 0 0}.side li+li{margin-top:8px}.side .callout{margin-top:14px}.side-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.side-stats div{background:#0a1728;padding:12px;border:1px solid #263c55;border-radius:11px}.side-stats b{display:block;font:800 23px Consolas,monospace;color:var(--accent)}.side-stats span{font-size:11px;color:var(--muted)}.callout{padding:12px 14px;border:1px solid #35576e;background:#102638;border-radius:12px;font-size:13px;color:#c6dcea;line-height:1.75}.callout b{color:var(--ink)}.callout.good{border-color:#438f7f;background:#123831;color:#b8f9df}.callout.warn{border-color:#836b49;background:#332c29;color:#ffe0b4}.callout.error{border-color:#895163;background:#352432;color:#ffd1db}.feedback{margin-top:14px;min-height:50px}.footer{font-size:11px;color:#9bb0c6;margin-top:20px;line-height:1.8}.footer strong{color:#cbdbea}.save-indicator{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}.save-indicator:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}.save-indicator.failed:before{background:var(--bad)}
+/* Play surface and controls */
+.scene{position:relative;background:#071326;border:1px solid #405b74;border-radius:15px;overflow:hidden;isolation:isolate}.scene-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 13px;border-bottom:1px solid #243d53;font-size:10px;color:#b3c9da;background:#101f30}.scene canvas{display:block;width:100%;height:clamp(245px,29vw,370px);touch-action:none}.scene canvas:focus-visible{outline-offset:-5px}.reticle{position:absolute;left:0;top:0;width:30px;height:30px;border:1.5px solid #edfaff;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);display:none;filter:drop-shadow(0 0 3px #000);z-index:3}.reticle:before,.reticle:after{content:"";position:absolute;background:#f4fbff}.reticle:before{width:40px;height:1px;left:-6px;top:13px}.reticle:after{height:40px;width:1px;top:-6px;left:13px}.reticle.locked{border-color:#9effdb}.canvas-wrap{position:relative}.scene-overlay{position:absolute;inset:0;background:#060c19d9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:13px;z-index:5;padding:20px}.scene-overlay strong{font-size:clamp(28px,5vw,60px);line-height:1.2}.scene-overlay p{font-size:13px;color:#bfd2e4;max-width:45ch}.scene-overlay .actions{justify-content:center}.countdown-number{font:900 96px Consolas,monospace!important;color:var(--accent)}.shot-flash{position:absolute;inset:0;background:#bbffe5;opacity:0;pointer-events:none;z-index:4}.shot-flash.fire{animation:shot .25s ease-out}@keyframes shot{0%{opacity:.16}100%{opacity:0}}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:13px 0}.stat{padding:11px 12px;background:#0b182a;border:1px solid #2c435b;border-radius:11px;min-width:0}.stat span{font-size:10px;color:var(--muted);display:block;margin-bottom:4px}.stat strong{font:800 clamp(13px,1.5vw,18px) Consolas,monospace;color:var(--ink);white-space:nowrap}.stat strong.retro{color:var(--mars)}.lock-track{height:5px;background:#2b4054;border-radius:5px;overflow:hidden;margin-top:8px}.lock-track div{height:100%;background:var(--accent);width:0}.timeline{padding:13px 14px;background:#0c192b;border:1px solid #2c435b;border-radius:12px}.timeline-heading{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-bottom:12px}.timeline-heading b{color:var(--gold)}.timeline-track{height:7px;background:#23374d;position:relative;border-radius:7px;margin:0 3px 14px}.window-marks{position:absolute;inset:0}.window-marks span{position:absolute;top:-2px;height:11px;border-radius:4px;background:#f9c78622;border:1px solid #d8af7666}.window-marks span.ready{background:#ffd28d88;border-color:#ffe3ad}.window-marks span.done{background:#8ceacf88;border-color:#b7ffe8}.timeline-fill{height:100%;background:#86c9c1;opacity:.55;width:0%;border-radius:7px}.timeline-cursor{position:absolute;left:0%;top:-4px;width:15px;height:15px;border:2px solid #123039;border-radius:50%;background:#fff0c2;transform:translateX(-50%)}.checkpoints{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.checkpoint{text-align:center;padding:7px 3px;border:1px solid #2b435a;border-radius:8px;font:700 11px Consolas,monospace;color:var(--muted);min-width:0}.checkpoint small{display:block;font:10px system-ui;margin-top:3px}.checkpoint.done{color:var(--accent);border-color:#419482;background:#133c37}.checkpoint.ready{color:var(--gold);border-color:#af8f59;background:#3a3127}.checkpoint.missed{color:#c4afc0;border-style:dashed}.controls{margin-top:13px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.control-left{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.field-inline{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}select{min-height:42px;padding:8px 30px 8px 11px;border-radius:9px;border:1px solid var(--line);color:var(--ink);background:#0f2136}.options-bar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:13px;font-size:12px;color:var(--muted)}.check-label{display:flex;align-items:center;gap:7px;cursor:pointer;min-height:40px}.check-label input{accent-color:var(--accent);width:17px;height:17px}.context-line{margin-top:12px;font-size:12px;color:var(--muted)}.next-row{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:20px;padding-top:17px;border-top:1px solid var(--line)}.next-row p{font-size:12px;color:var(--muted);max-width:46ch}.key{display:inline-block;padding:1px 5px;border:1px solid #50657a;border-bottom-width:2px;border-radius:4px;font:11px Consolas,monospace;color:#d6e4ed}.details{border:1px solid #2f465e;border-radius:12px;background:#0d1b2d;padding:0 14px;margin-top:14px}.details summary{cursor:pointer;padding:13px 0;font-size:13px;font-weight:700;color:#d2e3ee;min-height:44px}.details p,.details li{font-size:13px;color:var(--muted);line-height:1.85}.details p{margin:0 0 12px}.details ol,.details ul{padding-left:20px;margin:0 0 14px}.details h3{font-size:14px;margin-bottom:8px}.directions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin:9px 0}.directions .retro{color:var(--mars)}
+/* Evidence and lab */
+.chart{display:block;width:100%;height:310px;background:#08172a;border:1px solid #304c65;border-radius:13px}.chart-legend{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:11px;color:var(--muted);margin:10px 0 16px}.chart-legend b{color:#d2e7ed}.table-wrap{max-width:100%;overflow:auto;border:1px solid var(--line);border-radius:12px;margin-top:12px;overscroll-behavior-x:contain}table{width:100%;border-collapse:collapse;min-width:480px;font-size:12px;text-align:left;font-variant-numeric:tabular-nums}caption{text-align:left;padding:12px;background:#14283b;color:#d4e7f1;font-weight:700}th,td{padding:10px 12px;border-bottom:1px solid #243950;vertical-align:middle}th{color:#a6c4d6;font-size:11px;font-weight:700;background:#102034}td{background:#0c1a2c;color:#dce8f1}tr:last-child td{border-bottom:0}.source{display:inline-block;border-radius:6px;font-size:10px;padding:2px 6px;border:1px solid #46657a;color:#cae5ec;white-space:nowrap}.source.manual{border-color:#3d8d77;color:#9fe7ce}.source.assisted{border-color:#5173a3;color:#b7d3fc}.source.model{border-style:dashed;color:#d3c5ac}.interval-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:13px 0}.interval-btn{padding:13px 10px;border:1px solid #3b536d;border-radius:12px;background:#142539;color:#c6d8e7;text-align:left;min-height:86px;font-size:12px}.interval-btn b{display:block;font-size:13px;color:var(--ink)}.interval-btn span{display:block;font:12px Consolas,monospace;color:var(--muted);margin-top:6px}.interval-btn[aria-pressed=true]{background:#3c3032;border-color:#e9ae8e}.interval-btn[aria-pressed=true] b{color:#ffd5bc}.interval-btn[aria-pressed=true]:before{content:"✓ 선택됨";font-size:10px;color:#ffd5bc;float:right}.block-label{display:block;font-size:13px;font-weight:750;margin:17px 0 8px}textarea{display:block;width:100%;min-height:95px;padding:12px 13px;border:1px solid #425c75;border-radius:11px;background:#0a1728;color:var(--ink);resize:vertical;font-family:inherit;font-size:14px;line-height:1.8}.textarea-hint{font-size:11px;color:var(--muted);margin-top:6px}.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.lab-box{min-width:0;padding:13px;border:1px solid #304e68;border-radius:13px;background:#0b192b}.lab-box h3{font-size:13px;margin-bottom:10px}.lab-box canvas{width:100%;height:265px;display:block;border-radius:9px}.legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:9px}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}.lab-controls{padding:15px;background:#13283a;border:1px solid #36596c;border-radius:13px;margin-top:13px}.lab-controls .toolbar{justify-content:space-between}.lab-day{font:800 21px Consolas,monospace}.slider{width:100%;min-height:38px;accent-color:var(--accent);margin:6px 0 0;cursor:pointer}.range-labels{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:10px}.jump-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.jump-row .btn{flex:1;padding:8px;min-width:72px;font-size:11px}.sky-lab{margin-top:13px;padding:13px;border:1px solid #314e66;border-radius:13px;background:#0b192b}.sky-lab h3{font-size:13px}.sky-lab canvas{width:100%;height:218px;display:block;margin-top:8px}.period-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:13px 0}.period-btn{min-height:83px;border:1px solid #3a5670;border-radius:11px;background:#122338;color:#bcd1e1;padding:10px 5px;font-size:11px}.period-btn b{display:block;font:800 24px Consolas,monospace;color:#eef8fb;margin:3px 0}.period-btn[aria-pressed=true]{background:#19423f;border-color:var(--accent)}.period-btn[aria-pressed=true] b{color:var(--accent)}.lab-heading{margin-top:24px;padding-top:19px;border-top:1px solid var(--line)}.choice-group{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.choice-btn{flex:1;min-width:110px;min-height:45px;border:1px solid #405a71;border-radius:10px;background:#102136;color:#c9dce8;font-size:12px;padding:10px}.choice-btn[aria-pressed=true]{border-color:var(--accent);background:#20453f;color:#d1fff0}.record-list{display:grid;gap:8px;margin-top:12px}.experiment-row{border:1px solid #36546a;background:#102336;padding:12px;border-radius:10px;font-size:12px;color:#c9dfeb}.experiment-row strong{color:var(--ink)}.experiment-row p{font-size:12px;color:var(--muted);margin-top:4px}.quiz-item{margin-top:15px;padding:15px;border:1px solid #314e65;border-radius:12px;background:#0b1b2e}.quiz-item h3{font-size:14px}.quiz-item .choice-btn{text-align:left;min-width:150px}.quiz-feedback{font-size:12px;line-height:1.75;color:#b1ddce;margin-top:8px}.formula-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}.formula-strip div{background:#0b1a2a;border:1px solid #304b60;border-radius:9px;padding:10px;font-size:11px;color:var(--muted)}.formula-strip b{display:block;font:700 18px Consolas,monospace;color:var(--ink)}.checklist{list-style:none!important;padding-left:0!important}.checklist li{display:flex;gap:8px;align-items:flex-start}.checklist .ok{color:var(--accent)}
+/* Native dialogs provide focus containment and an inert background. */
+dialog{padding:0;border:1px solid #4a647b;border-radius:22px;background:#101d2e;color:var(--ink);width:min(850px,calc(100% - 24px));max-height:calc(100dvh - 28px);box-shadow:0 26px 100px #000b;overflow:auto;overscroll-behavior:contain}dialog::backdrop{background:#030814dd;backdrop-filter:blur(6px)}.dialog-inner{padding:clamp(20px,4vw,35px)}.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.dialog-head h2{font-size:22px}.dialog-foot{position:sticky;bottom:0;padding:15px clamp(20px,4vw,35px);background:#102033fa;border-top:1px solid #324c63;display:flex;align-items:center;gap:14px;justify-content:space-between;z-index:2}.dialog-foot small{font-size:11px;color:var(--muted);max-width:37ch}.dialog-foot .btn{min-width:180px}.menu-dialog{width:min(910px,calc(100% - 24px))}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(210px,.75fr);gap:18px;align-items:center;margin-bottom:20px}.hero h1{font-size:clamp(29px,4.5vw,46px);line-height:1.22;letter-spacing:-.065em;margin:8px 0 12px}.hero h1 em{color:var(--mars);font-style:normal}.hero p{font-size:13px;color:var(--muted);line-height:1.85;max-width:47ch}.hero-art{position:relative;display:grid;place-items:center;min-height:224px;overflow:hidden;border-radius:16px;background:radial-gradient(circle at center,#29425e,#0c1729 72%)}.hero-art:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#e7f1ff 1px,transparent 1px);background-size:53px 47px;opacity:.35}.planet-mars{position:relative;width:132px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 28% 26%,#ffb185 0,#e27866 22%,#bb5759 45%,#75334e 72%,#241a32 100%);box-shadow:inset -20px -17px 35px #16112ab5,0 0 55px #f77b5740}.planet-mars:before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 20% 51%,#64324d 0 13%,transparent 14%),radial-gradient(ellipse at 62% 38%,#7e334a 0 15%,transparent 16%),radial-gradient(ellipse at 40% 81%,#a14452 0 19%,transparent 20%);filter:blur(3px)}.orbit-ring{position:absolute;border:1px dashed #7ab5cf78;border-radius:50%;width:245px;height:85px;transform:rotate(-22deg)}.orbit-ring.second{width:290px;height:130px;transform:rotate(22deg);opacity:.5}.art-caption{position:absolute;left:0;right:0;bottom:13px;text-align:center;font:10px Consolas,monospace;color:#bacadd;letter-spacing:.14em}.mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.mode-card{text-align:left;min-height:88px;padding:14px 16px;border:1px solid #3a5269;border-radius:12px;background:#122237;color:#d2e0e9}.mode-card strong{display:block;font-size:14px;margin-bottom:4px}.mode-card small{font-size:11px;color:var(--muted);display:block}.mode-card[aria-pressed=true]{border-color:var(--accent);background:#173b3a;box-shadow:inset 3px 0 var(--accent)}.mode-card[aria-pressed=true] strong{color:#bdffea}.mode-card[aria-disabled=true]{opacity:.6}.mode-card.armed{border-color:#e8e8e8;background:#25252a}.resume-banner{border:1px solid #3b826e;background:#11372f;border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.resume-banner strong{display:block;font-size:13px}.resume-banner p{font-size:11px;color:#b4d8cc}.menu-options{margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.menu-lock-note{font-size:11px;color:#bdc9d7;margin-top:10px}.menu-prediction p{font-size:12px;color:var(--muted);margin:10px 0}.menu-prediction .choice-btn{min-width:170px}.result-dialog{max-width:640px}.result-score{font:800 clamp(42px,7vw,70px) Consolas,monospace;color:var(--gold);line-height:1.3;margin:12px 0 3px}.result-tier{font:800 21px Consolas,monospace;color:var(--accent)}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:18px 0}.result-grid div{background:#0a182a;padding:12px 10px;border:1px solid #30495f;border-radius:11px}.result-grid small{display:block;color:var(--muted);font-size:11px}.result-grid b{font:800 19px Consolas,monospace;color:#edf5fc}.complete-title{font-size:30px}.summary-list{padding-left:20px;color:#cfdee9;font-size:13px;line-height:1.9}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translate(-50%,15px);background:#173b3e;border:1px solid #6bb8aa;border-radius:12px;padding:12px 18px;font-size:13px;color:#d9fff0;max-width:min(570px,calc(100% - 30px));text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 10px 40px #0008}.toast.show{opacity:1;transform:translate(-50%,0)}.help-dialog{max-width:720px}.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}.help-grid>div{padding:15px;border:1px solid #31495e;background:#0d1b2b;border-radius:12px}.help-grid h3{font-size:14px;margin-bottom:8px}.help-grid p{font-size:12px;color:var(--muted);line-height:1.85}
+/* Original CHAOS identity and artwork, scoped to game-only modes. */
+body[data-mode=rush]{--accent:#ffafc2;--accent-dim:#3d202e;--mars:#ffa2a9;--bg:#130b16;background:radial-gradient(ellipse at 70% 0,#411a31,transparent 55%),var(--bg)}body[data-mode=rush] .scene{border-color:#90566d}body[data-mode=chaos]{--accent:#e6e6e6;--accent-dim:#292929;--mars:#cfcfcf;--gold:#eee;--bg:#070707;--surface:#151515;--surface2:#1c1c1c;--line:#484848;--muted:#b6b6bb;background:radial-gradient(ellipse at 75% 10%,#232328,transparent 48%),#070707}body[data-mode=chaos] .panel{background:linear-gradient(140deg,#171719,#08080b)}body[data-mode=chaos] .scene,body[data-mode=chaos] .stat,body[data-mode=chaos] .timeline{background:#121214;border-color:#505054}body[data-mode=chaos] .scene-top,body[data-mode=chaos] .btn,body[data-mode=chaos] .pill{background:#202024}body[data-mode=chaos] .btn.primary{background:#dedede;color:#101015}.void-planet-art{display:none;position:absolute;inset:0;width:100%;height:100%;pointer-events:none}dialog[data-preview=chaos] .hero-art{background:radial-gradient(circle at 50% 52%,#292929,#070707 73%)}dialog[data-preview=chaos] .planet-mars,dialog[data-preview=chaos] .orbit-ring{visibility:hidden}dialog[data-preview=chaos] .void-planet-art{display:block;animation:voidReveal .5s ease-out}dialog[data-preview=chaos] .hero h1 em{color:#e7e7e7}dialog[data-preview=chaos] .art-caption{display:none}.vp-ring-a{transform-origin:207px 215px;animation:voidSpin 30s linear infinite}.vp-ring-b{transform-origin:207px 215px;animation:voidSpin 38s linear infinite reverse}dialog[data-preview=rush] .hero-art{background:radial-gradient(circle at 50% 50%,#5b2738,#130c18 75%)}@keyframes voidSpin{to{transform:rotate(360deg)}}@keyframes voidReveal{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}.reduce-motion *,.reduce-motion *:before,.reduce-motion *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(min-width:1200px){.side{position:sticky;top:18px}}@media(max-width:1060px){.workspace{grid-template-columns:minmax(0,1fr)}.side{grid-template-columns:1fr 1fr}.main-panel{padding:20px}.scene canvas{height:350px}}@media(max-width:640px){.app{padding:13px 12px 24px}.brand strong{font-size:19px}.brand small{font-size:9px}.topbar{margin-bottom:14px;gap:10px}.header-actions{gap:5px}.header-actions .btn{padding:8px 10px;font-size:11px}.steps{gap:5px;margin-bottom:12px}.step{padding:10px 9px;gap:7px;min-height:58px}.step .number{font-size:14px}.step b{font-size:11px}.step small{font-size:9px}.main-panel{padding:14px;border-radius:16px}.section-head{flex-wrap:wrap;gap:8px}.section-head h2{font-size:23px}.section-head p{font-size:12px}.section-head .pill{font-size:10px}.scene canvas{height:270px}.stats{gap:6px;grid-template-columns:repeat(2,minmax(0,1fr))}.stat{padding:10px 11px}.stat strong{font-size:16px}.checkpoint{font-size:10px;padding:7px 2px}.checkpoint small{font-size:9px}.timeline{padding:12px 10px}.controls{align-items:stretch}.control-left{width:100%}.control-left .btn{flex:1}.controls>.btn{width:100%}.next-row{flex-direction:column;align-items:stretch}.next-row .btn{width:100%}.side{grid-template-columns:1fr}.side .panel{padding:17px}.chart{height:285px}.interval-grid{grid-template-columns:1fr 1fr;gap:7px}.interval-btn{padding:12px 9px}.interval-btn b{font-size:12px}.interval-btn span{font-size:11px}.lab-grid{grid-template-columns:1fr}.lab-box canvas{height:260px}.formula-strip{grid-template-columns:1fr}.formula-strip div{display:flex;align-items:center;justify-content:space-between;gap:8px}.formula-strip b{font-size:17px}.hero{grid-template-columns:1fr;gap:14px}.hero-art{display:none}.hero h1{font-size:34px}.hero p{font-size:12px}.mode-card{padding:12px;min-height:102px}.mode-card strong{font-size:12px}.mode-card small{font-size:10px}.dialog-inner{padding:21px 18px}.dialog-foot{padding:13px 18px;flex-direction:column;align-items:stretch;gap:8px}.dialog-foot .btn{width:100%}.dialog-foot small{max-width:none}.menu-options{align-items:flex-start}.dialog-head h2{font-size:20px}.result-grid{gap:6px}.result-grid b{font-size:17px}.help-grid{grid-template-columns:1fr}dialog[data-preview=chaos] .hero-art{display:grid;min-height:150px;order:-1}dialog[data-preview=chaos] .hero{gap:10px}.menu-prediction .choice-btn{flex-basis:100%}.choice-group .choice-btn{min-width:100px}.scene-top{font-size:9px}.header-actions #headerSave{display:none}.toast{font-size:12px;bottom:12px}.jump-row{display:grid;grid-template-columns:repeat(3,1fr)}}@media(max-width:365px){.stat strong{font-size:13px}.mode-grid{grid-template-columns:1fr}.mode-card{min-height:75px}.step small{display:none}.hero h1{font-size:29px}.checkpoint{font-size:9px}.interval-grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:640px){.sky-lab canvas{height:210px}}
+@media print{body{background:white!important;color:#111!important}.topbar,.steps,.side,.footer,dialog,.toast,.controls,.scene{display:none!important}.app,.main-panel{padding:0}.workspace{display:block}.panel{background:white;border:0;box-shadow:none}.callout,td,th{background:white!important;color:#111!important}}
+
+/* CHAOS 봉인 → 검은 액체 진입: 모드 선택에서만 동작. 에임 캔버스에 영향 없음. */
+#modeChoices .mode-card[data-mode="chaos"]{position:relative;isolation:isolate;overflow:hidden;transition:border-color .3s,box-shadow .3s,background .3s}
+#modeChoices .mode-card[data-mode="chaos"]::after{content:"";position:absolute;left:-8%;right:-8%;bottom:-90%;height:105%;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 32% 9%,#141416 0 26%,transparent 28%),radial-gradient(ellipse at 73% 6%,#060608 0 29%,transparent 31%),linear-gradient(0deg,#010102 20%,#0c0c0f 100%);border-radius:44% 56% 9% 12% / 25% 20% 0 0;transition:bottom .72s cubic-bezier(.18,.7,.22,1)}
+#modeChoices .mode-card[data-mode="chaos"].armed{background:#191a1e;border-color:#bfc0c4;box-shadow:0 0 0 1px #fff3,0 0 28px #fff1,inset 0 0 30px #0008}
+#modeChoices .mode-card[data-mode="chaos"].armed::after{bottom:-27%}
+#modeChoices .mode-card[data-mode="chaos"].armed strong{color:#f1f1f1}
+#modeChoices .mode-card[data-mode="chaos"].armed small{color:#c8c8ca}
+#modeChoices .mode-card[data-mode="chaos"]::before{content:"";position:absolute;inset:-1px;pointer-events:none;opacity:0;transform:scale(.94);transform-origin:50% 46%;background:
+ linear-gradient(62deg,transparent 0 45.4%,#ffffff00 45.5%,#f5f5f7cc 46.2%,#ffffff00 47%,transparent 47.2%),
+ linear-gradient(116deg,transparent 0 51.2%,#ffffff00 51.3%,#f3f3f5bb 51.9%,#ffffff00 52.6%,transparent 52.8%),
+ linear-gradient(162deg,transparent 0 54.1%,#ffffff00 54.2%,#ececefaa 54.8%,#ffffff00 55.35%,transparent 55.5%),
+ linear-gradient(24deg,transparent 0 67.3%,#ffffff00 67.4%,#f7f7f8a0 68%,#ffffff00 68.6%,transparent 68.8%),
+ radial-gradient(circle at 52% 48%,#ffffff26 0 1.2%,transparent 1.25%),
+ radial-gradient(circle at 48% 52%,#ffffff18 0 1.1%,transparent 1.15%);
+ mix-blend-mode:screen;filter:drop-shadow(0 0 8px #ffffff10) drop-shadow(0 0 16px #ffffff12)}
+#modeChoices .mode-card[data-mode="chaos"].armed::before{opacity:.9;animation:chaosCrackAppear .65s cubic-bezier(.2,.7,.2,1) both}
+#modeChoices .mode-card[data-mode="chaos"].armed{animation:chaosCardPulse .5s ease-out}
+@keyframes chaosCrackAppear{0%{opacity:0;transform:scale(.78) rotate(-4deg);filter:brightness(1.8) drop-shadow(0 0 2px #fff)}22%{opacity:1;transform:scale(1.02) rotate(.7deg)}58%{opacity:.84;transform:scale(.995)}100%{opacity:.72;transform:scale(1) rotate(0);filter:drop-shadow(0 0 8px #ffffff10) drop-shadow(0 0 16px #ffffff12)}}
+@keyframes chaosCardPulse{0%{transform:scale(1)}35%{transform:scale(1.012)}100%{transform:scale(1)}}
+/* 최상위 dialog는 네이티브 모달 위에도 나타나므로 화면 전체를 가림. */
+dialog#inkTransitionDialog{position:fixed;inset:0;margin:0;padding:0;border:0;width:100vw;height:100dvh;max-width:none;max-height:none;border-radius:0;background:transparent;box-shadow:none;overflow:hidden;pointer-events:auto;overscroll-behavior:none}
+dialog#inkTransitionDialog::backdrop{background:transparent;backdrop-filter:none}
+#inkLiquidSvg{display:block;width:100%;height:100%;pointer-events:none}
+#inkMain{fill:#030304}
+#inkUnder{fill:#161619;opacity:.72}
+#inkEdge{fill:none;stroke:#5b5b60;stroke-opacity:.5;stroke-width:2.5;stroke-linecap:round}
+#inkLiquidSvg .ink-drop{fill:#080809}
+#inkTransitionDialog[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){#modeChoices .mode-card[data-mode="chaos"]::after{transition:none}#modeChoices .mode-card[data-mode="chaos"]::before,#modeChoices .mode-card[data-mode="chaos"].armed{animation:none}}
+
+/* Separate the CHAOS cinematic entry from the educational Mars intro. */
+#chaosBackBtn{display:none}
+#menuDialog[data-preview="chaos"]{background:radial-gradient(ellipse at 82% 40%,#1b1b1e 0%,#09090b 56%,#050506 100%);border-color:#47474b;color:#eee}
+#menuDialog[data-preview="chaos"] .dialog-inner{position:relative;padding-top:clamp(42px,5vw,68px);padding-bottom:clamp(20px,3vw,34px)}
+#menuDialog[data-preview="chaos"] .hero{grid-template-columns:minmax(0,.95fr) minmax(260px,1.05fr);margin-bottom:0;min-height:380px}
+#menuDialog[data-preview="chaos"] .hero .eyebrow{color:#a7a7aa;letter-spacing:.26em}
+#menuDialog[data-preview="chaos"] #menuTitle{font:850 clamp(34px,4.5vw,57px)/1.12 Consolas,system-ui,sans-serif;letter-spacing:-.048em;text-shadow:0 0 30px #ffffff12}
+#menuDialog[data-preview="chaos"] #menuTitle em{display:inline-block;color:#e2e2e4;letter-spacing:-.075em;text-shadow:0 0 22px #ffffff25}
+#menuDialog[data-preview="chaos"] .hero-art{min-height:355px;background:radial-gradient(circle at 51% 50%,#303035 0,#131316 34%,#030304 79%);filter:grayscale(1)}
+#menuDialog[data-preview="chaos"] .hero-art .void-planet-art{filter:drop-shadow(0 0 24px #ffffff17)}
+#menuDialog[data-preview="chaos"] #menuDescription,
+#menuDialog[data-preview="chaos"] .hero .chips,
+#menuDialog[data-preview="chaos"] #modeChoices,
+#menuDialog[data-preview="chaos"] #unlockNote,
+#menuDialog[data-preview="chaos"] .menu-options,
+#menuDialog[data-preview="chaos"] #initialPredictionDetails,
+#menuDialog[data-preview="chaos"] #resumeBanner,
+#menuDialog[data-preview="chaos"] #menuFootnote{display:none!important}
+#menuDialog[data-preview="chaos"] #chaosBackBtn{display:inline-flex;position:absolute;top:15px;right:18px;z-index:2;border-color:#4a4a4c;color:#bdbdc2;background:#121214;min-height:35px}
+#menuDialog[data-preview="chaos"] .dialog-foot{background:#09090bef;border-color:#333339;justify-content:center}
+#menuDialog[data-preview="chaos"] #startBtn{background:#d9d9db;border:1px solid #f0f0f0;color:#101012;width:min(100%,620px);min-height:70px;font-size:clamp(18px,2.2vw,26px);letter-spacing:.06em;box-shadow:0 0 45px #ffffff1a}
+#menuDialog[data-preview="chaos"] #startBtn:hover{background:#fafafa}
+@media(max-width:640px){#menuDialog[data-preview="chaos"] .hero{grid-template-columns:1fr;gap:5px;min-height:0}#menuDialog[data-preview="chaos"] #menuTitle{font-size:38px}#menuDialog[data-preview="chaos"] .hero-art{display:grid;order:-1;min-height:240px;max-height:260px}#menuDialog[data-preview="chaos"] .dialog-inner{padding-top:50px}#menuDialog[data-preview="chaos"] #startBtn{min-height:64px}}
+
+/* Small, self-contained rank emblems; no image assets or extra draw loop. */
+.result-rank-line{display:flex;align-items:center;gap:18px;margin:14px 0 8px;min-width:0}
+.result-badge{position:relative;flex:0 0 146px;width:146px;height:146px;border-radius:18px;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,#293448,#0a1523 72%);border:1px solid #445168;box-shadow:inset 0 0 24px #0008,0 9px 26px #0005;overflow:hidden}
+.result-badge svg{width:100%;height:100%;overflow:visible;display:block;filter:drop-shadow(0 5px 9px #0008)}
+.result-badge::before{content:"";position:absolute;inset:8px;border:1px solid #ffffff18;border-radius:12px;pointer-events:none}
+.result-badge[data-tier="MASTER"],.result-badge[data-tier="GRANDMASTER"],.result-badge[data-tier="CHALLENGER"]{box-shadow:inset 0 0 24px #0008,0 0 23px var(--badge-glow,#9b75ff35)}
+.result-rank-numbers{flex:1;min-width:0}
+.result-rank-numbers .result-score{margin:0 0 5px}
+.result-rank-line.badge-reveal .result-badge{animation:rankBadgeAppear .52s cubic-bezier(.18,.8,.2,1) both}
+@keyframes rankBadgeAppear{0%{opacity:0;transform:scale(.78) rotate(-6deg)}70%{opacity:1;transform:scale(1.04) rotate(1deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+@media(max-width:480px){.result-rank-line{gap:12px;margin:11px 0 8px}.result-badge{flex-basis:112px;width:112px;height:112px;border-radius:14px}.result-rank-line .result-score{font-size:clamp(30px,8vw,48px)}.result-rank-line .result-tier{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.result-rank-line.badge-reveal .result-badge{animation:none}}
+
+
+/* Mars exploration + competitive mode planet illustrations. CHAOS remains untouched. */
+#menuDialog:not([data-preview="chaos"]) .planet-mars{animation:astraPlanetDrift 6.8s ease-in-out infinite alternate;overflow:hidden;isolation:isolate}
+#menuDialog:not([data-preview="chaos"]) .planet-mars:before{background:
+ radial-gradient(ellipse 23% 12% at 37% 8%,#e9dfca 35%,#e9dfca00 74%),
+ radial-gradient(ellipse 34% 22% at 30% 43%,#6d2733 15%,transparent 70%),
+ radial-gradient(ellipse 28% 17% at 67% 58%,#7b313e 15%,transparent 74%),
+ radial-gradient(ellipse 15% 27% at 76% 32%,#b5564a 18%,transparent 74%),
+ radial-gradient(ellipse 28% 9% at 30% 69%,#c06755 10%,transparent 85%),
+ repeating-linear-gradient(161deg,transparent 0 18px,#923b4333 20px 23px,transparent 26px 36px);
+ filter:blur(1.6px)}
+#menuDialog:not([data-preview="chaos"]) .planet-mars:after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 38% 6%,#fff4dfeb 0 5%,#fff4df00 13%),radial-gradient(ellipse at 36% 31%,#ffddba55,transparent 42%);box-shadow:inset 15px 11px 18px #ffe8b00b,inset -17px -13px 27px #070619aa;pointer-events:none}
+#menuDialog[data-preview="ranked"] .hero-art{background:radial-gradient(circle at 52% 50%,#432d43,#0c1729 74%)}
+#menuDialog[data-preview="ranked"] .planet-mars{box-shadow:inset -20px -17px 35px #16112ac5,0 0 35px #e57b6355,0 0 3px 1px #ffa78b60}
+#menuDialog[data-preview="rush"] .planet-mars{width:140px;background:radial-gradient(circle at 29% 26%,#ffd0be 0,#ea8b9b 16%,#ae405f 45%,#4e1b4f 73%,#130c26 100%);box-shadow:inset -24px -21px 35px #0a061cba,0 0 42px #ec628d60,0 0 5px #ffd0df80;animation-duration:4.6s}
+#menuDialog[data-preview="rush"] .planet-mars:before{background:radial-gradient(ellipse at 31% 30%,#ffffff4d 0 3%,transparent 9%),radial-gradient(ellipse at 57% 56%,#72284a 0 15%,transparent 32%),radial-gradient(ellipse at 33% 64%,#ec8b9380 0 12%,transparent 27%),repeating-linear-gradient(160deg,transparent 0 21px,#ffadb841 25px 27px,transparent 31px 47px);filter:blur(1px)}
+#menuDialog[data-preview="rush"] .planet-mars:after{background:radial-gradient(circle at 32% 24%,#fff1e8a3,transparent 42%);box-shadow:inset -18px -18px 24px #10051b9e}
+#menuDialog[data-preview="rush"] .orbit-ring{border-color:#ff92b5aa;border-style:solid;box-shadow:0 0 12px #ff5f8733;animation:astraOrbitShimmer 5s ease-in-out infinite alternate}
+#menuDialog[data-preview="rush"] .orbit-ring.second{border-color:#9b73df70;opacity:.78}
+#menuDialog[data-preview="rush"] .art-caption{color:#f8a9cc}
+@keyframes astraPlanetDrift{from{transform:translate3d(-4px,3px,0) rotate(-4deg)}to{transform:translate3d(5px,-4px,0) rotate(5deg)}}
+@keyframes astraOrbitShimmer{from{opacity:.7;filter:brightness(.8)}to{opacity:1;filter:brightness(1.4)}}
+@media(prefers-reduced-motion:reduce){#menuDialog .planet-mars,#menuDialog .orbit-ring{animation:none!important}}
+
+
+/* Lightweight global leaderboard and decimal precision result */
+.leaderboard-dialog{width:min(850px,calc(100% - 24px))}.leaderboard-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.leaderboard-toolbar select{min-width:192px}.leaderboard-register{border:1px solid #395169;border-radius:12px;background:#0c1c2e;padding:14px;margin:13px 0}.leaderboard-register>label{display:block;color:#cce0ef;font-size:13px;font-weight:750;margin-bottom:8px}.leaderboard-register input{min-height:44px;flex:1;min-width:150px;border:1px solid #4f6983;border-radius:10px;background:#081727;color:#edf4f9;padding:9px 12px;font-size:14px}.rank-table{min-width:600px}.rank-table td:nth-child(3){font-weight:800;color:#ffe2a5;font-variant-numeric:tabular-nums}.rank-table tr.mine td{background:#183e40}.result-grid:has(#resultPrecision){grid-template-columns:repeat(4,minmax(0,1fr))}#resultPrecision{color:#9df1e1}.precision-tip{font-size:11px;color:#c7dded;margin-top:8px}
+/* Online publishing is always opt-in, never on by default. */
+.result-sharing{margin-top:16px;border:1px solid #355a6a;border-radius:13px;background:linear-gradient(125deg,#0c2031,#101c30);padding:14px}
+.result-sharing-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px}
+.result-share-options{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 5px}
+.result-share-choice{flex:1;min-width:145px;display:flex;align-items:center;gap:8px;cursor:pointer;padding:9px 11px;border-radius:10px;background:#0a1828;border:1px solid #36506b;color:#d5e8f2;font-size:12px;font-weight:700}
+.result-share-choice:has(input:checked){border-color:#85dbc4;background:#133735;color:#c6ffee}
+.result-share-choice input{width:17px;height:17px;flex-shrink:0;accent-color:var(--accent)}
+.result-share-fields{padding:12px 0 1px}
+.result-share-fields label[for=resultShareNickname]{display:block;font-size:12px;color:#d3e6ef;margin-bottom:6px;font-weight:700}
+.result-share-fields input[type=text]{flex:1;min-width:170px;min-height:44px;border:1px solid #4f6983;border-radius:10px;background:#081727;color:#edf4f9;padding:9px 12px}
+.result-share-fields .check-label{font-size:12px;color:#bdd0dc;line-height:1.5;margin:7px 0}
+#resultShareStatus{font-size:11px;color:#bed5e4;line-height:1.6;margin-top:6px}
+#leaderboardConsentLabel{font-size:12px;line-height:1.5;margin-top:9px;color:#bdcddb}
+@media(max-width:680px){.result-grid:has(#resultPrecision){grid-template-columns:repeat(2,minmax(0,1fr))}.leaderboard-toolbar>*{width:100%}.leaderboard-toolbar select{width:100%}.leaderboard-register .toolbar{align-items:stretch}.leaderboard-register .toolbar>*{width:100%}.leaderboard-register input{min-width:0}}
+
+
+/* Clarity: ranked speed control and leaderboard eligibility on small screens. */
+#rankSpeedControl{flex-wrap:wrap;gap:7px}
+#rankSpeedControl select{min-width:90px}
+#rankSpeedLabel{color:var(--ink);font-weight:750;gap:8px}
+#resultSharing .result-share-choice:has(input:disabled){opacity:.45;cursor:not-allowed}
+#resultShareStatus{font-weight:550}
+.result-rank-quick{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:12px 0 2px}
+.result-rank-quick .btn{background:#25463e;border-color:#5da18f;color:#ddfff0}
+.result-rank-quick .btn:disabled{background:#14263a;border-color:#3a5265;color:#afc4d0}
+@media(max-width:640px){.result-rank-quick{flex-direction:column;align-items:stretch}.result-rank-quick .btn{width:100%}}
+@media(max-width:640px){#rankSpeedControl{width:100%}#rankSpeedControl select{flex:0 0 auto}#rankSpeedControl .small{white-space:normal}}
+
+/* 실험 결과: 가설 일치와 불일치를 색상과 문구로 함께 구별 */
+#experimentFeedback.good{border-width:2px}
+#experimentFeedback.warn{border-width:2px;border-color:#e5a95b;background:#332719;color:#ffe6bd}
+.experiment-row.prediction-match{border-color:#438f7f;background:#12312d}
+.experiment-row.prediction-mismatch{border-color:#a57845;background:#302719}
+.experiment-row .prediction-status{display:inline-block;margin-bottom:5px;font-weight:800;letter-spacing:.01em}
+.experiment-row.prediction-match .prediction-status{color:#a4edcb}
+.experiment-row.prediction-mismatch .prediction-status{color:#ffd08a}
+</style>
+</head>
+<body data-mode="learn">
+<a class="skip-link" href="#mainPanel">탐구 화면으로 바로 가기</a>
+<div class="app">
+<header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">✦</div><div><strong>ASTRA-7</strong><small>MARS RETROGRADE · 탐구 에디션</small></div></div><div class="header-actions"><span id="headerSave" class="save-indicator" role="status">이 기기에 자동 저장</span><button class="btn quiet small" id="soundBtn" aria-pressed="false">소리 끔</button><button class="btn quiet small" id="helpBtn">도움말·설정</button><button class="btn quiet small" id="leaderboardBtn">🏆 통합 랭킹</button><button class="btn small" id="menuBtn">모드 선택</button></div></header>
+<nav id="stepNav" class="steps" aria-label="탐구 단계"><button class="step" data-stage="1" aria-current="step"><span class="number">01</span><span><b>화성 관측</b><small>위치 기록 모으기</small></span></button><button class="step" data-stage="2" disabled><span class="number">02</span><span><b>자료 해석</b><small>변화의 근거 찾기</small></span></button><button class="step" data-stage="3" disabled><span class="number">03</span><span><b>원인 검증</b><small>예측하고 실험하기</small></span></button></nav>
+<main class="workspace"><section class="panel main-panel" id="mainPanel" tabindex="-1" aria-label="화성 역행 탐구 활동">
+<section id="stage1" aria-labelledby="observeTitle"><div class="section-head"><div><div class="eyebrow" id="observeEyebrow">01 / OBSERVATION</div><h2 id="observeTitle">움직임을 따라, 증거를 모으세요.</h2><p id="observeSubtitle">화성을 추적해 서로 다른 날짜의 사진 7장을 남겨보세요.</p></div><span class="pill accent" id="modeBadge">자유 탐구</span></div>
+<div class="scene" id="scene"><div class="scene-top"><span id="sceneLabel">모형 관측 · 배경별에 대한 상대 위치</span><span class="mono" id="longitudeHUD">λ +0.0°</span></div><div class="canvas-wrap" id="canvasWrap"><canvas id="skyCanvas" tabindex="0" aria-label="화성 추적 관측 화면" aria-describedby="aimHelp">화성 위치를 기록하는 게임 화면입니다. 촬영 보조로 관측하거나 모형 자료로 자료 해석 단계에 들어갈 수 있습니다.</canvas><div id="reticle" class="reticle" aria-hidden="true"></div><div id="shotFlash" class="shot-flash" aria-hidden="true"></div><div id="gameOverlay" class="scene-overlay"><strong id="overlayTitle">관측 준비</strong><p id="overlayBody">모드를 선택하면 관측을 시작합니다.</p><div class="actions" id="overlayActions"><button class="btn primary" id="resumePlayBtn">관측 재개</button></div></div></div></div>
+<div class="directions" id="scienceDirections"><span>← 황경 증가 · 순행</span><span>황경 감소 · 역행 →</span></div>
+<div class="stats" aria-live="off"><div class="stat"><span id="timeLabel">관측일 · 대립 기준</span><strong id="dayHUD">D−65.0</strong></div><div class="stat"><span id="motionLabel">배경별 기준 운동</span><strong id="motionHUD">순행</strong></div><div class="stat"><span>사진 / 명중률</span><strong id="hitsHUD">0 / 7 · —</strong></div><div class="stat"><span id="lockLabel">조준 잠금 · 커서를 유지하세요</span><strong id="lockHUD">0%</strong><div class="lock-track"><div id="lockFill"></div></div></div></div>
+<div class="timeline"><div class="timeline-heading"><span id="timelineLabel">D−65 → D+65 · 노란 구간에서 촬영</span><b id="windowHUD">다음 촬영 준비</b></div><div class="timeline-track"><div class="timeline-fill" id="timelineFill"></div><div class="window-marks" id="windowMarks" aria-hidden="true"></div><div class="timeline-cursor" id="timelineCursor"></div></div><div class="checkpoints" id="checkpoints" aria-label="7개 관측 지점의 상태"></div></div>
+<div class="controls"><div class="control-left"><button class="btn" id="pauseBtn">일시정지</button><button class="btn quiet" id="rewindBtn">처음으로 되감기</button><label class="field-inline" id="speedControl">관측 배속<select id="speedSelect" aria-label="탐구 시간 배속"><option value="1">1× · 약 93초</option><option value="2">2× · 약 46초</option><option value="4" selected>4× · 약 23초</option><option value="6">6× · 약 15초</option><option value="8">8× · 약 12초</option></select></label><label class="field-inline" id="rankSpeedControl" hidden>랭크 배속 <select id="rankSpeedInGame" aria-label="화성 랭크 배속 변경 (새 도전 시작)">
+<option value="1">1×</option><option value="2">2×</option><option value="4">4×</option><option value="6">6×</option><option value="8">8×</option><option value="10">10×</option><option value="12">12×</option><option value="14">14×</option>
+</select><span class="small muted">변경 시 새 도전</span></label></div><button class="btn mars" id="fireBtn">사진 촬영 <span class="key">Space</span></button></div>
+<div class="options-bar" id="learnOptions"><label class="check-label"><input type="checkbox" id="assistToggle">촬영 보조 · 목표일에 자동 기록</label><label class="check-label"><input type="checkbox" id="largeTargetToggle" checked>표적 크게 보기</label></div>
+<p class="context-line" id="aimHelp"><span class="key">마우스</span> 추적 후 클릭 · <span class="key">방향키</span> 조준 · <span class="key">Space</span> 촬영 · <span class="key">P</span> 일시정지. 터치는 표적을 잠시 누른 뒤 놓으세요.</p>
+<div id="observationMessage" class="callout feedback" role="status">촬영 구간에서 조준 잠금이 차면 촬영하세요. 탐구 모드에서는 틀려도 점수가 깎이지 않습니다.</div>
+<div class="next-row" id="analysisNext"><p id="analysisNextNote">촬영하지 못한 날짜는 모형 계산값으로 보완하여 분석할 수 있습니다.</p><button class="btn primary" id="toAnalysisBtn">관측 마치고 자료 해석 →</button></div>
+<details class="details" id="observeConcept"><summary>무엇을 관찰하나요? · 읽는 방법과 모형의 한계</summary><p><b>한 장은 위치, 여러 장은 변화</b>를 알려줍니다. 서로 다른 날의 사진을 같은 배경별에 맞추어 비교하면 화성이 어느 방향으로 이동했는지 알 수 있습니다. 지구 자전 때문에 하늘 전체가 밤사이 움직이는 일주운동은 이 모형에서 생략합니다.</p><p>이 화면은 대립 방향을 0°로 삼은 <b>상대 황경</b>을 표시합니다. 천문력의 실제 날짜·절대 황경이 아닙니다. 좌우 방향은 황경이 증가할 때 왼쪽으로 가도록 정한 관측 도식이며, 모든 관측 장소의 하늘 방향을 재현하지 않습니다.</p><p>공전주기와 평균 공전 반지름은 등속 원운동으로 단순화하되, 화성의 <b>궤도면 기울기 약 1.85°</b>를 황위 변화에 반영합니다. 그래서 하늘에서 본 경로는 단순한 직선이 아니라 위아래로 휘어진 곡선입니다. 다만 실제 역행 자취는 관측 시기에 따라 고리형 또는 지그재그형 등으로 달라집니다. 모형의 교점 방향은 교육용 가상 설정입니다. 화성 표식의 크기, 별 그림과 촬영 효과는 조작을 위한 표현입니다. <b>게임 안에서 직접 촬영한 값도 이 모형에서 얻은 자료</b>이며, 실제 천체 사진은 아닙니다.</p></details></section>
+<section id="stage2" hidden aria-labelledby="analysisTitle"><div class="section-head"><div><div class="eyebrow">02 / EVIDENCE</div><h2 id="analysisTitle">어느 구간에서 황경이 줄었나요?</h2><p>촬영한 날짜와 위치를 연결해 변화의 방향을 읽어보세요.</p></div><span class="pill">관측 + 모형 자료</span></div>
+<div class="callout" style="margin-bottom:14px">가로축은 <b>실제 기록한 모형 날짜</b>, 세로축은 <b>상대 황경</b>입니다. 각도 자체가 음수인지보다, 시간이 지나며 <b>증가하는지 감소하는지</b>가 중요합니다.</div>
+<canvas id="analysisCanvas" class="chart" aria-label="기록 날짜에 비례한 상대 황경 그래프. 아래 관측 자료 표와 같은 값입니다.">아래 관측 자료 표에서 그래프의 값을 확인할 수 있습니다.</canvas><div class="chart-legend"><span><b>●</b> 직접 촬영</span><span><b>■</b> 보조 촬영</span><span><b>◇</b> 모형 보완</span><span>주황색 선 = 내가 선택한 구간</span></div>
+<p id="dataSummary" class="small muted"></p><div class="table-wrap" tabindex="0" aria-label="관측 자료 표, 화면이 좁으면 가로로 스크롤"><table><caption>관측 자료 · 모든 값은 교육용 원운동 모형에서 생성</caption><thead><tr><th scope="col">번호</th><th scope="col">기록 날짜</th><th scope="col">상대 황경</th><th scope="col">자료 출처</th></tr></thead><tbody id="dataRows"></tbody></table></div>
+<h3 style="margin-top:22px">두 기록 사이에서 황경이 감소한 구간을 모두 선택하세요.</h3><p class="small muted" style="margin-top:6px">복수 선택 · 다시 누르면 해제 · Δλ = 뒤의 황경 − 앞의 황경</p><div class="interval-grid" id="intervalChoices" role="group" aria-label="황경이 감소한 관측 구간 선택"></div><div class="toolbar"><button class="btn primary" id="checkAnalysisBtn">선택한 근거 확인</button><button class="btn quiet" id="analysisHintBtn">해석 도움말</button><button class="btn quiet" id="csvBtn">자료 CSV 저장</button></div><div id="analysisFeedback" class="callout feedback" role="status">값이 양수여도 줄고 있다면 역행을 추정할 수 있습니다.</div>
+<details class="details" id="rateDetails"><summary>평균 변화율과 정지점을 구별하기</summary><p><b>평균 변화율 = 황경 변화량 ÷ 날짜 차이</b>입니다. 두 기록 사이에서 전체적으로 증가했는지 감소했는지를 나타냅니다. 그 사이 모든 순간의 운동이 같았다는 뜻은 아닙니다.</p><div class="table-wrap" tabindex="0" aria-label="평균 변화율 표"><table><caption>두 기록 사이의 평균 변화율</caption><thead><tr><th scope="col">날짜 구간</th><th scope="col">Δλ</th><th scope="col">Δt</th><th scope="col">Δλ/Δt</th></tr></thead><tbody id="rateRows"></tbody></table></div><p style="margin-top:12px">사진 7장만으로 정확한 정지점 날짜를 측정할 수는 없습니다. 다음 단계에서 세밀한 공전 모형과 비교해 봅니다.</p></details>
+<label class="block-label" for="evidenceInput">나의 관측 근거 <span class="muted small">선택 기록</span></label><textarea id="evidenceInput" maxlength="3500" placeholder="어느 날짜의 두 값을 비교했나요? 황경 변화량이 어떤 부호였는지 근거를 써보세요."></textarea><p class="textarea-hint">자동 저장 · 작성한 내용은 탐구 보고서에 그대로 포함됩니다.</p><div class="next-row"><p id="analysisCompleteNote">자료 해석을 확인하면 공전 실험이 열립니다.</p><button class="btn primary" id="toLabBtn" disabled>공전 모형으로 원인 검증 →</button></div></section>
+<section id="stage3" hidden aria-labelledby="labTitle"><div class="section-head"><div><div class="eyebrow">03 / ORBIT LAB</div><h2 id="labTitle">관측자의 움직임을 바꿔보세요.</h2><p>태양 중심의 공전과 지구에서 본 화성의 이동을 함께 비교합니다.</p></div><span class="pill accent" id="labStatus">가설 검증</span></div>
+<div class="lab-grid"><div class="lab-box"><h3>태양 중심에서 본 지구와 화성 (윗면 투영)</h3><canvas id="orbitCanvas" aria-label="황도 북쪽에서 본 같은 방향의 지구·화성 공전과 지구에서 화성으로 향하는 관측선"></canvas><div class="legend"><span><i style="background:#ffe1a0"></i>태양</span><span><i style="background:#92ceff"></i>지구</span><span><i style="background:#ffa78b"></i>화성</span><span>점선: 관측선</span><span>기울기 1.85°는 하늘 그림의 황위에 반영</span></div></div><div class="lab-box"><h3>지구에서 본 상대 황경의 변화</h3><canvas id="labGraph" aria-label="D-65일부터 D+65일까지의 상대 황경 변화. 현재 날짜는 밝은 점으로 표시합니다."></canvas><div class="legend"><span style="color:#8af0d8">↗ 순행</span><span style="color:#ffa78b">↘ 역행</span><span>시간축: D−65 → D+65</span></div></div></div>
+<div class="lab-controls"><div class="toolbar"><div><span class="small muted">임의의 대립 기준일에서</span><div class="lab-day" id="labDay">D−65.0일</div></div><button class="btn primary" id="labPlayBtn" aria-pressed="false">움직임 재생</button></div><label class="sr-only" for="labSlider">모형 날짜, 대립 전후 65일</label><input id="labSlider" class="slider" type="range" min="-65" max="65" step="0.1" value="-65"><div class="range-labels"><span>D−65</span><span>D0 · 대립</span><span>D+65</span></div><div class="jump-row"><button class="btn quiet" data-jump="-55">추월 전</button><button class="btn quiet" id="stationBeforeBtn">첫 정지점</button><button class="btn quiet" data-jump="0">대립</button><button class="btn quiet" id="stationAfterBtn">둘째 정지점</button><button class="btn quiet" data-jump="55">추월 후</button></div></div>
+<div class="sky-lab"><h3>같은 배경별에 맞추어 본 하늘</h3><canvas id="labSky" aria-label="상대 황경과 황위로 나타낸 화성의 이차원 역행 자취. 초록은 순행, 주황은 역행, 노란 점은 정지점 근처를 나타냅니다."></canvas><p class="small muted">가로축: 상대 황경 λ (조건에 따라 범위 자동 조절) · 세로축: 황위 β (−5°~0° 부근) · 초록 선: 순행 · 주황 선: 역행 · 표시용 궤도면 기울기 1.85° · 일주운동 생략</p></div><div id="labNarrative" class="callout feedback" aria-live="off"></div><div class="formula-strip"><div>지구 평균 각속도<b id="earthRate">0.986°/일</b></div><div>화성 평균 각속도<b>0.524°/일</b></div><div>현재 겉보기 변화율<b id="apparentRate">+0.000°/일</b></div></div>
+<h3 class="lab-heading">실험 · 공전주기만 바꾸면?</h3><p class="small muted" style="margin-top:6px">궤도 반지름과 화성의 주기를 고정하고 지구의 주기만 바꾸는 가상 비교 실험입니다.</p><div class="period-options" id="periodOptions" role="group" aria-label="실험할 지구 공전주기"><button class="period-btn" data-period="365.256" aria-pressed="true">실제 지구에 가까운 조건<b>365</b>일</button><button class="period-btn" data-period="686.98" aria-pressed="false">화성과 같은 각속도<b>687</b>일</button><button class="period-btn" data-period="900" aria-pressed="false">화성보다 느린 각속도<b>900</b>일 · 확장 실험</button></div>
+<p class="small"><b>예측:</b> D−30에서 D+30까지 상대 황경은 어떻게 바뀔까요?</p><div class="choice-group" id="experimentPrediction" role="group" aria-label="실험 전 황경 변화 예측"><button class="choice-btn" data-prediction="decrease" aria-pressed="false">감소할 것 같다</button><button class="choice-btn" data-prediction="increase" aria-pressed="false">증가할 것 같다</button><button class="choice-btn" data-prediction="same" aria-pressed="false">같을 것 같다</button></div><button class="btn mars" id="experimentBtn">예측을 기록하고 실험 실행</button><div class="callout feedback" id="experimentFeedback" role="status">예측을 고른 다음 365일과 687일 조건을 비교하세요. 틀린 예측도 탐구 기록입니다.</div><div class="record-list" id="experimentLog" aria-label="공전주기 실험 기록"></div>
+<details class="details"><summary>왜 687일이어도 화성은 하늘에서 멈추지 않을까요?</summary><p>같은 각속도로 돌면 두 행성의 <b>상대 배치</b>는 유지됩니다. 하지만 지구에서 화성을 향한 <b>관측선도 함께 회전</b>합니다. 그래서 배경별에 대해서는 계속 순행하며, 이 조건에서는 추월에 의한 역행이 나타나지 않습니다.</p><p>실제 태양계에서는 공전주기와 궤도 크기가 케플러 법칙으로 연결됩니다. 여기서 주기만 바꾸는 조건은 그 관계를 따르는 실제 행성이 아니라, 관측자 운동의 영향을 비교하는 가정입니다.</p></details>
+<details class="details"><summary>확장 탐구 · 왜 약 26개월마다 역행할까요?</summary><p>지구와 화성이 다시 비슷한 상대 배치로 돌아오는 <b>회합주기</b>는 1 ÷ (1/365.256 − 1/686.980) ≈ <b>780일</b>, 약 26개월입니다. 이것은 <b>역행이 지속되는 기간</b>과 다릅니다.</p><p>이 원운동 모형의 정지점은 약 D−36.4와 D+36.4일이며 대립일 D0과 다릅니다. 실제 화성의 타원궤도와 정확한 교점 방향은 생략하고 황위만 근사하므로 실제 매번의 날짜나 지속기간을 예측하는 수치로 사용하지 않습니다.</p></details>
+<h3 class="lab-heading">설명 점검 · 세 가지를 구분해보세요.</h3><p class="small muted" style="margin-top:6px">다시 답할 수 있습니다. 에임 티어와 별개인 개념 확인입니다.</p><div id="conceptChecks"></div>
+<label class="block-label" for="conclusionInput">나의 최종 설명 <span class="small muted">선택 기록</span></label><textarea id="conclusionInput" maxlength="3500" placeholder="① 두 행성의 공전주기 차이 ② 지구에서 본 관측선의 변화 ③ 실제 공전과 겉보기 운동의 차이를 연결해 설명해보세요."></textarea><p class="textarea-hint">문장 길이나 특정 단어로 자동 채점하지 않습니다. 자신의 근거와 설명을 남기는 공간입니다.</p><div class="next-row"><p id="completionCriteria">365일·687일 실험과 세 가지 개념 확인을 완료하세요.</p><button class="btn primary" id="completeBtn" disabled>탐구 완료 · 보고서 확인 →</button></div>
+<details class="details"><summary>과학 자료 출처 · 모형과 실제 관측의 차이</summary><ul><li><a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html" target="_blank" rel="noopener noreferrer">NASA NSSDCA · Mars Fact Sheet</a> — 지구·화성 공전주기와 궤도 크기, 회합주기.</li><li><a href="https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question46.html" target="_blank" rel="noopener noreferrer">NASA StarChild · Retrograde motion</a> — 겉보기 역행과 행성의 상대운동.</li><li><a href="https://science.nasa.gov/solar-system/orbits-and-keplers-laws/" target="_blank" rel="noopener noreferrer">NASA Science · Orbits and Kepler’s Laws</a> — 실제 타원궤도와 공전주기·궤도 크기 관계.</li></ul><p>특정 관측일, 실제 별자리, 대기 굴절, 지구 자전·지표면 관측 위치, 실제 타원궤도·정확한 교점 방향·광행시간·밝기·각지름 변화는 재현하지 않습니다. 황경은 기존 평면 원운동 모형의 값이며 황위에는 1.85° 기울기를 근사 반영했습니다. 외전의 표적 경로와 배속(TARGET RUSH 30×, CHAOS 35×)은 게임 규칙이며 천문 현상을 나타내지 않습니다. 링크를 제외한 게임·학습·저장은 인터넷 없이 동작합니다.</p></details></section>
+</section><aside class="side"><section class="panel"><div class="eyebrow" id="sideEyebrow">MISSION BRIEF</div><h3 id="sideTitle">오늘의 탐구 질문</h3><p id="sideQuestion">화성이 실제로 공전 방향을 바꾸지 않아도, 하늘에서는 왜 뒤로 가는 것처럼 보일까요?</p><ol id="sideSteps"><li>날짜가 다른 위치를 기록합니다.</li><li>황경이 줄어든 구간을 찾습니다.</li><li>공전주기 실험으로 원인을 확인합니다.</li></ol><div class="callout" id="sideHint">역행의 기준은 <b>배경별에 대한 위치 변화</b>입니다. 한 장의 위치만으로는 알 수 없습니다.</div></section><section class="panel"><div class="eyebrow">YOUR RESEARCH</div><h3 id="recordTitle">나의 탐구 기록</h3><div class="side-stats"><div><b id="sidePhotos">0/7</b><span>직접·보조 촬영</span></div><div><b id="sideConcepts">0/3</b><span id="conceptStatLabel">개념 확인</span></div></div><ul id="learningChecklist" class="checklist"><li><span>○</span> 황경 감소 구간 해석</li><li><span>○</span> 두 공전주기 비교</li><li><span>○</span> 세 가지 오개념 확인</li></ul><div id="rankRecord" hidden><p id="rankPoints">명중 포인트 0 P</p><p class="small" id="bestRecord" style="margin-top:7px">이 기기의 최고 기록 없음</p></div><details class="details"><summary>에임 티어와 학습은 어떻게 다른가요?</summary><p>랭크는 촬영·명중률·콤보·타이밍을 평가합니다. 과학 개념 이해도는 별도의 질문과 자신의 설명으로 확인합니다. 탐구 모드의 보조 촬영에는 랭크가 붙지 않습니다.</p><p id="rankRules"></p></details></section></aside></main>
+<footer class="footer"><strong>ASTRA-7 · 관측 → 자료 해석 → 원인 검증</strong><br>황경: 등속 원운동 모형 · 황위: 화성의 궤도면 기울기 1.85° 근사 · 실제 날짜·천문력 아님.<br>진행과 메모는 이 브라우저에 저장됩니다. 파일을 옮기거나 브라우저를 바꾸면 저장 내용이 이어지지 않을 수 있으므로 보고서를 내려받으세요.</footer>
+</div>
+<dialog id="menuDialog" class="menu-dialog" aria-labelledby="menuTitle" data-preview="learn"><div class="dialog-inner"><div id="resumeBanner" class="resume-banner" hidden><div><strong>이어서 탐구할 기록이 있어요.</strong><p id="resumeDescription"></p></div><button class="btn primary small" id="resumeBtn">이어서 하기</button></div><div class="hero"><div><div class="eyebrow">ASTRA-7 / THE RETROGRADE MISSION</div><h1 id="menuTitle">화성은 정말<br><em>뒤로 움직일까?</em></h1><button type="button" class="btn quiet small" id="chaosBackBtn" aria-label="다른 모드 선택">← 다른 모드</button><p id="menuDescription">움직이는 화성을 추적하고, 직접 모은 자료로 역행의 원인을 밝혀보세요. 에임의 재미에 관측·분석·실험을 더했습니다.</p><div class="chips" style="margin-top:13px"><span class="pill">사진 7장</span><span class="pill">탐구 3단계</span><span class="pill">오프라인 실행</span></div></div><div class="hero-art" aria-hidden="true"><div class="orbit-ring"></div><div class="orbit-ring second"></div><div class="planet-mars"></div><svg class="void-planet-art" viewBox="24 20 354 392" aria-hidden="true" focusable="false">
+ <defs>
+  <radialGradient id="vp-a"><stop offset="0" stop-color="#949494" stop-opacity=".38"/><stop offset=".48" stop-color="#666" stop-opacity=".12"/><stop offset="1" stop-color="#111" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vp-halo"><stop offset="0" stop-color="#f3f3f3" stop-opacity=".24"/><stop offset=".45" stop-color="#d4d4d4" stop-opacity=".12"/><stop offset="1" stop-color="#888" stop-opacity="0"/></radialGradient>
+  <linearGradient id="vp-edge" x1=".08" x2=".88" y1=".11" y2=".92"><stop stop-color="#fafafa"/><stop offset=".2" stop-color="#d4d4d4"/><stop offset=".56" stop-color="#707070"/><stop offset=".86" stop-color="#222"/><stop offset="1" stop-color="#0c0c0c"/></linearGradient>
+  <radialGradient id="vp-core" cx="37%" cy="31%" r="65%"><stop offset="0" stop-color="#f7f7f7" stop-opacity=".98"/><stop offset=".17" stop-color="#d9d9d9" stop-opacity=".96"/><stop offset=".45" stop-color="#4f4f4f" stop-opacity="1"/><stop offset=".72" stop-color="#171717" stop-opacity="1"/><stop offset="1" stop-color="#050505" stop-opacity="1"/></radialGradient>
+  <radialGradient id="vp-rim" cx="65%" cy="35%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".62" stop-color="#fff" stop-opacity="0"/><stop offset=".84" stop-color="#e8e8e8" stop-opacity=".7"/><stop offset="1" stop-color="#c1c1c1" stop-opacity=".15"/></radialGradient>
+  <clipPath id="vp-clip"><circle cx="207" cy="215" r="101"/></clipPath>
+ </defs>
+ <g class="vp-system">
+  <ellipse class="vp-halo" cx="207" cy="215" rx="182" ry="184" fill="url(#vp-halo)"/>
+  <g class="vp-ring-c">
+   <ellipse cx="207" cy="215" rx="169" ry="67" fill="none" stroke="#ededed" stroke-opacity=".14" stroke-width="1.6" transform="rotate(27 207 215)" stroke-dasharray="7 14"/>
+   <ellipse cx="207" cy="215" rx="145" ry="58" fill="none" stroke="#7f7f7f" stroke-opacity=".28" stroke-width="1.2" transform="rotate(-17 207 215)" stroke-dasharray="2 12"/>
+  </g>
+  <g class="vp-debris" opacity=".82">
+   <path d="M45 73l9 10 -12 6 -5 -9Z" fill="#e7e7e7" opacity=".55"/>
+   <path d="M317 98l18 5 -14 15 -11 -9Z" fill="#ededed" opacity=".46"/>
+   <path d="M58 332l10 -13 12 17 -10 6Z" fill="#cfcfcf" opacity=".33"/>
+   <path d="M332 319l17 7 -12 10 -14 -5Z" fill="#f0f0f0" opacity=".65"/>
+   <circle cx="338" cy="166" r="2.3" fill="#f0f0f0"/>
+   <circle cx="82" cy="146" r="2" fill="#dadada"/>
+   <circle cx="281" cy="67" r="1.8" fill="#c9c9c9"/>
+   <circle cx="109" cy="355" r="1.8" fill="#efefef"/>
+   <circle cx="150" cy="70" r="1.3" fill="#ffffff" opacity=".8"/>
+   <circle cx="288" cy="346" r="1.6" fill="#dedede" opacity=".7"/>
+  </g>
+  <g class="vp-ring-a">
+   <ellipse cx="207" cy="215" rx="142" ry="49" fill="none" stroke="#efefef" stroke-opacity=".82" stroke-width="2.2" transform="rotate(-24 207 215)" stroke-dasharray="188 440"/>
+   <ellipse cx="207" cy="215" rx="142" ry="49" fill="none" stroke="#999" stroke-opacity=".28" stroke-width="4.8" transform="rotate(-24 207 215)"/>
+  </g>
+  <g class="vp-ring-b">
+   <ellipse cx="207" cy="215" rx="127" ry="42" fill="none" stroke="#f6f6f6" stroke-opacity=".16" stroke-width="1.6" transform="rotate(31 207 215)" stroke-dasharray="4 10"/>
+  </g>
+  <circle class="vp-mist" cx="207" cy="215" r="109" fill="url(#vp-a)"/>
+  <circle cx="207" cy="215" r="102" fill="url(#vp-core)" stroke="url(#vp-edge)" stroke-width="3.2"/>
+  <circle cx="207" cy="215" r="102" fill="url(#vp-rim)"/>
+  <g clip-path="url(#vp-clip)">
+   <ellipse cx="180" cy="193" rx="96" ry="86" fill="#0a0a0a" opacity=".88"/>
+   <path d="M167 118C120 139 100 186 107 230C120 294 181 319 219 313C158 291 144 236 151 195C155 160 173 138 197 117Z" fill="#bcbcbc" opacity=".46"/>
+   <path d="M165 124C123 139 114 188 117 212C118 255 139 274 159 293" fill="none" stroke="#f4f4f4" stroke-opacity=".82" stroke-width="3.2"/>
+   <path d="M143 164l18 13 -9 21 26 25 -11 25 23 14 -21 18" fill="none" stroke="#4c4c4c" stroke-width="5.2" opacity=".62"/>
+   <path d="M114 188 l49 -27 m-37 86 29 12 m-17 -91 24 23" stroke="#eee" stroke-opacity=".19" stroke-width="1.2" fill="none"/>
+   <circle cx="194" cy="182" r="8" fill="#1a1a1a" stroke="#6a6a6a" stroke-opacity=".6"/>
+   <circle cx="223" cy="241" r="11" fill="#151515" stroke="#606060" stroke-opacity=".5"/>
+   <circle cx="172" cy="244" r="6.5" fill="#171717" stroke="#5e5e5e" stroke-opacity=".42"/>
+   <path d="M152 281c17 5 39 8 66 3" fill="none" stroke="#f5f5f5" stroke-opacity=".16" stroke-width="2"/>
+  </g>
+  <g class="vp-satellite">
+   <circle cx="318" cy="166" r="10" fill="#090909" stroke="#d7d7d7" stroke-opacity=".65" stroke-width="1.4"/>
+   <ellipse cx="318" cy="166" rx="18" ry="6" fill="none" stroke="#f0f0f0" stroke-opacity=".38" transform="rotate(-25 318 166)"/>
+  </g>
+  <g class="vp-spark">
+   <path d="M188 56v18m-9 -9h18M341 259v12m-6 -6h12M65 241v14m-7 -7h14" stroke="#efefef" stroke-width="1.3" stroke-opacity=".74"/>
+   <path d="M140 368h136m-94 -8 8 8 -8 8m68 -16 -8 8 8 8" stroke="#878787" stroke-width="1.2" fill="none"/>
+  </g>
+  <text x="207" y="394" text-anchor="middle" fill="#c7c7c7" font-family="monospace" font-size="11" letter-spacing="3.6">VOID / Ω-30 / ASTRA</text>
+ </g>
+</svg><div class="art-caption">MARS / RELATIVE MOTION</div></div></div>
+<div id="modeChoices" class="mode-grid" role="group" aria-label="플레이할 모드 선택"><button class="mode-card" data-mode="learn" aria-pressed="true"><strong>01 · 자유 탐구 <span class="small">추천</span></strong><small>4× 기본 · 1~8배속 선택 · 정지·되감기·촬영 보조<br>조작에 익숙하지 않아도 끝까지 탐구</small></button><button class="mode-card" data-mode="ranked" aria-pressed="false"><strong>02 · 화성 랭크 도전</strong><small>1×~14× · 수동 조준과 잠금<br>에임 기록을 남기고 과학 탐구로 연결</small></button><button class="mode-card" data-mode="rush" aria-pressed="false" aria-disabled="true"><strong>03 · TARGET RUSH</strong><small>30× · 약 17초 · 고리 달린 가상 행성<br>과학 모형과 별개인 에임 외전</small></button><button class="mode-card" data-mode="chaos" aria-pressed="false" aria-disabled="true"><strong>Ω · CHAOS PROTOCOL</strong><small>35× · 관성·벽 반사 · 무채색 행성<br>해금 후 봉인 균열 · 비밀 스테이지</small></button></div>
+<p class="menu-lock-note" id="unlockNote">외전 해금: 본편에서 보조 없이 7장을 직접 촬영하세요. 자유 탐구에서는 되감아 보충할 수 있습니다.</p><div class="menu-options"><label id="learnSpeedLabel" class="field-inline">자유 탐구 속도<select id="learnSpeed" aria-label="자유 탐구 시작 배속"><option value="1">1× · 천천히 약 93초</option><option value="2">2× · 약 46초</option><option value="4" selected>4× · 기본 약 23초</option><option value="6">6× · 약 15초</option><option value="8">8× · 빠르게 약 12초</option></select></label><label id="rankSpeedLabel" class="field-inline" hidden><strong>화성 랭크 배속 선택</strong><select id="rankSpeed"><option value="1">1× · 약 93초</option><option value="2" selected>2× · 약 46초</option><option value="4">4× · 약 23초</option><option value="6">6× · 약 15초</option><option value="8">8× · 약 12초</option><option value="10">10× · 약 9초</option><option value="12">12× · 약 8초</option><option value="14">14× · 약 7초</option></select></label><span id="menuModeHint" role="status">자유 탐구는 정지하거나 다시 시도해도 불이익이 없습니다.</span></div>
+<details class="details menu-prediction" id="initialPredictionDetails"><summary>시작 전 20초 · 나의 예측 남기기 <span class="small muted">선택</span></summary><p>화성은 왜 거꾸로 움직이는 것처럼 보일까요? 지금의 생각을 남기고 마지막에 비교해보세요.</p><div id="initialChoices" class="choice-group" role="group" aria-label="관측 전 역행의 원인 예측"><button class="choice-btn" data-initial="turn" aria-pressed="false">화성의 실제 공전 방향이 바뀐다.</button><button class="choice-btn" data-initial="view" aria-pressed="false">지구의 위치가 바뀌어 관측 방향이 달라진다.</button><button class="choice-btn" data-initial="stars" aria-pressed="false">배경별 전체의 이동 때문이다.</button></div><p id="initialPredictionStatus" role="status">정답은 활동 마지막에 확인합니다.</p></details></div><div class="dialog-foot"><small id="menuFootnote">학습 목표: 관측 증거를 바탕으로 실제 공전과 겉보기 역행을 구별해 설명하기.</small><button class="btn primary" id="startBtn">자유 탐구 시작 →</button></div></dialog>
+<dialog id="resultDialog" class="result-dialog" aria-labelledby="resultTitle"><div class="dialog-inner"><div class="eyebrow" id="resultEyebrow">OBSERVATION COMPLETE</div><h2 id="resultTitle" tabindex="-1">관측 기록이 모였습니다.</h2><div class="result-rank-line" id="resultRankLine"><div class="result-badge" id="resultBadge" role="img" aria-label="티어 엠블럼" hidden></div><div class="result-rank-numbers"><div class="result-score" id="resultScore">0 / 7</div><div class="result-tier" id="resultTier">자유 탐구</div></div></div><p class="small muted" id="resultDescription" style="margin-top:8px"></p><div id="resultRankQuick" class="result-rank-quick" hidden><button class="btn primary small" id="resultRankQuickBtn">🏆 이번 기록 랭킹에 등록하기</button><span id="resultRankQuickHelp" class="small muted">닉네임과 공개 동의를 선택하면 등록할 수 있어요.</span></div><div class="result-grid"><div><small>중심 조준 정밀도</small><b id="resultPrecision">—</b></div><div><small>촬영 성공</small><b id="resultHits">0/7</b></div><div><small>수동 명중률</small><b id="resultAccuracy">—</b></div><div><small>최고 콤보</small><b id="resultCombo">0</b></div></div><div class="callout" id="resultDetails"></div><p class="small muted" id="resultBest" style="margin-top:12px"></p>
+<section id="resultSharing" class="result-sharing" aria-label="내 기록 온라인 등록 여부 선택" hidden>
+ <div class="result-sharing-head"><strong id="resultShareHeading">내 기록을 온라인 랭킹에 올릴까요?</strong><span class="pill">선택</span></div>
+ <div class="result-share-options" role="radiogroup" aria-label="온라인 등록 여부">
+  <label class="result-share-choice"><input type="radio" name="resultShareChoice" value="local" checked>내 기기에만 저장</label>
+  <label class="result-share-choice"><input type="radio" name="resultShareChoice" value="online">닉네임으로 랭킹 등록</label>
+ </div>
+ <div id="resultShareFields" class="result-share-fields" hidden>
+  <label for="resultShareNickname">공개할 닉네임 (2~18자)</label>
+  <div class="toolbar"><input type="text" id="resultShareNickname" maxlength="18" autocomplete="off" placeholder="예: ASTRA_PILOT"/><button class="btn primary" id="resultShareSubmitBtn" disabled>이 기록 온라인 등록</button></div>
+  <label class="check-label"><input type="checkbox" id="resultShareConsent">닉네임 · 점수 · 명중률 · 정밀도 · 티어가 온라인에 공개되는 데 동의합니다.</label>
+ </div>
+ <p id="resultShareStatus" role="status">기본값은 비공개입니다. 등록을 선택하지 않으면 온라인으로 전송하지 않습니다.</p>
+</section>
+<div class="actions" style="margin-top:17px"><button class="btn quiet" id="retryBtn">같은 조건으로 재도전</button><button class="btn quiet" id="resultMenuBtn">모드 선택</button><button class="btn quiet" id="resultLeaderboardBtn">🏆 랭킹 등록·보기</button></div></div><div class="dialog-foot"><small id="resultFootnote">놓친 날짜는 모형값으로 보완해 탐구를 이어갈 수 있습니다.</small><button class="btn primary" id="resultNextBtn">자료 해석으로 →</button></div></dialog>
+<dialog id="completeDialog" class="result-dialog" aria-labelledby="completeTitle"><div class="dialog-inner"><div class="eyebrow">RESEARCH COMPLETE / ASTRA-7</div><h2 id="completeTitle" class="complete-title">이제 역행을 설명할 수 있어요.</h2><p class="muted small" style="margin-top:10px">에임 기록과 과학 탐구 기록을 함께 정리했습니다.</p><div class="result-grid"><div><small>촬영한 자료</small><b id="finalPhotos">0/7</b></div><div><small>실험 조건</small><b id="finalExperiments">2</b></div><div><small>개념 확인</small><b id="finalConcepts">3/3</b></div></div><div class="callout" id="predictionCompare"></div><ul class="summary-list"><li>화성은 태양 주위를 계속 같은 방향으로 공전합니다.</li><li>관측자인 지구가 더 빠르게 공전하면서 시선 방향이 달라집니다.</li><li>역행은 배경별 기준 황경이 감소하는 겉보기 운동입니다.</li></ul><label class="block-label" for="reflectionInput">처음의 생각에서 무엇이 달라졌나요?</label><textarea id="reflectionInput" maxlength="3500" placeholder="생각을 바꾸거나 확신하게 된 관측값·실험 결과를 적어보세요."></textarea><p class="textarea-hint">빈칸이어도 보고서를 받을 수 있습니다. 자신의 설명을 추가하면 더 유용합니다.</p><div class="actions" style="margin-top:15px"><button class="btn quiet" id="completeBackBtn">실험으로 돌아가기</button><button class="btn quiet" id="finalCsvBtn">관측 자료 CSV</button></div></div><div class="dialog-foot"><small>보고서에는 실제 기록 날짜, 보완값, 예측·실험·메모·모형 한계가 포함됩니다.</small><button class="btn primary" id="reportBtn">탐구 보고서 TXT 저장</button></div></dialog>
+<dialog id="helpDialog" class="help-dialog" aria-labelledby="helpTitle"><div class="dialog-inner"><div class="dialog-head"><h2 id="helpTitle">도움말 · 편하게 탐구하기</h2><button class="btn quiet small" id="closeHelpBtn">닫기</button></div><div class="help-grid"><div><h3>마우스·키보드</h3><p>마우스나 방향키로 표적을 따라가세요. 노란 촬영 구간에서 잠금이 차면 클릭 또는 Space로 촬영합니다. Shift+방향키는 미세 조준입니다. P 또는 Esc로 정지합니다. Tab은 버튼 사이를 이동합니다.</p></div><div><h3>터치·촬영 보조</h3><p>터치는 표적을 누른 채 따라가다가 잠금이 차면 놓으세요. 화면을 놓치면 촬영 보조를 켜거나 자유 탐구에서 다시 시도할 수 있습니다. 보조 기록은 자료에 별도로 표시합니다.</p></div><div><h3>랭크 규칙</h3><p>본편 랭크는 1×~14× 고정 배속, TARGET RUSH는 30×, CHAOS는 35×입니다. 중단·탭 전환 후에도 남은 구간을 끝까지 진행하면 랭킹 등록이 가능합니다. 허공 또는 촬영 구간 밖 클릭은 1회마다 최종 점수에서 1.00점이 감점되며, 명중률과 콤보에도 영향을 줍니다. 외전은 잠금 없이 클릭·터치할 수 있습니다.</p></div><div><h3>수업에서 사용하기</h3><p>약 8~12분 활동으로 시작해보세요: 예측 1분 → 촬영·그래프 3분 → 주기 비교 3분 → 설명·공유 2분. 조작보다 토론이 목적이면 보조 촬영이나 모형 보완 자료를 사용할 수 있습니다.</p></div></div><h3>화면·효과</h3><div class="options-bar"><label class="field-inline">그리기 품질<select id="qualitySelect"><option value="standard">표준 · 선명도 우선</option><option value="low">절전 · 낮은 해상도·30fps 상한</option></select></label><label class="check-label"><input type="checkbox" id="motionToggle">장식 움직임·촬영 번쩍임 줄이기</label></div><p class="small muted" style="margin-top:10px">설정은 이 기기에 저장됩니다. 운영체제의 동작 줄이기도 반영합니다. 절전 모드에서도 표적의 시간 진행과 판정 계산은 같은 기준을 사용합니다.</p><h3 style="margin-top:22px">자료 저장</h3><p class="small muted" style="margin-top:8px">화면에는 간단한 진행 상태가 자동 저장됩니다. 브라우저 저장이 차단되면 안내가 표시되며 플레이는 계속할 수 있습니다. 관측 표의 CSV와 완료 화면의 TXT 보고서는 인터넷 없이 내려받습니다. 메모와 학습 기록은 서버로 전송하지 않습니다. 랭크 점수는 닉네임 등록과 공개 동의를 직접 선택했을 때만 온라인에 전송됩니다.</p><div class="actions" style="margin-top:16px"><button class="btn quiet" id="backupBtn">진행 기록 JSON 백업</button><button class="btn quiet" type="button" id="restoreLabel">백업 불러오기</button><input type="file" id="restoreInput" accept="application/json,.json" hidden></div><div class="callout" id="backupStatus" role="status" style="margin-top:13px">백업에는 현재 탐구 진행, 메모, 이 기기의 최고 기록이 들어갑니다.</div></div></dialog>
+<dialog id="leaderboardDialog" class="leaderboard-dialog" aria-labelledby="leaderboardTitle">
+<div class="dialog-inner"><div class="dialog-head"><div><div class="eyebrow">ASTRA-7 / LEADERBOARD</div><h2 id="leaderboardTitle">통합 랭킹보드</h2></div><button class="btn quiet small" id="leaderboardCloseBtn">닫기</button></div>
+<p class="small muted" style="margin-bottom:14px">각 모드 최고 기록 · 100점 만점 소수점 둘째 자리 · 온라인 연결 시 다른 기기와 공유</p>
+<div class="leaderboard-toolbar"><label class="field-inline" for="leaderboardMode">랭킹 구분 <select id="leaderboardMode" aria-label="랭킹 구분"><option value="ranked_1">화성 랭크 1×</option><option value="ranked_2">화성 랭크 2×</option><option value="ranked_4">화성 랭크 4×</option><option value="ranked_6">화성 랭크 6×</option><option value="ranked_8">화성 랭크 8×</option><option value="ranked_10">화성 랭크 10×</option><option value="ranked_12">화성 랭크 12×</option><option value="ranked_14">화성 랭크 14×</option><option value="rush_30">TARGET RUSH 30×</option><option value="chaos_35">CHAOS 35×</option></select></label><button class="btn small" id="leaderboardRefreshBtn">순위 새로고침</button></div>
+<div id="leaderboardStatus" class="callout" role="status" style="margin:12px 0">랭킹 연결 확인 중…</div>
+<div class="leaderboard-register"><label for="leaderboardNickname">닉네임 (랭킹에 공개됨)</label><div class="toolbar"><input id="leaderboardNickname" maxlength="18" autocomplete="off" placeholder="예: ASTRA_PILOT" aria-label="랭킹에 공개할 닉네임"/><button class="btn primary" id="leaderboardSubmitBtn" disabled>선택한 최고 기록 등록</button></div><label id="leaderboardConsentLabel" class="check-label"><input type="checkbox" id="leaderboardConsent">닉네임 · 점수 · 명중률 · 정밀도 · 티어가 온라인에 공개되는 데 동의합니다.</label><p id="leaderboardSubmitNote" class="small muted" style="margin-top:8px">자동 등록하지 않습니다. 완료한 랭크 기록은 직접 등록 버튼을 눌러야 공개됩니다.</p></div>
+<div class="table-wrap" tabindex="0"><table class="rank-table"><caption id="leaderboardCaption">모드별 TOP 50</caption><thead><tr><th scope="col">순위</th><th scope="col">닉네임</th><th scope="col">점수</th><th scope="col">정밀도</th><th scope="col">명중</th><th scope="col">티어</th></tr></thead><tbody id="leaderboardRows"><tr><td colspan="6">기록을 불러오는 중…</td></tr></tbody></table></div>
+<p class="small muted" style="margin-top:12px">온라인 데이터베이스가 설정되지 않았다면 이 기기의 기록만 표시됩니다. 브라우저 점수는 조작될 수 있으므로 공개 대회 운영에는 서버 검증이 추가로 필요합니다.</p></div></dialog>
+<dialog id="inkTransitionDialog" aria-label="카오스 모드로 전환 중" tabindex="-1">
+<svg id="inkLiquidSvg" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+<path id="inkUnder" d=""/><path id="inkMain" d=""/><path id="inkEdge" d=""/>
+<g id="inkDroplets"><circle class="ink-drop" r="7"/><circle class="ink-drop" r="11"/><circle class="ink-drop" r="5"/><circle class="ink-drop" r="9"/><circle class="ink-drop" r="6"/><circle class="ink-drop" r="8"/></g>
+</svg><p class="sr-only" role="status">카오스 모드가 열립니다.</p></dialog>
+<div id="toast" class="toast" role="status"></div><div id="phaseAnnouncement" class="sr-only" role="status" aria-live="polite"></div>
+<noscript><p style="padding:24px">이 게임을 실행하려면 JavaScript가 필요합니다. 파일을 내려받아 최신 브라우저에서 열어주세요.</p></noscript>
+<script>
+/* Public Firebase Web configuration: ASTRA-7 / astra-7 (provided by project owner).
+   Auth and Firestore SDK modules load on-demand when the user opens the leaderboard,
+   not as a second eager <script type="module">. Never put service account keys here. */
+window.ASTRA7_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDw_G_lbpgGgHhClQx6Tf_InITPyhiZMjU",
+  authDomain: "astra-7.firebaseapp.com",
+  projectId: "astra-7",
+  storageBucket: "astra-7.firebasestorage.app",
+  messagingSenderId: "1047269086992",
+  appId: "1:1047269086992:web:03a1024e7f2389342f3795",
+  measurementId: "G-SGKN7ZPGRD"
+};
+</script>
+<script>
+(()=>{'use strict';
+/* ASTRA-7 science model: coplanar uniform circular motion; no real ephemeris. */
+const Astro = (() => {
+  'use strict';
+
+  const EARTH = 365.256;
+  const MARS = 686.98;
+  const RM = 1.524;
+  // Inclination is physical (~1.85°), but the phase of the line of nodes
+  // is illustrative because D0 is not tied to an actual opposition date.
+  const MARS_INCLINATION = 1.85;
+  const NODE_PHASE = 35;
+  const TARGETS = Object.freeze([-55, -35, -15, 0, 15, 35, 55]);
+  const TAU = 2 * Math.PI;
+  const DEG = 180 / Math.PI;
+  const EPS = 1e-10;
+
+  const source_urls = Object.freeze([
+    'https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html',
+    'https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question46.html',
+    'https://science.nasa.gov/resource/whats-up-october-2022/',
+    'https://science.nasa.gov/solar-system/orbits-and-keplers-laws/'
+  ]);
+
+  function finite(value, label) {
+    if (typeof value !== 'number' || !Number.isFinite(value)) {
+      throw new TypeError(label + ' must be a finite number');
+    }
+    return value;
+  }
+
+  function period(value) {
+    finite(value, 'earthPeriod');
+    if (value <= 0) throw new RangeError('earthPeriod must be positive');
+    return value;
+  }
+
+  function wrap(degrees) {
+    const wrapped = ((degrees + 180) % 360 + 360) % 360 - 180;
+    return Object.is(wrapped, -0) ? 0 : wrapped;
+  }
+
+  /** Heliocentric coordinates in Earth-orbit radii. Positive y points up. */
+  function positions(day, earthPeriod = EARTH) {
+    finite(day, 'day');
+    period(earthPeriod);
+    const earthAngle = TAU * day / earthPeriod;
+    const marsAngle = TAU * day / MARS;
+    return {
+      earth: { x: Math.cos(earthAngle), y: Math.sin(earthAngle) },
+      mars: { x: RM * Math.cos(marsAngle), y: RM * Math.sin(marsAngle) }
+    };
+  }
+
+  /** Relative ecliptic longitude: the initial opposition direction is 0°. */
+  function longitude(day, earthPeriod = EARTH) {
+    const { earth, mars } = positions(day, earthPeriod);
+    return wrap(Math.atan2(mars.y - earth.y, mars.x - earth.x) * DEG);
+  }
+
+  /** Geocentric ecliptic latitude for the near-circular inclined-orbit model.
+      The x/y longitude remains the original planar teaching approximation;
+      the small out-of-plane component is calculated from a 1.85° tilt.
+      Node phase is illustrative, not an ephemeris of a specific year. */
+  function latitude(day, earthPeriod = EARTH) {
+    const { earth, mars } = positions(day, earthPeriod);
+    const tilt = MARS_INCLINATION / DEG;
+    const node = NODE_PHASE / DEG;
+    const angle = TAU * day / MARS;
+    const z = RM * Math.sin(tilt) * Math.sin(angle - node);
+    return Math.atan2(z, Math.hypot(mars.x - earth.x, mars.y - earth.y)) * DEG;
+  }
+
+  /** Analytic angular velocity of the Earth-to-Mars vector, in degrees/day. */
+  function rate(day, earthPeriod = EARTH) {
+    finite(day, 'day');
+    period(earthPeriod);
+    const we = TAU / earthPeriod;
+    const wm = TAU / MARS;
+    const cosDifference = Math.cos((we - wm) * day);
+    const numerator = RM * RM * wm + we - RM * (wm + we) * cosDifference;
+    const denominator = RM * RM + 1 - 2 * RM * cosDifference;
+    return numerator / denominator * DEG;
+  }
+
+  /* R > 1 keeps R - exp(i Δ) in the right half-plane. This expression is
+     continuous for any sampling step, including crossings of ±180°. */
+  function continuousLongitude(day, earthPeriod) {
+    const marsAngle = TAU * day / MARS;
+    const relativeAngle = (TAU / earthPeriod - TAU / MARS) * day;
+    return (marsAngle + Math.atan2(-Math.sin(relativeAngle), RM - Math.cos(relativeAngle))) * DEG;
+  }
+
+  /** First longitude is signed; subsequent points are unwrapped continuously.
+      Both requested endpoints are included, even when step does not divide span. */
+  function series(start, end, earthPeriod = EARTH, step = 1) {
+    finite(start, 'start');
+    finite(end, 'end');
+    finite(step, 'step');
+    period(earthPeriod);
+    if (end < start) throw new RangeError('end must be at least start');
+    if (step <= 0) throw new RangeError('step must be positive');
+    const count = Math.floor((end - start) / step);
+    if (count > 100000) throw new RangeError('series is limited to 100001 regular samples');
+    const offset = longitude(start, earthPeriod) - continuousLongitude(start, earthPeriod);
+    const rows = [];
+    for (let i = 0; i <= count; i++) {
+      const day = start + i * step;
+      rows.push({ day, lambda: continuousLongitude(day, earthPeriod) + offset, rate: rate(day, earthPeriod) });
+    }
+    if (end - rows[rows.length - 1].day > EPS) {
+      rows.push({ day: end, lambda: continuousLongitude(end, earthPeriod) + offset, rate: rate(end, earthPeriod) });
+    }
+    return rows;
+  }
+
+  /** Stationary points around the initial opposition, or [] if no reversal.
+      At the tangent threshold rate(0) = 0 without a sign change: return []. */
+  function stationary(earthPeriod = EARTH) {
+    period(earthPeriod);
+    const we = TAU / earthPeriod;
+    const wm = TAU / MARS;
+    const difference = Math.abs(we - wm);
+    if (difference < EPS) return [];
+    const cosine = (RM * RM * wm + we) / (RM * (wm + we));
+    if (cosine >= 1 - EPS || cosine <= -1 + EPS) return [];
+    const day = Math.acos(cosine) / difference;
+    return [-day, day];
+  }
+
+  /** Time between equivalent relative configurations. Infinity means no lap. */
+  function synodic(earthPeriod = EARTH) {
+    period(earthPeriod);
+    const frequency = Math.abs(1 / earthPeriod - 1 / MARS);
+    return frequency === 0 ? Infinity : 1 / frequency;
+  }
+
+  /** Normalize captured records and supply clearly marked model-only rows.
+      Scan contract: {checkpoint, day, lambda?, source?, assisted?}.
+      Manual/assisted both refer to this simulation, never real telescope data. */
+  function analysisRows(scans = []) {
+    if (!Array.isArray(scans)) throw new TypeError('scans must be an array');
+    const captured = new Map();
+    for (const scan of scans) {
+      if (!scan || !TARGETS.includes(scan.checkpoint) || !Number.isFinite(scan.day)) continue;
+      if (captured.has(scan.checkpoint)) continue;
+      captured.set(scan.checkpoint, scan);
+    }
+    return TARGETS.map(checkpoint => {
+      const scan = captured.get(checkpoint);
+      if (!scan) return { checkpoint, day: checkpoint, lambda: longitude(checkpoint), source: 'model' };
+      const source = scan.source === 'model' ? 'model'
+        : scan.source === 'assisted' || scan.assisted === true ? 'assisted' : 'manual';
+      return {
+        checkpoint,
+        day: scan.day,
+        lambda: Number.isFinite(scan.lambda) ? wrap(scan.lambda) : longitude(scan.day),
+        source
+      };
+    });
+  }
+
+  /** The chord classifies mean change between samples, not every instant.
+      Non-increasing dates are invalid evidence; fail explicitly, not silently. */
+  function intervals(rows) {
+    if (!Array.isArray(rows)) throw new TypeError('rows must be an array');
+    return rows.slice(0, -1).map((row, index) => {
+      const next = rows[index + 1];
+      const start = finite(row.day, 'row.day');
+      const end = finite(next.day, 'row.day');
+      const days = end - start;
+      if (days <= 0) throw new RangeError('observation rows must have increasing dates');
+      const delta = wrap(finite(next.lambda, 'row.lambda') - finite(row.lambda, 'row.lambda'));
+      return { index, start, end, delta, days, rate: delta / days, retro: delta < -EPS };
+    });
+  }
+
+  return Object.freeze({
+    EARTH, MARS, RM, MARS_INCLINATION, NODE_PHASE, TARGETS, longitude, latitude, rate, positions, series,
+    stationary, synodic, analysisRows, intervals, source_urls
+  });
+})();
+
+function posArcade(t,w,h){
+ const a=2*Math.PI*t/190+.19*Math.sin(t/76)+.11*Math.cos(t/41);
+ const x=.5+.325*Math.sin(a+.18)+.065*Math.sin(t/43+.9)+.025*Math.cos(t/19.3);
+ const y=.46+.19*Math.sin(2*Math.PI*t/280+.65)+.085*Math.cos(t/51+.2)+.023*Math.sin(t/24);
+ return {x:w*Math.max(.08,Math.min(.92,x)),y:h*Math.max(.13,Math.min(.78,y))};
+}
+
+// 35× CHAOS: 관성 물리 기반 경로. 연속적인 가속도, 감쇠, 탄성 벽 충돌.
+// 물리 경로는 90 Hz로 미리 계산해 느린 기기에서도 판정/표적 위치가 일치한다.
+const CHAOS_HZ=90;
+const CHAOS_PATH=(()=>{
+ const pts=[];let x=.5,y=.38,vx=.48,vy=.28,dt=1/CHAOS_HZ;
+ for(let i=0;i<=CHAOS_HZ*20;i++){
+  const t=i*dt;
+  // 방향변경 입력은 부드러운 저주파 가속도. 텔레포트나 짧은 구간 즉시 방향전환 없음.
+  const ax=.40*Math.sin(t*1.13+.2)+.35*Math.cos(t*2.16+1.3)+.14*Math.cos(t*.49+2);
+  const ay=.33*Math.cos(t*1.51+.8)+.35*Math.sin(t*2.35+.3);
+  vx=vx*.998+ax*dt;vy=vy*.998+ay*dt;
+  const speed=Math.hypot(vx,vy);
+  if(speed>.73){vx*=.73/speed;vy*=.73/speed}
+  x+=vx*dt;y+=vy*dt;
+  if(x<.085){x=.085;vx=Math.abs(vx)*.82}
+  if(x>.915){x=.915;vx=-Math.abs(vx)*.82}
+  if(y<.16){y=.16;vy=Math.abs(vy)*.82}
+  if(y>.76){y=.76;vy=-Math.abs(vy)*.82}
+  pts.push([x,y]);
+ }
+ return pts;
+})();
+// 30× 기준 궤적 시간에 35×로 진행되는 날짜를 대입해 실제 이동 속도가 35/30배 빨라진다.
+function posChaos(day,w,h){
+ const t=Math.max(0,Math.min(CHAOS_PATH.length-1-1e-8,(day-ARCADE_START)/(BASE_DAYS_PER_SECOND*30)*CHAOS_HZ));
+ const i=Math.floor(t),a=CHAOS_PATH[i],b=CHAOS_PATH[i+1],f=t-i;
+ return {x:w*(a[0]+(b[0]-a[0])*f),y:h*(a[1]+(b[1]-a[1])*f)};
+}
+
+
+/* ASTRA-7 canvas views. Astro is the only application dependency.
+   Call invalidate() after a resize or a CSS layout change. */
+const Render = (() => {
+  'use strict';
+
+  const COLOR = Object.freeze({
+    bg: '#08172a', ink: '#e8f3ff', muted: '#a8bed7', grid: '#29435c',
+    mint: '#8af0d8', orange: '#ffa78b', earth: '#92ceff', model: '#bfc8db'
+  });
+  const FONT = "system-ui, -apple-system, 'Malgun Gothic', sans-serif";
+  const TAU = Math.PI * 2;
+  let cache = new WeakMap();
+
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+  const signed = (value, digits = 1) => (value > 0 ? '+' : value < 0 ? '−' : '') + Math.abs(value).toFixed(digits);
+  const date = value => Math.abs(value) < .05 ? 'D0' : 'D' + signed(value, Number.isInteger(value) ? 0 : 1);
+
+  function resolution(quality) {
+    if (quality === 1 || quality === 'low' || quality === 'performance') return 1;
+    return Math.max(1, Math.min(Number(globalThis.devicePixelRatio) || 1, 2));
+  }
+
+  /** Return CSS-pixel drawing coordinates without reading layout every frame. */
+  function surface(canvas, quality = 'standard') {
+    let entry = cache.get(canvas);
+    if (!entry) {
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(0, rect.width), h = Math.max(0, rect.height);
+      const c = canvas.getContext('2d');
+      if (!w || !h || !c) return { c, w, h, dpr: resolution(quality) };
+      entry = { c, w, h, dpr: 0, backgrounds: new Map() };
+      cache.set(canvas, entry);
+    }
+    const dpr = resolution(quality);
+    const pixelW = Math.max(1, Math.round(entry.w * dpr));
+    const pixelH = Math.max(1, Math.round(entry.h * dpr));
+    if (entry.dpr !== dpr || canvas.width !== pixelW || canvas.height !== pixelH) {
+      canvas.width = pixelW;
+      canvas.height = pixelH;
+      entry.dpr = dpr;
+      entry.backgrounds.clear();
+    }
+    entry.c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { c: entry.c, w: entry.w, h: entry.h, dpr };
+  }
+
+  function invalidate() { cache = new WeakMap(); }
+
+  function text(c, label, x, y, color = COLOR.muted, size = 11, align = 'left', weight = 500) {
+    c.fillStyle = color;
+    c.font = weight + ' ' + size + 'px ' + FONT;
+    c.textAlign = align;
+    c.textBaseline = 'middle';
+    c.fillText(label, x, y);
+  }
+
+  function line(c, x1, y1, x2, y2, color = COLOR.grid, width = 1) {
+    c.strokeStyle = color;
+    c.lineWidth = width;
+    c.beginPath();
+    c.moveTo(x1, y1);
+    c.lineTo(x2, y2);
+    c.stroke();
+  }
+
+  function arrow(c, x, y, dx, dy, color, size = 5) {
+    const length = Math.hypot(dx, dy) || 1;
+    const ux = dx / length, uy = dy / length;
+    c.fillStyle = color;
+    c.beginPath();
+    c.moveTo(x, y);
+    c.lineTo(x - ux * size - uy * size * .6, y - uy * size + ux * size * .6);
+    c.lineTo(x - ux * size + uy * size * .6, y - uy * size - ux * size * .6);
+    c.closePath();
+    c.fill();
+  }
+
+  function clear(c, w, h) {
+    c.globalAlpha = 1;
+    c.globalCompositeOperation = 'source-over';
+    c.shadowBlur = 0;
+    c.setLineDash([]);
+    c.clearRect(0, 0, w, h);
+    c.fillStyle = COLOR.bg;
+    c.fillRect(0, 0, w, h);
+  }
+
+  function backingCanvas(canvas, w, h) {
+    if (typeof OffscreenCanvas !== 'undefined') return new OffscreenCanvas(w, h);
+    const owner = canvas.ownerDocument || (typeof document !== 'undefined' ? document : null);
+    if (!owner) return null;
+    const buffer = owner.createElement('canvas');
+    buffer.width = w;
+    buffer.height = h;
+    return buffer;
+  }
+
+  /** Cache axes, starfields and orbit/graph geometry at the active DPR. */
+  function background(canvas, s, key, painter) {
+    const entry = cache.get(canvas);
+    let buffer = entry.backgrounds.get(key);
+    if (!buffer) {
+      buffer = backingCanvas(canvas, canvas.width, canvas.height);
+      if (buffer) {
+        const c = buffer.getContext('2d');
+        if (c) {
+          c.setTransform(s.dpr, 0, 0, s.dpr, 0, 0);
+          clear(c, s.w, s.h);
+          painter(c);
+          entry.backgrounds.set(key, buffer);
+        } else buffer = null;
+      }
+    }
+    clear(s.c, s.w, s.h);
+    if (buffer) s.c.drawImage(buffer, 0, 0, s.w, s.h);
+    else painter(s.c);
+  }
+
+  function plot(w, h, top = 36) {
+    return { l: w < 350 ? 40 : 46, r: w - 18, t: top, b: h - 43 };
+  }
+
+  function axes(c, box, w, h, limit, title = '상대 황경 (°)') {
+    const { l, r, t, b } = box;
+    const X = day => l + (day + 65) / 130 * (r - l);
+    const Y = lambda => b - (lambda + limit) / (2 * limit) * (b - t);
+    for (const value of [-limit, -limit / 2, 0, limit / 2, limit]) {
+      line(c, l, Y(value), r, Y(value), value === 0 ? '#53778f' : COLOR.grid);
+      text(c, signed(value, 0), l - 8, Y(value), COLOR.muted, 10, 'right');
+    }
+    const ticks = w < 380 ? [-60, 0, 60] : [-60, -30, 0, 30, 60];
+    for (const day of ticks) {
+      line(c, X(day), t, X(day), b, '#20364d');
+      text(c, date(day), X(day), b + 17, COLOR.muted, 10, 'center');
+    }
+    text(c, title, 12, 16, COLOR.ink, 11, 'left', 650);
+    text(c, '날짜 (일)', r, h - 7, COLOR.muted, 10, 'right');
+    return { X, Y };
+  }
+
+  function marker(c, x, y, source, color, radius = 5) {
+    c.fillStyle = source === 'model' ? COLOR.bg : color;
+    c.strokeStyle = color;
+    c.lineWidth = 1.8;
+    c.beginPath();
+    if (source === 'assisted') c.rect(x - radius, y - radius, radius * 2, radius * 2);
+    else if (source === 'model') {
+      c.moveTo(x, y - radius - 1);
+      c.lineTo(x + radius + 1, y);
+      c.lineTo(x, y + radius + 1);
+      c.lineTo(x - radius - 1, y);
+      c.closePath();
+    } else c.arc(x, y, radius, 0, TAU);
+    c.fill();
+    c.stroke();
+  }
+
+  function analysis(canvas, rows, selected = [], quality = 'standard') {
+    const s = surface(canvas, quality);
+    const { c, w, h } = s;
+    if (!c || w < 100 || h < 100) return;
+    const small = w < 360;
+    const box = plot(w, h, small ? 52 : 36);
+    const X = day => box.l + (day + 65) / 130 * (box.r - box.l);
+    const Y = lambda => box.b - (lambda + 10) / 20 * (box.b - box.t);
+    background(canvas, s, 'analysis', bg => {
+      axes(bg, box, w, h, 10);
+      const y = small ? 34 : 16;
+      const start = small ? box.l + 4 : w - 180;
+      const legends = [['manual', '직접', COLOR.mint], ['assisted', '보조', COLOR.earth], ['model', '보완', COLOR.model]];
+      legends.forEach(([source, label, color], i) => {
+        marker(bg, start + i * 58, y, source, color, 3);
+        text(bg, label, start + i * 58 + 9, y, COLOR.muted, 10);
+      });
+    });
+    const picked = new Set(selected || []);
+    c.save();
+    c.beginPath();
+    c.rect(box.l - 8, box.t - 12, box.r - box.l + 16, box.b - box.t + 23);
+    c.clip();
+    rows.slice(0, -1).forEach((row, i) => {
+      const next = rows[i + 1];
+      line(c, X(row.day), Y(row.lambda), X(next.day), Y(next.lambda), picked.has(i) ? COLOR.orange : COLOR.mint, picked.has(i) ? 3.5 : 2);
+    });
+    rows.forEach((row, i) => {
+      const x = X(row.day), y = Y(row.lambda);
+      const color = row.source === 'assisted' ? COLOR.earth : row.source === 'model' ? COLOR.model : COLOR.mint;
+      marker(c, x, y, row.source, color);
+      // Alternate label sides so nearby observation dates remain distinguishable.
+      const labelY = clamp(y + (i % 2 ? 17 : -17), box.t - 5, box.b + 6);
+      text(c, String(i + 1), x, labelY, COLOR.ink, 11, 'center', 750);
+    });
+    c.restore();
+  }
+
+  function orbitGeometry(w, h) {
+    return { x: w / 2, y: h * .51, r: Math.min(w * .36, h * .345) };
+  }
+
+  function orbitArrow(c, x, y, radius, angle, color) {
+    const end = angle + .32;
+    c.strokeStyle = color;
+    c.lineWidth = 2;
+    c.beginPath();
+    c.arc(x, y, radius, -angle, -end, true);
+    c.stroke();
+    arrow(c, x + radius * Math.cos(end), y - radius * Math.sin(end), -Math.sin(end), -Math.cos(end), color, 6);
+  }
+
+  function labOrbit(canvas, day, earthPeriod = Astro.EARTH, quality = 'standard') {
+    const s = surface(canvas, quality);
+    const { c, w, h } = s;
+    if (!c || w < 100 || h < 100) return;
+    const g = orbitGeometry(w, h);
+    const unit = g.r / Astro.RM;
+    background(canvas, s, 'orbit', bg => {
+      text(bg, '태양 중심 · 황도면 위쪽에서 투영한 모습', 12, 16, COLOR.ink, 11, 'left', 650);
+      bg.setLineDash([3, 5]);
+      for (const [radius, color] of [[unit, '#527c9b'], [g.r, '#8c6a64']]) {
+        bg.strokeStyle = color;
+        bg.lineWidth = 1;
+        bg.beginPath();
+        bg.arc(g.x, g.y, radius, 0, TAU);
+        bg.stroke();
+      }
+      bg.setLineDash([]);
+      orbitArrow(bg, g.x, g.y, unit, 2.2, COLOR.earth);
+      orbitArrow(bg, g.x, g.y, g.r, 3.9, COLOR.orange);
+      const glow = bg.createRadialGradient(g.x, g.y, 1, g.x, g.y, 23);
+      glow.addColorStop(0, '#ffe6a1');
+      glow.addColorStop(.3, '#ffc977');
+      glow.addColorStop(1, '#ffc97700');
+      bg.fillStyle = glow;
+      bg.beginPath();
+      bg.arc(g.x, g.y, 23, 0, TAU);
+      bg.fill();
+      bg.fillStyle = '#ffe6a1';
+      bg.beginPath();
+      bg.arc(g.x, g.y, 6.5, 0, TAU);
+      bg.fill();
+      text(bg, '태양', g.x, g.y + 20, '#ffe6a1', 10, 'center');
+      text(bg, '점선: 지구에서 화성으로 향한 시선', w / 2, h - 26, COLOR.muted, w < 300 ? 9 : 10, 'center');
+    });
+    const positions = Astro.positions(day, earthPeriod);
+    const earth = { x: g.x + positions.earth.x * unit, y: g.y - positions.earth.y * unit };
+    const mars = { x: g.x + positions.mars.x * unit, y: g.y - positions.mars.y * unit };
+    const dx = mars.x - earth.x, dy = mars.y - earth.y;
+    const mag = Math.hypot(dx, dy) || 1;
+    const end = { x: mars.x + dx / mag * 18, y: mars.y + dy / mag * 18 };
+    c.save();
+    c.setLineDash([4, 4]);
+    line(c, earth.x, earth.y, end.x, end.y, '#d2ddec', 1.3);
+    c.setLineDash([]);
+    arrow(c, end.x, end.y, dx, dy, '#d2ddec', 4);
+    for (const [p, color, name, r, offset] of [[earth, COLOR.earth, '지구', 6.5, 19], [mars, COLOR.orange, '화성', 7, -17]]) {
+      c.fillStyle = color;
+      c.strokeStyle = '#eaf4ff';
+      c.lineWidth = 1;
+      c.beginPath();
+      c.arc(p.x, p.y, r, 0, TAU);
+      c.fill();
+      c.stroke();
+      text(c, name, clamp(p.x, 21, w - 21), clamp(p.y + offset, 35, h - 43), color, 11, 'center', 750);
+    }
+    text(c, '지구 ' + Math.round(earthPeriod) + '일 · 화성 687일 · 같은 공전 방향', w / 2, h - 10, COLOR.muted, w < 340 ? 9 : 10, 'center');
+    c.restore();
+  }
+
+  function labGraph(canvas, day, earthPeriod = Astro.EARTH, quality = 'standard') {
+    const s = surface(canvas, quality);
+    const { c, w, h } = s;
+    if (!c || w < 100 || h < 100) return;
+    const entry = cache.get(canvas);
+    const key = 'graph:' + earthPeriod;
+    if (!entry.graphs) entry.graphs = new Map();
+    let graph = entry.graphs.get(key);
+    if (!graph) {
+      const values = Astro.series(-65, 65, earthPeriod, .5);
+      const max = Math.max(...values.map(row => Math.abs(row.lambda)));
+      graph = { values, limit: Math.max(10, Math.ceil((max + 2) / 10) * 10) };
+      entry.graphs.set(key, graph);
+    }
+    const box = plot(w, h, w < 360 ? 48 : 36);
+    const X = t => box.l + (t + 65) / 130 * (box.r - box.l);
+    const Y = lambda => box.b - (lambda + graph.limit) / (2 * graph.limit) * (box.b - box.t);
+    background(canvas, s, key, bg => {
+      axes(bg, box, w, h, graph.limit);
+      for (let i = 0; i < graph.values.length - 1; i++) {
+        const a = graph.values[i], b = graph.values[i + 1];
+        line(bg, X(a.day), Y(a.lambda), X(b.day), Y(b.lambda), (a.rate + b.rate) < 0 ? COLOR.orange : COLOR.mint, 2.6);
+      }
+    });
+    const lambda = Astro.longitude(day, earthPeriod);
+    const speed = Astro.rate(day, earthPeriod);
+    const color = speed < 0 ? COLOR.orange : COLOR.mint;
+    const x = X(day), y = Y(lambda);
+    c.save();
+    c.beginPath();
+    c.rect(box.l - 7, box.t - 5, box.r - box.l + 14, box.b - box.t + 10);
+    c.clip();
+    c.setLineDash([3, 4]);
+    line(c, x, box.t, x, box.b, '#dbe9f08f');
+    c.setLineDash([]);
+    c.fillStyle = COLOR.bg;
+    c.strokeStyle = color;
+    c.lineWidth = 2;
+    c.beginPath();
+    c.arc(x, y, 6, 0, TAU);
+    c.fill();
+    c.stroke();
+    c.fillStyle = '#fff2c8';
+    c.beginPath();
+    c.arc(x, y, 2.6, 0, TAU);
+    c.fill();
+    c.restore();
+    text(c, date(day) + ' · ' + signed(lambda) + '°', w - 15, w < 360 ? 32 : 16, color, 10, 'right', 650);
+  }
+
+  function labSky(canvas, day, earthPeriod = Astro.EARTH, quality = 'standard') {
+    const s = surface(canvas, quality);
+    const { c, w, h } = s;
+    if (!c || w < 100 || h < 100) return;
+    const left=36,right=w-30,top=46,bottom=h-31;
+    // Zoom the ecliptic-longitude view around D0: full ±60° hid the loop.
+    const steps=Astro.series(-65,65,earthPeriod,1);
+    const extent=Math.max(...steps.map(v=>Math.abs(v.lambda)));
+    const longitudeLimit=Math.max(17,Math.ceil((extent+2)/5)*5);
+    const X=lambda=>left+(longitudeLimit-lambda)/(2*longitudeLimit)*(right-left);
+    const Y=beta=>top+(1.1-beta)/6.7*(bottom-top);
+    background(canvas,s,'sky2d:'+earthPeriod,bg=>{
+      text(bg,'겉보기 경로 · 황경 λ × 황위 β',w/2,17,COLOR.ink,12,'center',700);
+      text(bg,'← 황경 증가',12,35,COLOR.mint,10);
+      text(bg,'황경 감소 →',w-12,35,COLOR.orange,10,'right');
+      // Static stars are a visual comparison grid, not catalog coordinates.
+      for(let i=0;i<36;i++){
+        const rx=Math.sin(i*62.3+4)*179.3, ry=Math.sin(i*31.1+2)*138.9;
+        const xf=rx-Math.floor(rx),yf=ry-Math.floor(ry);
+        const sx=left+xf*(right-left),sy=top+yf*(bottom-top);
+        bg.fillStyle=i%5===0?'#e2eafa9c':'#adcae862';bg.beginPath();bg.arc(sx,sy,i%5===0?1.65:1,0,TAU);bg.fill();
+      }
+      bg.setLineDash([3,7]);
+      for(const beta of [-5,-4,-3,-2,-1,0]){
+        line(bg,left,Y(beta),right,Y(beta),beta===0?'#8cc4c39f':'#43617b57',beta===0?1.5:1);
+        text(bg,Number(beta).toFixed(0)+'°',left-5,Y(beta)+3,COLOR.muted,9,'right');
+      }
+      bg.setLineDash([]);
+      text(bg,'β',left-17,top+5,COLOR.muted,10,'center');
+      const ticks=w<440?[-longitudeLimit,0,longitudeLimit]:[-longitudeLimit,-longitudeLimit/2,0,longitudeLimit/2,longitudeLimit];
+      ticks.forEach(lambda=>{
+        line(bg,X(lambda),bottom+1,X(lambda),bottom+6,COLOR.muted);
+        text(bg,signed(lambda,0)+'°',X(lambda),h-8,COLOR.muted,10,'center');
+      });
+      // The entire apparent curve is stationary in the background. Color
+      // segments by longitude velocity; negative means apparent retrograde.
+      for(let i=1;i<steps.length;i++){
+        const prev=steps[i-1],next=steps[i],b0=Astro.latitude(prev.day,earthPeriod),b1=Astro.latitude(next.day,earthPeriod);
+        line(bg,X(prev.lambda),Y(b0),X(next.lambda),Y(b1),((prev.rate+next.rate)/2)<0?COLOR.orange:COLOR.mint,2.4);
+      }
+      for(const [label,d] of [['D−65',-65],['D+65',65]]){
+        const px=X(Astro.longitude(d,earthPeriod)),py=Y(Astro.latitude(d,earthPeriod));
+        bg.fillStyle='#f4ecdf';bg.beginPath();bg.arc(px,py,3,0,TAU);bg.fill();
+        text(bg,label,Math.max(left+20,Math.min(right-20,px)),Math.max(top+10,Math.min(bottom-5,py-10)),COLOR.ink,10,'center',700);
+      }
+      if(Math.abs(earthPeriod-Astro.EARTH)<.01){
+        const stations=Astro.stationary(earthPeriod);
+        stations.forEach(d=>{
+          const px=X(Astro.longitude(d,earthPeriod)),py=Y(Astro.latitude(d,earthPeriod));
+          bg.fillStyle='#ffe0a2';bg.beginPath();bg.arc(px,py,3.3,0,TAU);bg.fill();
+        });
+      }
+    });
+    c.save();c.beginPath();c.rect(14,top-6,w-22,bottom-top+12);c.clip();
+    // Show the current model day as a strong marker against the full trajectory.
+    const x=X(Astro.longitude(day,earthPeriod)),y=Y(Astro.latitude(day,earthPeriod));
+    for(let i=4;i>=1;i--){const d=Math.max(-65,day-i*1.8);c.globalAlpha=.13+(4-i)*.15;c.fillStyle=COLOR.orange;c.beginPath();c.arc(X(Astro.longitude(d,earthPeriod)),Y(Astro.latitude(d,earthPeriod)),2.2+(4-i)*.35,0,TAU);c.fill();}
+    c.globalAlpha=1;c.fillStyle=COLOR.orange;c.beginPath();c.arc(x,y,5.4,0,TAU);c.fill();
+    c.strokeStyle='#ffeacc';c.lineWidth=1.5;c.beginPath();c.arc(x,y,9,0,TAU);c.stroke();
+    text(c,'화성',Math.max(25,Math.min(w-25,x)),Math.min(bottom-5,y+23),COLOR.ink,11,'center',750);
+    c.restore();
+  }
+
+  return Object.freeze({ surface, invalidate, analysis, labOrbit, labGraph, labSky });
+})();
+
+/* ASTRA-7 application. Data, controls and rendering share one state. */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const VERSION = 10, STORAGE = 'astra7_exploration_v10';
+const START = -65, END = 65, WINDOW = 8, BASE_DAYS_PER_SECOND = 1.4;
+const ARCADE_START = -350, ARCADE_END = 350, ARCADE_WINDOW = 38;
+const ARCADE_TARGETS = [-300,-200,-100,0,100,200,300];
+const RUSH_SPEED = 30, CHAOS_SPEED = 35;
+const MODES = ['learn','ranked','rush','chaos'];
+const SPEEDS = [1,2,4,6,8,10,12,14];
+const LEARN_SPEEDS = [1,2,4,6,8];
+const PERIODS = [Astro.EARTH,Astro.MARS,900];
+const PREDICTIONS = {decrease:'감소',increase:'증가',same:'변화 없음'};
+const INITIAL_LABELS = {turn:'화성의 실제 공전 방향이 바뀐다',view:'지구의 위치가 바뀌어 관측 방향이 달라진다',stars:'배경별 전체의 이동 때문이다'};
+const SOURCE_LABELS = {manual:'직접 촬영',assisted:'보조 촬영',model:'모형 보완'};
+const MODE_LABELS = {learn:'자유 탐구',ranked:'화성 랭크 도전',rush:'TARGET RUSH',chaos:'CHAOS PROTOCOL'};
+const QUESTIONS = [
+ {title:'1 · 화성이 역행할 때, 실제 공전은?',options:['태양 주위를 잠시 반대 방향으로 돈다.','계속 같은 방향으로 공전한다.'],correct:1,why:'역행은 지구에서 본 겉보기 황경이 감소하는 현상입니다. 화성의 실제 공전 방향은 바뀌지 않습니다.'},
+ {title:'2 · 상대 황경이 −6°이면 반드시 역행일까요?',options:['아니다. 시간이 지나며 황경이 증가하는지 감소하는지 비교해야 한다.','그렇다. 음수는 뒤로 간다는 뜻이다.'],correct:0,why:'각도의 부호는 기준 방향의 어느 쪽인지 나타낼 뿐입니다. 예를 들어 −7°에서 −6°로 바뀌면 황경이 증가하므로 순행입니다.'},
+ {title:'3 · 두 행성의 공전주기가 같아지면?',options:['상대 배치가 고정되므로 화성이 배경별에 대해서도 멈춘다.','관측선이 함께 회전하므로 역행 없이 순행한다.'],correct:1,why:'같은 각속도에서는 추월이 사라집니다. 두 행성의 상대 배치는 유지되지만 관측선은 회전하므로, 화성은 별을 기준으로 계속 순행합니다.'}
+];
+const clamp = (x,a,b) => Math.min(b,Math.max(a,x));
+const finite = (x,fallback=0) => typeof x==='number' && Number.isFinite(x) ? x : fallback;
+const num = (x,d=1) => (x>0?'+':'')+x.toFixed(d);
+const degree = (x,d=2) => num(x,d)+'°';
+const dayLabel = (d,digits=1) => Math.abs(d)<0.00001?'D0':'D'+(d<0?'−':'+')+Math.abs(d).toFixed(digits);
+const text = (selector,value) => {const el=typeof selector==='string'?$(selector):selector;const s=String(value);if(el.textContent!==s)el.textContent=s;};
+const phaseName = (day,p=Astro.EARTH) => {const r=Astro.rate(day,p);return Math.abs(r)<.005?'stationary':r<0?'retro':'direct';};
+const currentModeLabel = () => MODE_LABELS[state.mode];
+const isArena = () => state.mode==='rush'||state.mode==='chaos';
+const isRanked = () => state.mode!=='learn';
+const targets = () => isArena()?ARCADE_TARGETS:Astro.TARGETS;
+const firstDay = () => isArena()?ARCADE_START:START;
+const lastDay = () => isArena()?ARCADE_END:END;
+const shotWindow = () => isArena()?ARCADE_WINDOW:WINDOW;
+const checkpointLabel = cp => isArena()?'ZONE '+(ARCADE_TARGETS.indexOf(cp)+1):dayLabel(cp,0);
+const noteDefaults = () => ({initial:'',evidence:'',conclusion:'',reflection:''});
+function freshState(mode='learn',speed=4){return {mode,stage:1,maxStage:1,day:mode==='rush'||mode==='chaos'?ARCADE_START:START,speed:mode==='chaos'?CHAOS_SPEED:mode==='rush'?RUSH_SPEED:speed,phase:'ready',started:false,scans:[],shots:0,misses:0,combo:0,bestCombo:0,elapsed:0,points:0,interrupted:false,assist:false,largeTarget:true,selected:[],analysisVerified:false,period:Astro.EARTH,experiments:[],experimentPrediction:'',labDay:-65,checks:[null,null,null],finished:false,result:null,notes:noteDefaults(),inputType:'',updatedAt:0};}
+let state=freshState();
+let profile={unlocked:false,bests:{},settings:{quality:'standard',reduced:false,muted:true}};
+let pendingMode='learn',chaosArmed=false,inkTransitioning=false,reticle=null,lock=0,activePointer=null,keys=new Set();
+let lastShot=-Infinity,raf=0,lastStamp=0,lastPaint=0,lastHUD=0,lastAutosave=0,dirty=true;
+let countdown=0,labPlaying=false,saveTimer=0,toastTimer=0,storageFailed=false,ctxSound=null,lastPhase='';
+let runBackground=null,checkpointNodes=[],windowNodes=[],renderedTimelineMode='',lastCheckpointSignature='';
+let currentDialogReturn=null,labSeriesPeriod=null;
+const mediaMotion=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+const reducesMotion = () => profile.settings.reduced || Boolean(mediaMotion&&mediaMotion.matches);
+const isDialogOpen = () => $$('dialog').some(d=>d.open);
+
+// Reject malformed saves, deduplicate records, and derive model values from time.
+function normalizeState(raw){
+ if(!raw||typeof raw!=='object')return freshState();
+ const mode=MODES.includes(raw.mode)?raw.mode:'learn';
+ const arena=mode==='rush'||mode==='chaos',cps=arena?ARCADE_TARGETS:Astro.TARGETS,win=arena?40:8;
+ const s=freshState(mode,mode==='learn'?LEARN_SPEEDS.includes(raw.speed)?raw.speed:4:SPEEDS.includes(raw.speed)?raw.speed:2);
+ s.started=raw.started===true;
+ s.stage=!arena&&[1,2,3].includes(raw.stage)?raw.stage:1;
+ s.maxStage=arena?1:clamp(Math.floor(finite(raw.maxStage,s.stage)),s.stage,3);
+ s.day=clamp(finite(raw.day,s.day),arena?ARCADE_START:START,arena?ARCADE_END:END);
+ s.phase=['ready','running','paused','countdown','review','complete'].includes(raw.phase)?raw.phase:'paused';
+ const seen=new Set();let latest=-Infinity;
+ const valid=(Array.isArray(raw.scans)?raw.scans:[]).filter(r=>r&&cps.includes(r.checkpoint)&&Number.isFinite(r.day)&&Math.abs(r.day-r.checkpoint)<=win+.000001).sort((a,b)=>a.checkpoint-b.checkpoint);
+ for(const r of valid){if(seen.has(r.checkpoint)||r.day<=latest)continue;seen.add(r.checkpoint);latest=r.day;s.scans.push({checkpoint:r.checkpoint,day:r.day,lambda:arena?0:Astro.longitude(r.day),source:r.source==='assisted'&&!arena?'assisted':'manual',speed:s.speed,precision:Number.isFinite(r.precision)?clamp(r.precision,0,1):null});}
+ const manual=s.scans.filter(r=>r.source==='manual').length;
+ s.shots=clamp(Math.floor(finite(raw.shots,manual)),manual,100000);
+ s.misses=clamp(Math.floor(finite(raw.misses,s.shots-manual)),0,s.shots);
+ s.combo=clamp(Math.floor(finite(raw.combo)),0,manual);
+ s.bestCombo=clamp(Math.floor(finite(raw.bestCombo,manual)),s.combo,manual);
+ s.elapsed=clamp(finite(raw.elapsed),0,86400);
+ s.points=clamp(Math.round(finite(raw.points)*10)/10,0,1000000);
+ s.interrupted=raw.interrupted===true;
+ s.assist=mode==='learn'&&raw.assist===true;
+ s.largeTarget=raw.largeTarget!==false;
+ s.selected=Array.from(new Set((Array.isArray(raw.selected)?raw.selected:[]).filter(i=>Number.isInteger(i)&&i>=0&&i<6)));
+ const correct=Astro.intervals(Astro.analysisRows(arena?[]:s.scans)).filter(i=>i.retro).map(i=>i.index);
+ s.analysisVerified=raw.analysisVerified===true&&correct.length===s.selected.length&&correct.every(i=>s.selected.includes(i));
+ s.period=PERIODS.includes(raw.period)?raw.period:Astro.EARTH;
+ const used=new Set();s.experiments=(Array.isArray(raw.experiments)?raw.experiments:[]).filter(e=>e&&PERIODS.includes(e.period)&&Object.hasOwn(PREDICTIONS,e.prediction)&&!used.has(e.period)&&used.add(e.period)).map(e=>({period:e.period,prediction:e.prediction,delta:Astro.longitude(30,e.period)-Astro.longitude(-30,e.period)}));
+ s.experimentPrediction=Object.hasOwn(PREDICTIONS,raw.experimentPrediction)?raw.experimentPrediction:'';
+ s.labDay=clamp(finite(raw.labDay,-65),-65,65);
+ s.checks=QUESTIONS.map((_,i)=>[0,1].includes(raw.checks&&raw.checks[i])?raw.checks[i]:null);
+ s.notes=noteDefaults();for(const key of Object.keys(s.notes))s.notes[key]=typeof raw.notes?.[key]==='string'?raw.notes[key].slice(0,key==='initial'?30:3500):'';
+ if(!Object.hasOwn(INITIAL_LABELS,s.notes.initial))s.notes.initial='';
+ s.inputType=['mouse','touch','pen','keyboard','mixed',''].includes(raw.inputType)?raw.inputType:'';
+ const required=s.experiments.some(e=>e.period===Astro.EARTH)&&s.experiments.some(e=>e.period===Astro.MARS);
+ s.finished=raw.finished===true&&s.analysisVerified&&required&&s.checks.every((a,i)=>a===QUESTIONS[i].correct);
+ if(!arena&&!s.analysisVerified&&s.maxStage>=3){s.maxStage=2;if(s.stage===3)s.stage=2;}
+ if(s.finished){s.stage=3;s.maxStage=3;s.phase='complete';}
+ if(!arena&&s.stage>1)s.phase=s.finished?'complete':'review';
+ if(s.phase==='running'||s.phase==='countdown'){s.phase='paused';/* 복원 시 안전하게 정지하지만 랭킹 자격은 유지합니다. */}
+ if(s.phase==='ready'&&s.started)s.phase='paused';
+ s.updatedAt=clamp(finite(raw.updatedAt),0,Date.now()+86400000);
+ return s;
+}
+function normalizeProfile(raw){
+ const p={unlocked:raw?.unlocked===true,bests:{},settings:{quality:raw?.settings?.quality==='low'?'low':'standard',reduced:raw?.settings?.reduced===true,muted:raw?.settings?.muted!==false}};
+ for(const [key,r] of Object.entries(raw?.bests&&typeof raw.bests==='object'?raw.bests:{})){
+  if(!/^(ranked:(1|2|4|6|8|10|12|14)|rush:30|chaos:(30|35))$/.test(key)||!r||!Number.isFinite(r.score)||r.score<0||r.score>100)continue;
+  p.bests[key]={score:Math.round(r.score*100)/100,hits:clamp(Math.floor(finite(r.hits)),0,7),date:typeof r.date==='string'?r.date.slice(0,30):''};
+ }return p;
+}
+function bundle(){return {app:'ASTRA7',version:VERSION,savedAt:new Date().toISOString(),state,profile};}
+function saveNow(){
+ clearTimeout(saveTimer);saveTimer=0;state.updatedAt=Date.now();
+ try{localStorage.setItem(STORAGE,JSON.stringify(bundle()));storageFailed=false;$('#headerSave').classList.remove('failed');text('#headerSave','이 기기에 저장됨');}
+ catch(e){if(!storageFailed)toast('브라우저 저장이 제한되어 있습니다. 보고서 또는 JSON 백업을 내려받으세요.');storageFailed=true;$('#headerSave').classList.add('failed');text('#headerSave','자동 저장 불가 · 백업 필요');}
+}
+function saveSoon(){clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,450);}
+function load(){
+ try{
+  const raw=localStorage.getItem(STORAGE);
+  if(raw){const b=JSON.parse(raw);if(b.app==='ASTRA7'&&b.version===VERSION){profile=normalizeProfile(b.profile);state=normalizeState(b.state);return;}}
+  // Preserve the original game's permanent unlock and text notes when present.
+  profile.unlocked=localStorage.getItem('astra7_science_tracking_cleared_v1')==='1';
+  const n=JSON.parse(localStorage.getItem('ASTRA7_EDU_NOTE_V1')||'null');
+  if(n){state.notes.initial={a:'turn',b:'view',c:'stars'}[n.prediction]||'';for(const [oldKey,newKey]of [['evidence','evidence'],['conclusion','conclusion'],['exit','reflection']])if(typeof n[oldKey]==='string')state.notes[newKey]=n[oldKey].slice(0,3500);}
+ }catch(e){storageFailed=true;}
+}
+function toast(message){text('#toast',message);$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3200);}
+function sound(freq=660,duration=.09){if(profile.settings.muted)return;try{ctxSound=ctxSound||new (window.AudioContext||window.webkitAudioContext)();if(ctxSound.state==='suspended')ctxSound.resume().catch(()=>{});const o=ctxSound.createOscillator(),g=ctxSound.createGain();o.type='sine';o.frequency.setValueAtTime(freq,ctxSound.currentTime);g.gain.setValueAtTime(.028,ctxSound.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ctxSound.currentTime+duration);o.connect(g);g.connect(ctxSound.destination);o.start();o.stop(ctxSound.currentTime+duration);o.onended=()=>{o.disconnect();g.disconnect();};}catch(e){}}
+function feedback(selector,message,kind=''){text(selector,message);$(selector).className='callout feedback'+(kind?' '+kind:'');}
+function announce(message){text('#phaseAnnouncement',message);}
+function openDialog(id,focusSelector){
+ const dialog=$(id);if(dialog.open)return;
+ currentDialogReturn=document.activeElement;
+ dialog.showModal();
+ if(focusSelector)$(focusSelector).focus({preventScroll:true});
+ keys.clear();clearAim();lastStamp=0;
+}
+function closeDialog(id,focusSelector){const dialog=$(id);if(dialog.open)dialog.close();if(focusSelector)$(focusSelector).focus({preventScroll:true});else if(currentDialogReturn&&currentDialogReturn.isConnected)currentDialogReturn.focus({preventScroll:true});lastStamp=0;requestPaint();}
+function clearAim(){reticle=null;lock=0;activePointer=null;keys.clear();$('#reticle').style.display='none';requestPaint();}
+function focusCanvas(){if(state.stage===1)$('#skyCanvas').focus({preventScroll:true});}
+function requestPaint(){dirty=true;if(!raf&&!document.hidden)raf=requestAnimationFrame(frame);}
+function running(){return state.stage===1&&(state.phase==='running'||state.phase==='countdown')&&!isDialogOpen()&&!document.hidden;}
+function needsAnimation(){return running()||(state.stage===3&&labPlaying&&!isDialogOpen()&&!document.hidden);}
+function pause(reason='일시정지했습니다.'){
+ if(state.stage===3){labPlaying=false;text('#labPlayBtn','움직임 재생');$('#labPlayBtn').setAttribute('aria-pressed','false');saveSoon();requestPaint();return;}
+ if(!['running','countdown'].includes(state.phase))return;
+ if(isRanked())state.interrupted=true; // 중단 내역만 기록. 완주하면 랭킹 등록 가능.
+ state.phase='paused';countdown=0;clearAim();lastStamp=0;
+ feedback('#observationMessage',reason+(isRanked()?' 중간에 쉬어도 완주한 점수는 랭킹 등록이 가능합니다.':''),'warn');
+ refreshPlayControls();renderHUD();saveNow();requestPaint();
+}
+function resume(){if(state.stage!==1)return;if(state.phase==='review'){showResult();return;}if(state.phase==='ready'){showMenu();return;}if(state.phase!=='paused'||isDialogOpen())return;state.phase='countdown';countdown=3;lastStamp=0;clearAim();focusCanvas();refreshPlayControls();requestPaint();saveSoon();}
+function togglePause(){if(state.phase==='running'||state.phase==='countdown')pause();else if(state.phase==='paused')resume();}
+function startSession(mode=pendingMode,speed=4){
+ if(!MODES.includes(mode)||((mode==='rush'||mode==='chaos')&&!profile.unlocked)){toast('본편에서 7장을 직접 촬영하면 외전이 열립니다.');return;}
+ speed=mode==='learn'?(LEARN_SPEEDS.includes(speed)?speed:4):mode==='ranked'?(SPEEDS.includes(speed)?speed:2):mode==='chaos'?CHAOS_SPEED:RUSH_SPEED;
+ const initial=state.notes.initial;
+ for(const dialog of $$('dialog'))if(dialog.open)dialog.close();
+ state=freshState(mode,speed);state.notes.initial=initial;state.started=true;state.phase='countdown';
+ countdown=3;lastStamp=0;lastShot=-Infinity;labPlaying=false;clearAim();runBackground=null;Render.invalidate();
+ refreshAll();$('#scene').scrollIntoView({block:'center',behavior:'instant'});focusCanvas();saveNow();requestPaint();
+}
+function rewind(){if(state.mode!=='learn'||state.stage!==1||state.analysisVerified)return;state.day=START;state.phase='paused';state.combo=0;clearAim();feedback('#observationMessage','관측 시계를 D−65로 돌렸습니다. 이미 기록한 사진은 유지됩니다. 재개해서 놓친 날짜를 채워보세요.');refreshPlayControls();renderHUD();saveNow();requestPaint();}
+function eligibleCheckpoint(day=state.day){
+ const cps=targets();
+ return cps.find((cp,i)=>{
+  if(state.scans.some(r=>r.checkpoint===cp)||Math.abs(day-cp)>shotWindow())return false;
+  const prior=state.scans.find(r=>r.checkpoint===cps[i-1]),next=state.scans.find(r=>r.checkpoint===cps[i+1]);
+  return (!prior||day>prior.day)&&(!next||day<next.day);
+ });
+}
+function hitRadius(){if(state.mode==='chaos')return 16;if(state.mode==='rush')return 13;if(state.mode==='learn')return state.largeTarget?33:25;return state.speed>=12?12:state.speed>=10?13:state.speed>=8?15:state.speed>=6?17:state.speed>=4?20:state.speed>=2?25:29;}
+function lockSeconds(){return state.mode==='learn'?.155:.112+Math.min(14,state.speed)*.0095;}
+function marsSkyPosition(day,w,h,earthPeriod=Astro.EARTH){
+ // At D0, center the field on the visible Mars latitude. The vertical scale
+ // exaggerates the small angular drift only in pixels, not in reported degrees.
+ const beta0=Astro.latitude(0,earthPeriod),beta=Astro.latitude(day,earthPeriod);
+ return {x:w*(.5-Astro.longitude(day,earthPeriod)/52),y:h*.47-(beta-beta0)*h*.065};
+}
+function targetPosition(day,w,h){return state.mode==='chaos'?posChaos(day,w,h):state.mode==='rush'?posArcade(day,w,h):marsSkyPosition(day,w,h);}
+
+function aimAt(event){
+ if(state.stage!==1||!state.started||isDialogOpen())return;
+ const box=$('#skyCanvas').getBoundingClientRect();
+ reticle={x:clamp(event.clientX-box.left,0,box.width),y:clamp(event.clientY-box.top,0,box.height)};
+ updateReticle();requestPaint();
+}
+function updateReticle(){const el=$('#reticle');if(!reticle||state.stage!==1){el.style.display='none';return;}el.style.display='block';el.style.transform=`translate3d(${reticle.x}px,${reticle.y}px,0) translate(-50%,-50%)`;el.classList.toggle('locked',lock>=.95);}
+function recordInput(source){if(source==='assisted')return;const kind=['mouse','touch','pen','keyboard'].includes(source)?source:'keyboard';state.inputType=!state.inputType?kind:state.inputType===kind?kind:'mixed';}
+function miss(reason){
+ state.shots++;state.misses++;state.combo=0;
+ if(isRanked())state.points=Math.max(0,Math.round((state.points-1)*10)/10);
+ feedback('#observationMessage',reason+(isRanked()?' · 오발 -1.00점 · 콤보 초기화 · 완주하면 랭킹 등록 가능':' · 다시 시도해보세요.'),isRanked()?'error':'');
+ sound(220,.07);renderHUD();refreshSide();saveSoon();
+}
+function capture(cp,day,source='manual',aimPrecision=null){
+ if(state.scans.some(r=>r.checkpoint===cp))return false;
+ const record={checkpoint:cp,day,lambda:isArena()?0:Astro.longitude(day),source,speed:state.speed,precision:source==='manual'&&Number.isFinite(aimPrecision)?clamp(aimPrecision,0,1):null};
+ state.scans.push(record);state.scans.sort((a,b)=>a.checkpoint-b.checkpoint);
+ if(source==='manual'){state.shots++;state.combo++;state.bestCombo=Math.max(state.bestCombo,state.combo);state.points=Math.round((state.points+(18+state.combo*8)*pointMultiplier()*(.75+.25*(record.precision??0)))*10)/10;}
+ lock=0;
+ if(!reducesMotion()){const el=$('#shotFlash');el.classList.remove('fire');void el.offsetWidth;el.classList.add('fire');}
+ sound(720+state.scans.length*60,.08);
+ const label=isArena()?checkpointLabel(cp):dayLabel(day)+' · '+degree(record.lambda);
+ feedback('#observationMessage',`${source==='assisted'?'보조':'직접'} 촬영 ${state.scans.length}/7 · ${label}${source==='manual'&&record.precision!==null?' · 중심 정밀도 '+(record.precision*100).toFixed(1)+'%':''}`,'good');
+ if(!isArena()&&state.scans.filter(r=>r.source==='manual').length===7&&!profile.unlocked){profile.unlocked=true;toast('7장 직접 촬영 완료! TARGET RUSH와 CHAOS가 열렸습니다.');}
+ renderHUD();refreshSide();saveSoon();requestPaint();
+ if(state.scans.length===7)finishRun();
+ return true;
+}
+function scan(source='keyboard'){
+ if(state.stage!==1||state.phase!=='running'||isDialogOpen())return false;
+ const now=performance.now();if(now-lastShot<175)return false;lastShot=now;
+ const cp=eligibleCheckpoint();
+ if(cp===undefined){if(source==='assisted')feedback('#observationMessage','노란 촬영 구간이 열리면 보조 촬영할 수 있습니다.');else miss('지금은 촬영 구간이 아닙니다.');return false;}
+ if(source==='assisted'){if(state.mode!=='learn')return false;return capture(cp,state.day,'assisted');}
+ recordInput(source);
+ const {w,h}=Render.surface($('#skyCanvas'),profile.settings.quality),p=targetPosition(state.day,w,h);
+ const distance=reticle?Math.hypot(reticle.x-p.x,reticle.y-p.y):Infinity;
+ if(distance>hitRadius()){miss('표적을 조준 범위 안에 맞춰주세요.');return false;}
+ if(!isArena()&&lock<.95){miss('잠금이 100%가 될 때까지 잠시 따라가세요.');return false;}
+ const aimPrecision=clamp(1-Math.pow(distance/hitRadius(),1.55),0,1);
+ return capture(cp,state.day,'manual',aimPrecision);
+}
+function pointMultiplier(){if(state.mode==='chaos')return 12;if(state.mode==='rush')return 7;return ({1:1,2:1.1,4:1.35,6:1.7,8:2.05,10:2.45,12:2.85,14:3.3})[state.speed]||1;}
+const SCIENCE_TIERS=[[98,'CHALLENGER'],[94,'GRANDMASTER'],[88,'MASTER'],[80,'DIAMOND'],[70,'PLATINUM'],[60,'GOLD'],[45,'SILVER'],[30,'BRONZE'],[0,'ROOKIE']];
+const ARENA_TIERS=[[96,'CHALLENGER'],[88,'GRANDMASTER'],[78,'MASTER'],[66,'DIAMOND'],[54,'PLATINUM'],[42,'GOLD'],[30,'SILVER'],[18,'BRONZE'],[0,'ROOKIE']];
+function rankMetrics(){
+ const records=state.scans.filter(r=>r.source==='manual'),hits=records.length,acc=state.shots?hits/state.shots:0,combo=state.bestCombo/7;
+ const weights=isArena()?state.mode==='chaos'?[60,16,8,16]:[55,20,10,15]:[35,25,20,20];
+ const generosity=state.mode==='chaos'?1.58:state.mode==='rush'?1.32:1;
+ const timing=records.reduce((sum,r)=>sum+Math.max(isArena()?.17:0,1-Math.abs(r.day-r.checkpoint)/(shotWindow()*generosity)),0)/7;
+ const parts=[weights[0]*hits/7,weights[1]*acc,weights[2]*combo,weights[3]*timing],extra=state.mode==='chaos'?12*hits/7:0;
+ const multiplier=isArena()?1:Math.min(1,.66+.34*Math.log(Math.max(1,state.speed))/Math.log(30));
+ const base=clamp((parts.reduce((a,b)=>a+b,0)+extra)*multiplier,0,isArena()&&hits<7?95:100);
+ // Center precision supplements timing, combo, and hit-rate; each miss additionally deducts 1.00 point.
+ const centerPrecision=hits?records.reduce((sum,r)=>sum+(Number.isFinite(r.precision)?r.precision:0),0)/hits:0;
+ const centerMultiplier=.80+.20*centerPrecision;
+ const missPenalty=isRanked()?state.misses:0; // 허공/구간 밖 오발 한 번마다 최종점수 1.00점 감점
+ const score=clamp(Math.round((base*centerMultiplier-missPenalty)*100)/100,0,100);
+ const tier=(isArena()?ARENA_TIERS:SCIENCE_TIERS).find(([min])=>score>=min)[1];
+ return {score,tier,hits,missPenalty,accuracy:Math.round(acc*100),centerPrecision:Math.round(centerPrecision*1000)/10,centerMultiplier,combo:state.bestCombo,parts,weights,extra,multiplier,mode:state.mode,speed:state.speed,eligible:isRanked()&&state.started,seconds:state.elapsed};
+}
+function finishRun(){
+ if(state.phase==='review'||state.phase==='complete')return;
+ state.phase='review';clearAim();countdown=0;state.result=rankMetrics();
+ if(state.result.eligible){const key=state.mode+':'+state.speed,old=profile.bests[key];if(!old||state.result.score>old.score)profile.bests[key]={score:state.result.score,hits:state.result.hits,date:new Date().toISOString(),precision:state.result.centerPrecision};
+   if(state.scans.filter(r=>r.source==='manual').every(r=>Number.isFinite(r.precision)))rememberPrecisionBest(state.result);}
+ refreshLeaderboardSubmitState();
+ refreshPlayControls();renderHUD();refreshSide();saveNow();showResult();
+}
+
+// Nine small SVG badges, individually colored and progressively decorated.
+// These are intentionally vector shapes rather than embedded hi-res rank posters.
+const RANK_BADGES={
+ ROOKIE:{metal:'#8492a7',shade:'#293447',light:'#cbd3df',core:'#dde4ec',glow:'#7c8ca733',level:0},
+ BRONZE:{metal:'#bf7047',shade:'#512d29',light:'#ffcc91',core:'#ffb765',glow:'#dc834533',level:1},
+ SILVER:{metal:'#b1becd',shade:'#344358',light:'#f3f8ff',core:'#dfeeff',glow:'#9dbeed33',level:2},
+ GOLD:{metal:'#d9a439',shade:'#574022',light:'#ffea9c',core:'#fff2a9',glow:'#e2bb593a',level:3},
+ PLATINUM:{metal:'#c5d7df',shade:'#395969',light:'#f6ffff',core:'#68e0f2',glow:'#6bdfee44',level:4},
+ DIAMOND:{metal:'#83b8fb',shade:'#293e89',light:'#ecfaff',core:'#4b9cff',glow:'#458cff55',level:5},
+ MASTER:{metal:'#b794ee',shade:'#483077',light:'#f2defe',core:'#b26eff',glow:'#9d54ea55',level:6},
+ GRANDMASTER:{metal:'#dc8fab',shade:'#602c4e',light:'#ffdaef',core:'#fb5da2',glow:'#ed4a9d55',level:7},
+ CHALLENGER:{metal:'#f5d17b',shade:'#4e467b',light:'#fff9e9',core:'#fdf7ff',glow:'#ffe69969',level:8}
+};
+function rankBadgeSvg(tier){
+ const d=RANK_BADGES[tier]||RANK_BADGES.ROOKIE,L=d.level;
+ const wingPieces=Array.from({length:Math.min(4,Math.floor((L+1)/2))},(_,i)=>{
+  const y=79+i*17;
+  const outer=49-i*4;
+  return `<path d="M 62 ${y} Q ${outer} ${y-14} ${Math.max(5,outer-22)} ${y-19} L ${outer-2} ${y+9} L 62 ${y+19} Z" fill="url(#badgeMetal)" stroke="${d.light}" stroke-opacity=".75" stroke-width="1.2"/>`;
+ }).join('');
+ const wings=wingPieces?`<g>${wingPieces}</g><g transform="translate(200 0) scale(-1 1)">${wingPieces}</g>`:'';
+ const orbit=L>=3?`<ellipse cx="100" cy="92" rx="82" ry="67" fill="none" stroke="${d.light}" stroke-opacity=".36" stroke-width="1.5" stroke-dasharray="${L>=6?'3 5':'8 8'}"/><circle cx="23" cy="80" r="2" fill="${d.core}"/><circle cx="176" cy="107" r="2" fill="${d.core}"/>`:'';
+ const crown=L>=4?`<path d="M68 44 L77 ${L>=7?18:31} L91 39 L100 ${L>=7?9:25} L109 39 L123 ${L>=7?18:31} L132 44 L125 51 L75 51 Z" fill="url(#badgeMetal)" stroke="${d.light}" stroke-width="2"/>`:'';
+ const gem=L>=5?`<path d="M100 58 L113 78 L100 102 L87 78Z" fill="${d.core}" stroke="${d.light}" stroke-width="2" opacity=".8"/>`:'';
+ const spikes=L>=7?`<path d="M47 68 27 45 43 52 48 34 63 57 M153 68 173 45 157 52 152 34 137 57" fill="none" stroke="${d.light}" stroke-width="3" stroke-linecap="round" opacity=".85"/>`:'';
+ const laurels=L>=8?`<path d="M45 142 Q23 123 20 98 M155 142 Q177 123 180 98" fill="none" stroke="${d.light}" stroke-width="3" stroke-dasharray="6 5" opacity=".95"/>`:'';
+ const orbitRing=L>=6?`<circle cx="100" cy="96" r="88" fill="none" stroke="${d.core}" stroke-opacity=".26" stroke-width="2"/><path d="M100 4 v12 M100 178 v12 M8 96 h12 M180 96 h12" stroke="${d.light}" stroke-width="2"/>`:'';
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+  <defs>
+   <linearGradient id="badgeMetal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${d.light}"/><stop offset=".35" stop-color="${d.metal}"/><stop offset=".72" stop-color="${d.shade}"/><stop offset="1" stop-color="${d.light}"/></linearGradient>
+   <linearGradient id="badgeShield" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${d.shade}"/><stop offset=".53" stop-color="#13192b"/><stop offset="1" stop-color="${d.shade}"/></linearGradient>
+   <radialGradient id="badgeCore"><stop stop-color="#fff"/><stop offset=".26" stop-color="${d.light}"/><stop offset=".68" stop-color="${d.core}"/><stop offset="1" stop-color="${d.core}" stop-opacity="0"/></radialGradient>
+  </defs>
+  ${orbitRing}${orbit}${wings}${spikes}${crown}
+  <path d="M100 35 L148 55 L159 116 Q146 151 100 174 Q54 151 41 116 L52 55 Z" fill="url(#badgeMetal)" stroke="${d.light}" stroke-width="2.3"/>
+  <path d="M100 47 L138 63 L147 112 Q135 142 100 159 Q65 142 53 112 L62 63 Z" fill="url(#badgeShield)" stroke="#ffffff55" stroke-width="1.4"/>
+  <path d="M100 60 V146 M64 102 H136" stroke="${d.metal}" stroke-width=".8" opacity=".5"/>
+  ${L>=2?`<circle cx="100" cy="101" r="35" fill="none" stroke="${d.light}" stroke-opacity=".56" stroke-width="${L>=6?2:1.3}"/>`:''}
+  ${gem}
+  <circle cx="100" cy="101" r="${L>=6?29:25}" fill="url(#badgeCore)" opacity=".24"/>
+  <path d="M100 ${L>=7?63:71} L${L>=6?110:107} 94 L${L>=7?139:130} 101 L${L>=6?110:107} 108 L100 ${L>=7?139:131} L${L>=6?90:93} 108 L${L>=7?61:70} 101 L${L>=6?90:93} 94 Z" fill="url(#badgeCore)" stroke="${d.light}" stroke-width="1.8"/>
+  <circle cx="100" cy="101" r="4" fill="#fff"/>
+  ${laurels}
+  <path d="M73 167 Q100 184 127 167" fill="none" stroke="${d.light}" stroke-opacity=".8" stroke-width="2"/>
+  ${L>=3?`<path d="M100 25 V17 M95 21 H105" stroke="${d.light}" stroke-width="2"/>`:''}
+ </svg>`;
+}
+function refreshResultBadge(tier){
+ const el=$('#resultBadge');
+ const line=$('#resultRankLine');
+ if(!isRanked()){el.hidden=true;line.classList.remove('badge-reveal');return;}
+ el.hidden=false;
+ el.dataset.tier=tier;
+ el.style.setProperty('--badge-glow',RANK_BADGES[tier]?.glow||RANK_BADGES.ROOKIE.glow);
+ el.setAttribute('aria-label',`${tier} 티어 엠블럼`);
+ el.innerHTML=rankBadgeSvg(tier);
+ line.classList.remove('badge-reveal');
+ // The animation is only played when a result is shown, never in the tracking canvas.
+ void el.offsetWidth;
+ if(!reducesMotion())line.classList.add('badge-reveal');
+}
+
+function showResult(){
+ const r=rankMetrics();state.result=r;
+ refreshResultBadge(r.tier);
+ text('#resultEyebrow',isRanked()?'AIM CHALLENGE / RUN COMPLETE':'OBSERVATION / RECORDS READY');
+ text('#resultTitle',isArena()?currentModeLabel()+' · 결과':'관측 기록이 모였습니다.');
+ text('#resultScore',isRanked()?r.score.toFixed(2)+' / 100':state.scans.length+' / 7');
+ text('#resultTier',isRanked()?r.tier:'자유 탐구 · 에임 점수 평가 없음');
+ text('#resultDescription',isRanked()?`고정 ${state.speed}× · 완주 기록은 일시정지 여부와 관계없이 직접 온라인 등록할 수 있습니다.${state.interrupted?' · 진행 중 일시정지 이력 있음.':''}`:'직접·보조 촬영과 모형 보완 자료를 구별해서 분석합니다.');
+ text('#resultPrecision',isRanked()?r.centerPrecision.toFixed(1)+'%':'—');text('#resultHits',state.scans.length+'/7');text('#resultAccuracy',state.shots?r.accuracy+'%':'—');text('#resultCombo',r.combo);
+ text('#resultDetails',isRanked()?`촬영 ${r.parts[0].toFixed(1)}/${r.weights[0]} · 명중률 ${r.parts[1].toFixed(1)}/${r.weights[1]} · 콤보 ${r.parts[2].toFixed(1)}/${r.weights[2]} · 타이밍 ${r.parts[3].toFixed(1)}/${r.weights[3]}${r.extra?' · 카오스 보정 +'+r.extra.toFixed(1):''} · 난이도 보정 ${r.multiplier.toFixed(2)}배 × 중심 정밀도 보정 ${r.centerMultiplier.toFixed(3)}배 · 오발 ${r.missPenalty}회 (-${r.missPenalty.toFixed(2)}점) → ${r.score.toFixed(2)}점. 명중 포인트 ${state.points.toFixed(1)} P.`:`직접 촬영 ${state.scans.filter(x=>x.source==='manual').length}장 · 보조 촬영 ${state.scans.filter(x=>x.source==='assisted').length}장 · 모형으로 보완할 날짜 ${7-state.scans.length}개. 사진을 놓쳤어도 탐구를 계속할 수 있습니다.`);
+ const best=profile.bests[state.mode+':'+state.speed];text('#resultBest',isRanked()&&best?`이 기기 · 같은 모드 ${state.speed}× 최고 ${best.score}점`:'학습은 촬영 성공 수보다 관측 근거와 설명을 확인합니다.');
+ text('#resultFootnote',isArena()?'이 외전의 경로는 천문 현상을 나타내지 않는 게임용 궤적입니다.':'촬영하지 못한 날짜를 모형 계산값으로 보완하여 분석할 수 있습니다.');
+ text('#resultNextBtn',isArena()?'모드 선택으로 →':'자료 해석으로 →');
+ // Keep the default private on every finished match. No score is sent automatically.
+ const shareBox=$('#resultSharing');
+ $('#resultRankQuick').hidden=!isRanked();
+ $('#resultRankQuickBtn').disabled=!activeRankSubmission();
+ text('#resultRankQuickHelp',activeRankSubmission()?'오발 -1.00점/회 적용 · 일시정지 여부와 관계없이 완주 기록을 등록할 수 있어요.':'등록 조건을 확인하려면 아래 안내를 확인하세요.');
+ shareBox.hidden=false;
+ text('#resultShareHeading',isRanked()?'내 기록을 온라인 랭킹에 올릴까요?':'자유 탐구 기록은 비공개 학습 자료입니다');
+ $('#resultSharing [value="local"]').checked=true;
+ $('#resultSharing [value="online"]').checked=false;
+ $('#resultShareFields').hidden=true;
+ $('#resultShareConsent').checked=false;
+ $('#resultShareNickname').value=safeRead(leaderboardNicknameKey,'');
+ text('#resultShareStatus',rankSubmissionMessage());
+ refreshResultShareControls();
+ openDialog('#resultDialog','#resultTitle');
+ $('#resultDialog').scrollTop=0;
+}
+function frame(now){
+ raf=0;
+ let dt=lastStamp?Math.max(0,(now-lastStamp)/1000):0;lastStamp=now;
+ if(document.hidden){lastStamp=0;return;}
+ if(needsAnimation()&&dt>1){
+  if(state.stage===1&&state.phase==='countdown'){countdown=3;dt=0;lastStamp=0;}
+  else{pause('화면 갱신이 오래 중단되어 자동으로 정지했습니다.');dt=0;}
+ }
+ if(!isDialogOpen()&&state.stage===1){
+  if(state.phase==='countdown'){
+   $('#gameOverlay').style.pointerEvents='none';countdown-=dt;
+   if(countdown<=0){state.phase='running';lastShot=-Infinity;refreshPlayControls();announce('관측 시작');sound(880,.12);saveSoon();}
+   else{text('#overlayTitle',Math.ceil(countdown));$('#overlayTitle').classList.add('countdown-number');text('#overlayBody','조준점을 표적 가까이에 준비하세요.');$('#overlayActions').hidden=true;$('#gameOverlay').hidden=false;}
+  }else if(state.phase==='running'){
+   const before=state.day;state.elapsed+=dt;state.day=Math.min(lastDay(),state.day+dt*BASE_DAYS_PER_SECOND*state.speed);
+   const {w,h}=Render.surface($('#skyCanvas'),profile.settings.quality);
+   if(keys.size){reticle=reticle||{x:w*.5,y:h*.5};const step=(keys.has('Shift')?65:250)*dt,dx=(keys.has('ArrowRight')?1:0)-(keys.has('ArrowLeft')?1:0),dy=(keys.has('ArrowDown')?1:0)-(keys.has('ArrowUp')?1:0);reticle.x=clamp(reticle.x+dx*step,0,w);reticle.y=clamp(reticle.y+dy*step,0,h);updateReticle();}
+   const p=targetPosition(state.day,w,h),can=eligibleCheckpoint()!==undefined&&reticle&&Math.hypot(reticle.x-p.x,reticle.y-p.y)<=hitRadius();
+   lock=isArena()?(can?1:0):can?Math.min(1,lock+dt/lockSeconds()):0;
+   if(state.mode==='learn'&&state.assist){for(const cp of Astro.TARGETS)if(before<=cp&&state.day>=cp&&!state.scans.some(r=>r.checkpoint===cp))capture(cp,cp,'assisted');}
+   if(state.phase==='running'&&state.day>=lastDay())finishRun();
+   if(now-lastAutosave>3000){lastAutosave=now;saveSoon();}
+  }
+ }
+ if(state.stage===3&&labPlaying&&!isDialogOpen()){
+  state.labDay=Math.min(65,state.labDay+dt*12);
+  if(state.labDay>=65){labPlaying=false;text('#labPlayBtn','처음부터 재생');$('#labPlayBtn').setAttribute('aria-pressed','false');saveSoon();}
+ }
+ const interval=profile.settings.quality==='low'?1000/30:1000/60;
+ if((dirty&&!needsAnimation())||now-lastPaint>=interval){lastPaint=now;dirty=false;if(state.stage===1)drawGame();else if(state.stage===2)Render.analysis($('#analysisCanvas'),Astro.analysisRows(state.scans),state.selected,profile.settings.quality);else drawLab();}
+ if(now-lastHUD>=100||!needsAnimation()){lastHUD=now;if(state.stage===1)renderHUD();else if(state.stage===3)renderLabReadout();}
+ if(needsAnimation()){if(!raf)raf=requestAnimationFrame(frame);}else lastStamp=0;
+}
+
+function seed(n){const v=Math.sin(n*53.923+31.97)*14527.124;return v-Math.floor(v);}
+
+/* Lightweight, cached planet sprites for the non-CHAOS modes. */
+const planetSpriteCache=Object.create(null);
+function getPlanetSprite(kind){
+ if(planetSpriteCache[kind])return planetSpriteCache[kind];
+ const off=document.createElement('canvas');off.width=off.height=192;
+ const g=off.getContext('2d');const cx=96,cy=96,rad=kind==='rush'?68:83;
+ const rush=kind==='rush',ranked=kind==='ranked';
+ // Use fixed deterministic surface markings: identical regardless of frame rate.
+ const surfaceRand=i=>{const n=Math.sin(i*91.73+14.64)*17363.853;return n-Math.floor(n);};
+ const base=g.createRadialGradient(cx-rad*.37,cy-rad*.39,1,cx+rad*.06,cy+rad*.08,rad*1.34);
+ if(rush){
+  base.addColorStop(0,'#ffe1d5');base.addColorStop(.27,'#de8e9d');base.addColorStop(.53,'#a33b66');base.addColorStop(.79,'#462147');base.addColorStop(1,'#080919');
+ }else{
+  base.addColorStop(0,'#ffe0b1');base.addColorStop(.23,'#e99a72');base.addColorStop(.56,'#bf5f4d');base.addColorStop(.82,'#6c343c');base.addColorStop(1,'#221c32');
+ }
+ // The fictional RUSH world has a narrow orbital ring drawn behind the sphere.
+ if(rush){
+  g.save();g.translate(cx,cy);g.rotate(-.34);
+  g.strokeStyle='#e696b14d';g.lineWidth=9;g.beginPath();g.ellipse(0,0,86,28,0,0,Math.PI*2);g.stroke();
+  g.strokeStyle='#ffc8d49c';g.lineWidth=2;g.beginPath();g.ellipse(0,0,86,28,0,0,Math.PI*2);g.stroke();g.restore();
+ }
+ g.save();g.beginPath();g.arc(cx,cy,rad,0,Math.PI*2);g.clip();g.fillStyle=base;g.fillRect(0,0,192,192);
+ // Broad albedo regions / stylized terrain; decorative, not a real Mars surface map.
+ for(let i=0;i<24;i++){
+  const x=cx+(surfaceRand(i*5+1)-.5)*rad*2.1,y=cy+(surfaceRand(i*7+2)-.5)*rad*1.65;
+  const rx=7+surfaceRand(i*13+3)*21,ry=3+surfaceRand(i*17+4)*13;
+  g.save();g.translate(x,y);g.rotate((surfaceRand(i*3+4)-.5)*1.1);g.beginPath();g.ellipse(0,0,rx,ry,0,0,Math.PI*2);
+  g.fillStyle=rush?(i%3?'#53264a46':'#ffb0b04d'):(i%4===0?'#efb07b50':'#6b2f334d');g.fill();g.restore();
+ }
+ // Compact, recognisable craters and volcanic/rocky markings.
+ for(let i=0;i<9;i++){
+  const x=cx+(surfaceRand(i*9+30)-.5)*rad*1.48,y=cy+(surfaceRand(i*8+32)-.5)*rad*1.42;
+  const rr=2.2+surfaceRand(i*5+34)*5;
+  g.strokeStyle=rush?'#ffd2cd45':'#5b263747';g.lineWidth=1.8;g.beginPath();g.ellipse(x,y,rr*1.35,rr*.75,.25,0,Math.PI*2);g.stroke();
+  g.fillStyle=rush?'#411a3144':'#552a294b';g.beginPath();g.ellipse(x+rr*.2,y+.4,rr*.55,rr*.4,0,0,Math.PI*2);g.fill();
+ }
+ if(!rush){
+  // Stylised north polar cap: identifiable on a small Mars icon.
+  g.fillStyle='#fae8d0d0';g.beginPath();g.moveTo(cx-rad*.46,cy-rad*.77);
+  g.bezierCurveTo(cx-rad*.17,cy-rad*1.14,cx+rad*.30,cy-rad*1.06,cx+rad*.56,cy-rad*.78);
+  g.bezierCurveTo(cx+rad*.26,cy-rad*.87,cx+rad*.04,cy-rad*.64,cx-rad*.25,cy-rad*.71);
+  g.closePath();g.fill();
+ }
+ const shade=g.createLinearGradient(cx-rad,cy-rad*.5,cx+rad,cy+rad*.6);
+ shade.addColorStop(0,'#ffebd813');shade.addColorStop(.43,'#00000000');shade.addColorStop(1,'#050610a1');g.fillStyle=shade;g.fillRect(0,0,192,192);
+ g.restore();
+ g.strokeStyle=rush?'#ffcedda9':ranked?'#ffcfaaad':'#e9a57b96';g.lineWidth=1.8;g.beginPath();g.arc(cx,cy,rad-.85,0,Math.PI*2);g.stroke();
+ if(rush){
+  // Short clear front ring makes the arcade planet distinct without hiding the core.
+  g.save();g.translate(cx,cy);g.rotate(-.34);g.strokeStyle='#fff0ee9f';g.lineWidth=2.5;
+  g.beginPath();g.ellipse(0,0,86,28,0,0,Math.PI);g.stroke();g.restore();
+ }else if(ranked){
+  g.strokeStyle='#ffd8a14b';g.lineWidth=1.5;
+  for(const a of [.2,2.25,4.3]){g.beginPath();g.arc(cx,cy,89,a,a+.48);g.stroke();}
+ }
+ planetSpriteCache[kind]=off;return off;
+}
+
+function drawGame(){
+ const cv=$('#skyCanvas'),{c,w,h,dpr}=Render.surface(cv,profile.settings.quality);if(!c||!w||!h)return;
+ const key=[w,h,dpr,state.mode].join(':');
+ if(!runBackground||runBackground.key!==key){
+  const b=document.createElement('canvas');b.width=Math.round(w*dpr);b.height=Math.round(h*dpr);const g=b.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
+  const bg=g.createRadialGradient(w*.5,h*.45,8,w*.5,h*.5,Math.max(w,h)*.8);
+  bg.addColorStop(0,state.mode==='chaos'?'#232326':state.mode==='rush'?'#3b1a30':'#17324e');bg.addColorStop(1,state.mode==='chaos'?'#050507':state.mode==='rush'?'#100911':'#06101f');g.fillStyle=bg;g.fillRect(0,0,w,h);
+  for(let i=0;i<(state.mode==='chaos'?45:150);i++){g.fillStyle=state.mode==='chaos'?'#ddd':'#dce8ff';g.globalAlpha=.2+seed(i*11)*.6;g.beginPath();g.arc(seed(i*19+.1)*w,seed(i*39+.6)*h,.5+seed(i*7)*1.1,0,Math.PI*2);g.fill();}g.globalAlpha=1;
+  g.strokeStyle=state.mode==='chaos'?'#99999918':'#83c5e125';g.lineWidth=1;g.setLineDash([3,8]);
+  for(let i=1;i<5;i++){g.beginPath();g.moveTo(w*i/5,0);g.lineTo(w*i/5,h);g.stroke();}g.setLineDash([]);
+  if(!isArena()){
+   const yEcliptic=marsSkyPosition(0,w,h).y+Astro.latitude(0)*h*.065;
+   g.strokeStyle='#83c5e15b';g.setLineDash([5,6]);g.beginPath();g.moveTo(0,yEcliptic);g.lineTo(w,yEcliptic);g.stroke();g.setLineDash([]);
+   g.font='10px system-ui';g.fillStyle='#a7c8d1';g.textAlign='left';g.fillText('황위 β = 0° · 황도면 기준',12,Math.max(34,yEcliptic-7));
+   // A dim full trajectory offers a scientific reference, not a target guide.
+   // Visible only on the learning mode; never in the ranked arena.
+   if(state.mode==='learn'){
+    g.beginPath();for(let d=START;d<=END;d+=2){const q=marsSkyPosition(d,w,h);if(d===START)g.moveTo(q.x,q.y);else g.lineTo(q.x,q.y);}
+    g.strokeStyle='#8fc4dc2c';g.lineWidth=1.3;g.setLineDash([2,7]);g.stroke();g.setLineDash([]);
+   }
+   g.font='10px Consolas,monospace';g.textAlign='center';g.fillStyle='#a6c0d3';
+   for(const deg of [-20,-10,0,10,20]){const x=w*(.5-deg/52);g.fillText(num(deg,0)+'°',x,h-15);g.beginPath();g.moveTo(x,h-33);g.lineTo(x,h-28);g.stroke();}
+   g.textAlign='left';g.fillStyle='#bdd3e1';g.font='11px system-ui';g.fillText('배경별 · 고정된 관측 기준',13,21);
+  }else{
+   g.strokeStyle=state.mode==='chaos'?'#ddd4':'#f8a6b944';g.lineWidth=1.2;
+   for(const [x,y,s]of [[18,18,1],[w-18,h-18,-1]]){g.beginPath();g.moveTo(x,y+32*s);g.lineTo(x,y);g.lineTo(x+45*s,y);g.stroke();}
+  }
+  runBackground={key,canvas:b};
+ }
+ c.clearRect(0,0,w,h);c.drawImage(runBackground.canvas,0,0,w,h);
+ if(!state.started)return;
+ const p=targetPosition(state.day,w,h),cp=eligibleCheckpoint(),ready=cp!==undefined;
+ if(state.phase==='running'&&!reducesMotion()){
+  for(let i=6;i>=1;i--){const old=targetPosition(Math.max(firstDay(),state.day-i*.16*state.speed),w,h);c.globalAlpha=.025+(.065*(6-i)/6);c.fillStyle=state.mode==='chaos'?'#ddd':state.mode==='rush'?'#f4adc6':'#ffa78b';c.beginPath();c.arc(old.x,old.y,isArena()?4:3,0,Math.PI*2);c.fill();}c.globalAlpha=1;
+ }
+ if(!isArena()){
+  for(const r of state.scans){const q=targetPosition(r.day,w,h);c.strokeStyle=r.source==='assisted'?'#9dbde5aa':'#8af0d899';c.beginPath();c.moveTo(q.x,q.y+13);c.lineTo(q.x,q.y+21);c.stroke();}
+ }
+ const r=state.mode==='chaos'?8.8:state.mode==='learn'?(state.largeTarget?12.5:10.5):state.mode==='ranked'?9.6:11.6;
+ const glow=c.createRadialGradient(p.x,p.y,1,p.x,p.y,state.mode==='chaos'?27:24);
+ glow.addColorStop(0,state.mode==='chaos'?'#eeeeee88':state.mode==='rush'?'#f2a2c45c':'#ffc29a70');
+ glow.addColorStop(1,'#ffb09000');c.fillStyle=glow;c.beginPath();c.arc(p.x,p.y,state.mode==='chaos'?27:24,0,Math.PI*2);c.fill();
+ if(state.mode==='chaos'){
+  // Keep the original monochrome CHAOS target completely unchanged.
+  c.save();c.translate(p.x,p.y);c.rotate(-.4);c.strokeStyle='#dededeb8';c.lineWidth=1.2;c.beginPath();c.ellipse(0,0,15,5.5,0,0,Math.PI*2);c.stroke();c.restore();
+  const planet=c.createRadialGradient(p.x-r*.3,p.y-r*.35,.7,p.x,p.y,r);planet.addColorStop(0,'#ffffff');planet.addColorStop(.4,'#b9b9bf');planet.addColorStop(1,'#15151b');c.fillStyle=planet;c.beginPath();c.arc(p.x,p.y,r,0,Math.PI*2);c.fill();c.strokeStyle='#eee';c.lineWidth=1;c.stroke();
+ }else{
+  // drawImage uses a pre-rendered sprite; no texture work during tracking.
+  const sprite=getPlanetSprite(state.mode==='rush'?'rush':state.mode==='ranked'?'ranked':'mars');
+  c.drawImage(sprite,p.x-r,p.y-r,r*2,r*2);
+ }
+ if(ready){c.strokeStyle=state.mode==='chaos'?'#f1f1f199':'#ffe1a0bb';c.setLineDash([4,5]);c.lineWidth=1;c.beginPath();c.arc(p.x,p.y,hitRadius(),0,Math.PI*2);c.stroke();c.setLineDash([]);}
+ if(!isArena()&&lock>0){c.strokeStyle='#8af0d8';c.lineWidth=3;c.beginPath();c.arc(p.x,p.y,hitRadius()+4,-Math.PI/2,-Math.PI/2+lock*Math.PI*2);c.stroke();}
+ if(state.mode!=='chaos'){c.font='800 11px Consolas,monospace';c.fillStyle='#f6e9d7';c.textAlign='center';c.fillText(isArena()?'TARGET':'MARS',clamp(p.x,35,w-35),Math.max(22,p.y-30));c.textAlign='left';}
+ updateReticle();
+}
+function createTimeline(){
+ const key=isArena()?'arena':'science';if(renderedTimelineMode===key&&checkpointNodes.length)return;
+ renderedTimelineMode=key;lastCheckpointSignature='';$('#checkpoints').replaceChildren();$('#windowMarks').replaceChildren();checkpointNodes=[];windowNodes=[];
+ for(const cp of targets()){
+  const cell=document.createElement('div');cell.className='checkpoint';const b=document.createElement('b'),s=document.createElement('small');b.textContent=checkpointLabel(cp);s.textContent='대기';cell.append(b,s);$('#checkpoints').append(cell);checkpointNodes.push({cell,b,s});
+  const mark=document.createElement('span');mark.style.left=((cp-shotWindow()-firstDay())/(lastDay()-firstDay())*100)+'%';mark.style.width=(shotWindow()*2/(lastDay()-firstDay())*100)+'%';$('#windowMarks').append(mark);windowNodes.push(mark);
+ }
+}
+function renderHUD(){
+ createTimeline();
+ const arena=isArena(),cp=eligibleCheckpoint(),pct=clamp((state.day-firstDay())/(lastDay()-firstDay())*100,0,100);
+ text('#dayHUD',arena?(state.elapsed.toFixed(1)+'s'):dayLabel(state.day));
+ text('#longitudeHUD',arena?state.speed+'× · '+Math.round(pct)+'%':'λ '+degree(Astro.longitude(state.day),1)+' · β '+degree(Astro.latitude(state.day),1));
+ const phase=arena?'arena':phaseName(state.day);
+ text('#motionHUD',arena?state.combo+' COMBO':phase==='stationary'?'정지점 부근':phase==='retro'?'역행 ↘':'순행 ↗');$('#motionHUD').classList.toggle('retro',phase==='retro');
+ if(phase!==lastPhase&&!arena){lastPhase=phase;announce(phase==='retro'?'화성이 역행 구간에 들어갔습니다. 상대 황경이 감소합니다.':phase==='stationary'?'정지점 부근입니다.':'화성이 순행합니다. 상대 황경이 증가합니다.');}
+ const manual=state.scans.filter(r=>r.source==='manual').length;
+ text('#hitsHUD',state.scans.length+'/7 · '+(state.shots?Math.round(manual/state.shots*100)+'%':'—'));
+ text('#lockHUD',arena?(lock?'ON TARGET':'AIM'):Math.round(lock*100)+'%');$('#lockFill').style.width=(lock*100).toFixed(0)+'%';
+ $('#timelineFill').style.width=pct.toFixed(2)+'%';$('#timelineCursor').style.left=pct.toFixed(2)+'%';
+ const pending=targets().find(t=>!state.scans.some(r=>r.checkpoint===t)&&state.day<=t+shotWindow());
+ const waiting=pending===undefined?'모든 구간 종료':`다음 ${checkpointLabel(pending)} · ${Math.max(0,(pending-shotWindow()-state.day)/(BASE_DAYS_PER_SECOND*state.speed)).toFixed(1)}초`;
+ text('#windowHUD',state.phase==='review'?'관측 종료':state.phase==='paused'?'일시정지':cp!==undefined?`${checkpointLabel(cp)} · 지금 촬영 가능`:waiting);
+ const signature=targets().map(t=>state.scans.some(r=>r.checkpoint===t)?'done':cp===t?'ready':state.day>t+shotWindow()?'missed':'').join('|');
+ if(signature!==lastCheckpointSignature){lastCheckpointSignature=signature;signature.split('|').forEach((cls,i)=>{const {cell,s}=checkpointNodes[i];cell.className='checkpoint'+(cls?' '+cls:'');text(s,cls==='done'?'✓ 기록':cls==='ready'?'지금 촬영':cls==='missed'?'지남':'대기');windowNodes[i].className=cls;});}
+ $('#fireBtn').disabled=state.phase!=='running'||cp===undefined;
+ if(state.phase!=='countdown')updateOverlay();
+}
+function updateOverlay(){
+ const el=$('#gameOverlay'),phase=state.phase;el.style.pointerEvents=phase==='countdown'?'none':'auto';$('#overlayTitle').classList.remove('countdown-number');
+ el.hidden=phase==='running';if(el.hidden)return;
+ $('#overlayActions').hidden=false;
+ if(phase==='countdown'){text('#overlayTitle','3');$('#overlayTitle').classList.add('countdown-number');text('#overlayBody','곧 관측이 시작됩니다. 화성의 위치를 확인하고 준비하세요.');$('#overlayActions').hidden=true;}
+ else if(phase==='paused'){text('#overlayTitle','잠시 쉬어가도 괜찮아요.');text('#overlayBody',isRanked()?'잠시 멈춰도 이번 도전은 계속됩니다. 7개 촬영 구간이 끝나면 점수를 등록할 수 있어요.':'모은 사진은 그대로입니다. 준비되면 관측을 이어가세요.');text('#resumePlayBtn','관측 재개');}
+ else if(phase==='review'||phase==='complete'){text('#overlayTitle','관측 기록 준비 완료');text('#overlayBody',isArena()?'이번 도전의 기록을 확인하거나 다시 플레이해보세요.':'수집한 사진과 모형 자료로 황경의 변화를 분석해보세요.');text('#resumePlayBtn','관측 결과 보기');}
+ else {text('#overlayTitle','화성 관측을 준비하세요.');text('#overlayBody','자유 탐구 또는 에임 도전을 골라 시작합니다.');text('#resumePlayBtn','모드 선택');}
+}
+function refreshPlayControls(){
+ const learn=state.mode==='learn',arena=isArena();document.body.dataset.mode=state.mode;
+ $('#stepNav').hidden=arena;$('#scienceDirections').hidden=arena;$('#observeConcept').hidden=arena;$('#analysisNext').hidden=arena;
+ $('#learnOptions').hidden=!learn;$('#speedControl').hidden=!learn;$('#rankSpeedControl').hidden=state.mode!=='ranked'||state.stage!==1;$('#rankSpeedInGame').value=String(state.speed);$('#rewindBtn').hidden=!learn;$('#fireBtn').hidden=!learn;
+ $('#rewindBtn').disabled=!state.started||state.phase==='countdown'||state.analysisVerified||state.stage!==1;
+ $('#speedSelect').value=String(state.speed);$('#speedSelect').disabled=state.analysisVerified||state.phase==='countdown';
+ $('#assistToggle').checked=state.assist;$('#largeTargetToggle').checked=state.largeTarget;
+ $('#assistToggle').disabled=state.analysisVerified||state.phase==='review';
+ $('#pauseBtn').disabled=!state.started||state.phase==='review'||state.phase==='complete';text('#pauseBtn',state.phase==='paused'?'관측 재개':'일시정지');
+ text('#fireBtn','현재 위치 보조 촬영');
+ text('#observeEyebrow',arena?`ARCADE / ${state.speed}× CHALLENGE`:'01 / OBSERVATION');
+ text('#observeTitle',state.mode==='chaos'?'CHAOS PROTOCOL':state.mode==='rush'?'TARGET RUSH':'움직임을 따라, 증거를 모으세요.');
+ text('#observeSubtitle',arena?`약 ${state.mode==='chaos'?'14':'17'}초 동안 7개의 촬영 구간을 공략하세요. 표적을 추적하고 클릭·터치!`:learn?'화성을 추적해 서로 다른 날짜의 사진 7장을 남겨보세요.':'고정 배속으로 7장을 촬영하세요. 조준 잠금이 찬 뒤 클릭하거나 Space를 누릅니다.');
+ text('#modeBadge',currentModeLabel()+(isRanked()?' · '+state.speed+'×'+(state.interrupted?' · 일시정지 이력':''):''));
+ text('#sceneLabel',arena?(state.mode==='chaos'?'Ω INERTIA / REFLECTION':'TARGET RUSH / FREE TRAJECTORY'):'모형 관측 · 황경 λ / 황위 β · 2차원 자취');
+ text('#timeLabel',arena?'도전 경과 시간':'관측일 · 대립 기준');text('#motionLabel',arena?'연속 적중':'배경별 기준 운동');text('#lockLabel',arena?'즉시 판정 · 잠금 대기 없음':'조준 잠금 · 커서를 유지하세요');
+ text('#timelineLabel',arena?'ZONE 1 → 7 · 밝은 구간에서 클릭':'D−65 → D+65 · 목표일 ±8일 촬영');
+ text('#aimHelp',arena?'마우스·터치로 표적을 클릭 · 방향키로 조준 후 Space · 오발 1회당 최종 -1.00점 · 일시정지 후 완주해도 등록 가능.':learn?'마우스 추적 후 클릭 · 방향키 조준(Shift로 미세 조준) · Space 촬영 · P/Esc 정지. 터치는 잠금 후 놓기. 보조 버튼은 보조 기록으로 표시됩니다.':'마우스·방향키로 조준 → 잠금 100% → 클릭/Space. 오발 -1.00점/회 · 일시정지 후에도 완주 기록 등록 가능.');
+ $('#toAnalysisBtn').disabled=!state.started||state.phase==='countdown'||(isRanked()&&state.phase!=='review');
+ text('#analysisNextNote',`현재 촬영 ${state.scans.length}/7 · 나머지 ${7-state.scans.length}개 날짜는 모형값으로 보완합니다.${isRanked()&&state.phase!=='review'?' 도전이 끝나면 분석할 수 있습니다.':''}`);
+ updateOverlay();
+}
+function conceptCount(){return state.checks.filter((a,i)=>a===QUESTIONS[i].correct).length;}
+function requiredExperiments(){return state.experiments.some(e=>e.period===Astro.EARTH)&&state.experiments.some(e=>e.period===Astro.MARS);}
+function refreshSide(){
+ const arena=isArena();text('#sidePhotos',state.scans.length+'/7');text('#sideConcepts',arena?String(state.bestCombo):conceptCount()+'/3');text('#conceptStatLabel',arena?'최고 콤보':'개념 확인');
+ text('#sideEyebrow',arena?'ARCADE BRIEF':'MISSION BRIEF');text('#sideTitle',arena?'7개 구간, 한 번의 도전':'오늘의 탐구 질문');text('#recordTitle',arena?'이번 에임 기록':'나의 탐구 기록');
+ text('#sideQuestion',arena?'시간축의 밝은 구간에서 표적을 명중시키세요. 표적은 게임용 경로를 따라 움직이며 화성의 실제 운동과 무관합니다.':'화성이 실제로 공전 방향을 바꾸지 않아도, 하늘에서는 왜 뒤로 가는 것처럼 보일까요?');
+ $('#sideSteps').hidden=arena;$('#learningChecklist').hidden=arena;$('#rankRecord').hidden=!isRanked();
+ text('#sideHint',arena?'7개 전부 적중해야 CHALLENGER에 도전할 수 있습니다. 기록은 같은 모드·같은 배속에서 비교합니다.':state.stage===1?'역행의 기준은 배경별에 대한 위치 변화입니다. 한 장의 위치만으로는 알 수 없습니다.':state.stage===2?'각도의 부호와 변화의 방향을 구별하세요. 두 값을 뺀 Δλ가 음수인지 확인해보세요.':'687일 조건에서도 관측선은 회전합니다. 상대 배치가 고정되는 것과 하늘에서 멈추는 것은 다릅니다.');
+ const checks=[state.analysisVerified,requiredExperiments(),conceptCount()===3];
+ $$('#learningChecklist li').forEach((li,i)=>{const mark=li.querySelector('span');text(mark,checks[i]?'✓':'○');mark.className=checks[i]?'ok':'';});
+ text('#rankPoints','명중 포인트 '+state.points.toFixed(1)+' P');const best=profile.bests[state.mode+':'+state.speed];text('#bestRecord',best?'이 기기 · 같은 배속 최고 '+best.score.toFixed(2)+'점':'이 기기의 같은 조건 최고 기록 없음');
+ text('#rankRules',arena?(state.mode==='chaos'?'CHAOS: 적중60·명중률16·콤보8·타이밍16 + 적중 보정 최대12점.':'RUSH: 적중55·명중률20·콤보10·타이밍15점.')+' 100점 상한. 외전 티어 경계: 18/30/42/54/66/78/88/96점.':`본편: 촬영35·명중률25·콤보20·타이밍20점 × 배속 보정. 1× 최대66점(GOLD), 14× 최대92점(MASTER). 최고 티어는 외전에서 도전합니다. 티어 경계: 30/45/60/70/80/88/94/98점.`);
+}
+function refreshNav(){
+ $$('#stepNav [data-stage]').forEach(b=>{const n=Number(b.dataset.stage);b.disabled=n>state.maxStage||!state.started;b.classList.toggle('done',n<state.maxStage||state.finished);if(n===state.stage)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});
+}
+function showStage(n){
+ if(isArena()||![1,2,3].includes(n)||n>state.maxStage)return;
+ if(state.stage===1&&state.phase==='running')pause('단계를 이동하여 관측이 정지되었습니다.');
+ labPlaying=false;state.stage=n;clearAim();
+ ['stage1','stage2','stage3'].forEach((id,i)=>$('#'+id).hidden=i+1!==n);
+ if(n===2)renderAnalysis();if(n===3){renderLabControls();renderChecks();}
+ Render.invalidate();runBackground=null;refreshNav();refreshPlayControls();refreshSide();hydrateNotes();saveNow();requestPaint();$('#mainPanel').scrollIntoView({block:'start',behavior:'instant'});$('#mainPanel').focus({preventScroll:true});
+}
+function toAnalysis(){
+ if(isArena()||!state.started||state.phase==='countdown'||(isRanked()&&state.phase!=='review'))return;
+ if($('#resultDialog').open)$('#resultDialog').close();
+ state.phase='review';state.maxStage=Math.max(2,state.maxStage);showStage(2);
+}
+function renderAnalysis(){
+ const rows=Astro.analysisRows(state.scans),intervals=Astro.intervals(rows);
+ const counts={manual:0,assisted:0,model:0};rows.forEach(r=>counts[r.source]++);
+ text('#dataSummary',`직접 촬영 ${counts.manual} · 보조 촬영 ${counts.assisted} · 모형 보완 ${counts.model}. 그래프와 표·보고서는 같은 자료를 사용합니다.`);
+ $('#dataRows').innerHTML=rows.map((r,i)=>`<tr><td>${i+1}</td><td class="mono">${dayLabel(r.day,2)}일</td><td class="mono">${degree(r.lambda,3)}</td><td><span class="source ${r.source}">${SOURCE_LABELS[r.source]}</span></td></tr>`).join('');
+ $('#rateRows').innerHTML=intervals.map(r=>`<tr><td>${dayLabel(r.start,2)} → ${dayLabel(r.end,2)}</td><td class="mono">${degree(r.delta,3)}</td><td>${r.days.toFixed(2)}일</td><td class="mono">${num(r.rate,4)}°/일</td></tr>`).join('');
+ $('#intervalChoices').innerHTML=intervals.map(r=>`<button type="button" class="interval-btn" data-interval="${r.index}" aria-pressed="${state.selected.includes(r.index)}"><b>${r.index+1}번 → ${r.index+2}번 기록</b><span>${dayLabel(r.start)} ~ ${dayLabel(r.end)}</span><span>Δλ ${degree(r.delta,2)}</span></button>`).join('');
+ $('#toLabBtn').disabled=!state.analysisVerified;
+ text('#analysisCompleteNote',state.analysisVerified?'자료 해석을 확인했습니다. 공전 모형으로 원인을 검증해보세요.':'자료 해석을 확인하면 공전 실험이 열립니다.');
+ text('#checkAnalysisBtn',state.analysisVerified?'근거 다시 확인':'선택한 근거 확인');
+ if(state.analysisVerified)feedback('#analysisFeedback','확인 완료. 선택한 구간은 두 기록 사이의 평균 황경 변화가 음수입니다. 그 사이 모든 순간이 역행이었다고 단정할 수는 없으며, 정확한 전환 시점은 다음 모형에서 비교합니다.','good');
+ requestPaint();
+}
+function toggleInterval(i){
+ if(state.stage!==2||!Number.isInteger(i)||i<0||i>5)return;
+ if(state.analysisVerified){toast('이미 확인한 분석입니다. 관측 표와 변화율을 다시 비교해보세요.');return;}
+ state.selected=state.selected.includes(i)?state.selected.filter(x=>x!==i):[...state.selected,i];
+ const button=$(`#intervalChoices [data-interval="${i}"]`);button.setAttribute('aria-pressed',String(state.selected.includes(i)));saveSoon();requestPaint();
+}
+function verifyAnalysis(){
+ if(state.stage!==2)return false;
+ const correct=Astro.intervals(Astro.analysisRows(state.scans)).filter(x=>x.retro).map(x=>x.index),selected=state.selected;
+ const ok=selected.length===correct.length&&correct.every(i=>selected.includes(i));
+ if(ok){state.analysisVerified=true;state.maxStage=3;renderAnalysis();refreshNav();refreshSide();saveNow();sound(850,.13);announce('관측 자료 해석을 확인했습니다. 공전 실험을 시작할 수 있습니다.');}
+ else{const extras=selected.filter(i=>!correct.includes(i)),missing=correct.filter(i=>!selected.includes(i));feedback('#analysisFeedback',selected.length===0?'먼저 황경이 감소한 구간을 선택하세요. 뒤의 값에서 앞의 값을 뺐을 때 음수인지 확인합니다.':extras.length?`${extras.map(i=>(i+1)+'→'+(i+2)).join(', ')}번 기록 구간을 다시 보세요. 그 구간의 Δλ가 음수인가요?`:`선택한 구간은 맞습니다. 황경이 감소하는 구간 ${missing.length}개를 더 찾아보세요.`,'warn');}
+ return ok;
+}
+function changePeriod(period){if(!PERIODS.includes(period)||state.stage!==3)return;state.period=period;state.experimentPrediction='';labPlaying=false;state.labDay=-65;renderLabControls();feedback('#experimentFeedback',`${Math.round(period)}일 조건을 선택했습니다. D−30 → D+30의 황경 변화를 먼저 예측해보세요.`);saveSoon();requestPaint();}
+function renderLabControls(){
+ $$('#periodOptions [data-period]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.period)===state.period)));
+ $$('#experimentPrediction [data-prediction]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.prediction===state.experimentPrediction)));
+ text('#labPlayBtn',labPlaying?'재생 멈추기':state.labDay>=65?'처음부터 재생':'움직임 재생');$('#labPlayBtn').setAttribute('aria-pressed',String(labPlaying));
+ const stations=Astro.stationary(state.period);$('#stationBeforeBtn').disabled=stations.length<2;$('#stationAfterBtn').disabled=stations.length<2;
+ $('#stationBeforeBtn').title=stations.length?'이 원운동 모형에서 계산한 정지점':'이 비교 조건에는 정지점이 없습니다.';$('#stationAfterBtn').title=$('#stationBeforeBtn').title;
+ renderExperimentLog();renderLabReadout();updateCompletion();
+}
+function renderLabReadout(){
+ text('#labDay',dayLabel(state.labDay)+'일');$('#labSlider').value=state.labDay.toFixed(1);$('#labSlider').setAttribute('aria-valuetext',`${dayLabel(state.labDay)}일, ${phaseName(state.labDay,state.period)==='retro'?'역행':phaseName(state.labDay,state.period)==='stationary'?'정지점 부근':'순행'}`);
+ const p=state.period,rate=Astro.rate(state.labDay,p),phase=phaseName(state.labDay,p);
+ text('[data-jump="-55"]',p===Astro.EARTH?'추월 전 · D−55':'D−55');text('[data-jump="55"]',p===Astro.EARTH?'추월 후 · D+55':'D+55');
+ text('#earthRate',(360/p).toFixed(3)+'°/일');text('#apparentRate',num(rate,3)+'°/일');
+ const main=phase==='stationary'?'정지점 부근 · 겉보기 황경 변화율이 0에 가깝습니다. 화성이 태양 주위를 돌다가 멈춘 것은 아닙니다.':phase==='retro'?'역행 · 관측선의 방향 변화로 상대 황경이 감소합니다. 지구와 화성은 계속 같은 방향으로 공전합니다.':'순행 · 배경별 기준 상대 황경이 증가합니다. 실제 공전 방향과 겉보기 이동 방향을 서로 다른 기준으로 비교하세요.';
+ const extra=Math.abs(p-Astro.MARS)<.001?' 같은 각속도이므로 상대 배치는 유지되지만 관측선은 함께 회전합니다.':p===900?' 지구의 주기를 실제와 다르게 가정한 비교 실험입니다.':'';
+ text('#labNarrative',`${dayLabel(state.labDay)} · 황경 λ ${degree(Astro.longitude(state.labDay,p),2)} · 황위 β ${degree(Astro.latitude(state.labDay,p),2)}. ${main}${extra} 화성의 궤도면은 황도면에서 약 1.85° 기울어져 있습니다.`);
+ const signature=p+':'+phase;if(signature!==lastPhase){lastPhase=signature;announce(`${Math.round(p)}일 조건. ${phase==='stationary'?'정지점 부근':phase==='retro'?'역행, 황경 감소':'순행, 황경 증가'}.`);}
+}
+function drawLab(){const q=profile.settings.quality;Render.labOrbit($('#orbitCanvas'),state.labDay,state.period,q);Render.labGraph($('#labGraph'),state.labDay,state.period,q);Render.labSky($('#labSky'),state.labDay,state.period,q);}
+function setLabDay(value){state.labDay=clamp(finite(Number(value),-65),-65,65);labPlaying=false;renderLabControls();saveSoon();requestPaint();}
+function toggleLabPlayback(){if(state.stage!==3||isDialogOpen())return;if(state.labDay>=65)state.labDay=-65;labPlaying=!labPlaying;lastStamp=0;renderLabControls();saveSoon();requestPaint();}
+function experiment(){
+ if(state.stage!==3)return false;
+ if(!Object.hasOwn(PREDICTIONS,state.experimentPrediction)){feedback('#experimentFeedback','먼저 증가·감소·변화 없음 중 하나를 예측해보세요. 예상이 틀려도 불이익은 없습니다.','warn');return false;}
+ const p=state.period,delta=Astro.longitude(30,p)-Astro.longitude(-30,p),observed=Math.abs(delta)<.00001?'same':delta<0?'decrease':'increase',same=observed===state.experimentPrediction;
+ if(!state.experiments.some(e=>e.period===p))state.experiments.push({period:p,prediction:state.experimentPrediction,delta});
+ const explanation=p===Astro.MARS?' 같은 각속도에서는 관측선도 함께 회전하므로 정지하지 않고 순행합니다.':p===Astro.EARTH?' 실제에 가까운 이 조건에서는 대립 전후 황경이 감소합니다.':' 실제와 다른 느린 지구 조건에서는 이 구간의 황경이 증가합니다.';
+ feedback('#experimentFeedback',`${same?'✓ 예측과 일치했어요.':'△ 예측과 실제 결과가 달라요.'} 선택한 예측: ${PREDICTIONS[state.experimentPrediction]} / 실제 관측된 변화: ${PREDICTIONS[observed]}. ${Math.round(p)}일 조건 · D−30 ${degree(Astro.longitude(-30,p),3)} → D+30 ${degree(Astro.longitude(30,p),3)} · Δλ ${degree(delta,3)}. ${same?'관측한 근거를 확인해보세요.':'실패가 아니라 가설을 수정할 단서예요. 왜 다른지 비교해보세요.'}${explanation}`,same?'good':'warn');
+ state.labDay=0;labPlaying=false;renderLabControls();refreshSide();saveNow();requestPaint();sound(780,.11);return true;
+}
+function renderExperimentLog(){
+ $('#experimentLog').innerHTML=state.experiments.map(e=>{const observed=e.delta<0?'decrease':e.delta>0?'increase':'same',matched=e.prediction===observed;return `<article class="experiment-row ${matched?'prediction-match':'prediction-mismatch'}"><span class="prediction-status">${matched?'✓ 예측 일치':'△ 예측 불일치 · 재검토'}</span><br><strong>지구 ${Math.round(e.period)}일 · Δλ ${degree(e.delta,3)}</strong><p>나의 예측: ${PREDICTIONS[e.prediction]} → 실제 결과: ${PREDICTIONS[observed]}${matched?'':' · 생각을 수정할 근거'}</p></article>`;}).join('');
+}
+function renderChecks(){
+ $('#conceptChecks').innerHTML=QUESTIONS.map((q,i)=>`<section class="quiz-item"><h3 id="question${i}">${q.title}</h3><div class="choice-group" role="group" aria-labelledby="question${i}">${q.options.map((o,j)=>`<button class="choice-btn" data-check="${i}" data-option="${j}" aria-pressed="${state.checks[i]===j}">${String.fromCharCode(65+j)} · ${o}</button>`).join('')}</div><p class="quiz-feedback" id="checkFeedback${i}" role="status">${state.checks[i]===null?'관측과 실험을 근거로 골라보세요.':(state.checks[i]===q.correct?'✓ 확인했어요. ':'다시 생각해보세요. ')+q.why}</p></section>`).join('');
+ updateCompletion();
+}
+function answerCheck(index,option){if(state.stage!==3||!Number.isInteger(index)||!QUESTIONS[index]||![0,1].includes(option))return;state.checks[index]=option;if(state.finished&&option!==QUESTIONS[index].correct)state.finished=false;
+ $$(`#conceptChecks [data-check="${index}"]`).forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.option)===option)));
+ text('#checkFeedback'+index,(option===QUESTIONS[index].correct?'✓ 확인했어요. ':'다시 생각해보세요. ')+QUESTIONS[index].why);updateCompletion();refreshSide();saveSoon();
+}
+function updateCompletion(){
+ const n=conceptCount(),required=requiredExperiments(),ok=state.analysisVerified&&required&&n===3;
+ $('#completeBtn').disabled=!ok;
+ text('#completionCriteria',ok?'핵심 탐구를 모두 마쳤습니다. 마지막 설명을 적고 보고서를 확인하세요.':`${required?'필수 두 조건 실험 완료':'365일·687일 두 조건 실험 필요'} · 개념 확인 ${n}/3`);
+ text('#labStatus',state.finished?'탐구 완료':required?'비교 실험 완료':'가설 검증');
+}
+function completeResearch(){
+ if(!state.analysisVerified||!requiredExperiments()||conceptCount()!==3||state.stage!==3)return false;
+ state.finished=true;state.phase='complete';labPlaying=false;refreshNav();refreshSide();saveNow();
+ text('#finalPhotos',state.scans.length+'/7');text('#finalExperiments',state.experiments.length+'조건');text('#finalConcepts',conceptCount()+'/3');
+ const initial=state.notes.initial;
+ text('#predictionCompare',initial?`처음 예측: “${INITIAL_LABELS[initial]}”. ${initial==='view'?'예측과 관측·실험 결과가 연결되었습니다. 어떤 자료가 이 생각을 뒷받침했나요?':'관측과 공전주기 비교에서 어떤 점을 발견했나요? 처음 생각을 바꾼 근거를 남겨보세요.'}`:'처음 예측을 남기지 않았어도 괜찮습니다. 관측 자료와 실험 결과 중 가장 설득력 있었던 근거를 정리해보세요.');
+ hydrateNotes();openDialog('#completeDialog','#reportBtn');sound(980,.17);return true;
+}
+function hydrateNotes(){for(const [id,key] of [['evidenceInput','evidence'],['conclusionInput','conclusion'],['reflectionInput','reflection']])if($('#'+id).value!==state.notes[key])$('#'+id).value=state.notes[key];$$('#initialChoices [data-initial]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.initial===state.notes.initial)));}
+
+function renderMenu(){
+ $('#menuDialog').dataset.preview=pendingMode;
+ $('#menuTitle').innerHTML=pendingMode==='chaos'?'35×<br><em>CHAOS PROTOCOL</em>':'화성은 정말<br><em>뒤로 움직일까?</em>';
+ $$('#modeChoices [data-mode]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.mode===pendingMode));if(b.dataset.mode==='rush'||b.dataset.mode==='chaos')b.setAttribute('aria-disabled',String(!profile.unlocked));b.classList.toggle('armed',b.dataset.mode==='chaos'&&chaosArmed);if(b.dataset.mode==='chaos')b.setAttribute('aria-label',chaosArmed?'CHAOS 봉인 활성화. 한 번 더 누르면 진입합니다.':'CHAOS 모드 선택. 처음 누르면 봉인이 활성화됩니다.');});
+ $('#rankSpeedLabel').hidden=pendingMode!=='ranked';
+ $('#learnSpeedLabel').hidden=pendingMode!=='learn';
+ $('#initialPredictionDetails').hidden=pendingMode==='rush'||pendingMode==='chaos';
+ text('#unlockNote',profile.unlocked?'외전 해금 완료 · TARGET RUSH와 CHAOS를 선택할 수 있습니다.':'외전 해금: 본편에서 보조 없이 7장을 직접 촬영하세요. 자유 탐구에서는 되감아 보충할 수 있습니다.');
+ const hints={learn:'4× 기본. 시작 전 1~8배속 선택 가능 · 관측 중 변경·정지·되감기 가능. 촬영 보조로 학습에 집중하세요.',ranked:'화성 랭크 배속을 위에서 1~14×로 선택하세요. 플레이 중 배속을 변경하면 새 도전으로 시작합니다. 일시정지 후 완주해도 랭킹 등록 가능 · 오발 1회당 -1.00점.',rush:'30× 고정 · 약 17초 · 잠금 없이 클릭 또는 터치 · 천문 모형과 별개',chaos:'35× 고정 · 약 14초 · 관성·벽 반사 · 무채색 행성 · 천문 모형과 별개'};
+ text('#menuModeHint',hints[pendingMode]);
+ text('#startBtn',pendingMode==='learn'?'자유 탐구 시작 →':pendingMode==='ranked'?'화성 랭크 도전 →':pendingMode==='rush'?'TARGET RUSH 시작 →':'Ω CHAOS 진입');
+ text('#menuDescription',pendingMode==='chaos'?'관성과 벽 반사를 따라 움직이는 회색 행성. 짧은 촬영 구간 7개를 놓치지 마세요.':pendingMode==='rush'?'넓은 화면을 빠르게 가로지르는 가상의 경기장 행성을 추적하세요. 이 행성의 고리는 게임용 디자인이며 실제 화성이 아닙니다.':'움직이는 화성을 추적하고, 직접 모은 자료로 역행의 원인을 밝혀보세요. 에임의 재미에 관측·분석·실험을 더했습니다.');
+ $('#resumeBanner').hidden=!state.started;
+ text('#resumeDescription',state.started?`${currentModeLabel()} · ${state.finished?'탐구 완료':state.stage+'단계'} · 촬영 ${state.scans.length}/7. 저장된 기록부터 이어갈 수 있습니다.`:'');
+ text('#menuFootnote',state.started?'새로 시작하면 현재 탐구가 초기화됩니다. 기존 기록은 도움말의 JSON 백업으로 보관할 수 있습니다.':'학습 목표: 관측 증거를 바탕으로 실제 공전과 겉보기 역행을 구별해 설명하기.');
+ hydrateNotes();
+}
+function selectMode(mode){
+ if(!MODES.includes(mode))return;
+ if((mode==='rush'||mode==='chaos')&&!profile.unlocked){text('#menuModeHint','아직 잠겨 있습니다. 본편에서 7장을 직접 촬영한 뒤 도전하세요.');announce('외전 잠금. 본편에서 7장 직접 촬영 필요.');return;}
+ if(inkTransitioning)return;
+ if(mode==='chaos'){
+  if(!chaosArmed&&pendingMode!=='chaos'){chaosArmed=true;renderMenu();sound(212,.11);sound(126,.09);return;}
+  playInkEntrance();return;
+ }
+ pendingMode=mode;chaosArmed=false;renderMenu();sound(480,.08);
+}
+// A short-lived SVG liquid transition. The game canvas never draws this effect.
+function playInkEntrance(){
+ if(inkTransitioning)return;
+ inkTransitioning=true;
+ const gate=$('#inkTransitionDialog');
+ const main=$('#inkMain'),under=$('#inkUnder'),edge=$('#inkEdge');
+ const drops=$$('#inkDroplets circle');
+ const reduced=reducesMotion();
+ // 6-10 bezier bulges create a heavy, irregular boundary rather than a growing sphere.
+ function wavePath(amount,phase=0,offset=0,outline=false){
+  const p=clamp(amount,0,1);
+  const level=690-790*p+offset;
+  const amp=clamp(Math.min(p,1-p)*4.5,0,1)*31;
+  const top=[];for(let i=0;i<=14;i++){
+   const x=1000*i/14;
+   const noise=Math.sin(i*.87+phase)*.53+Math.cos(i*1.67-phase*.7)*.33+Math.sin(i*.28+phase*.38)*.14;
+   top.push([x,level+noise*amp]);
+  }
+  let d='M '+top[0][0]+' '+top[0][1];
+  for(let i=1;i<top.length;i++){
+   const [x0,y0]=top[i-1],[x1,y1]=top[i];
+   d+=' Q '+((x0+x1)/2).toFixed(1)+' '+((y0+y1)/2+(Math.sin(i*1.3+phase)*amp*.32)).toFixed(1)+' '+x1.toFixed(1)+' '+y1.toFixed(1);
+  }
+  return outline?d:d+' L 1000 700 L 0 700 Z';
+ }
+ function paint(p,elapsed){
+  const phase=elapsed*.004;
+  main.setAttribute('d',wavePath(p,phase));
+  under.setAttribute('d',wavePath(clamp(p+.036,0,1),phase+.25,6));
+  edge.setAttribute('d',wavePath(p,phase,0,true));
+  drops.forEach((c,i)=>{
+   const level=690-790*p, x=95+i*161+Math.sin(phase+i)*22;
+   const y=level+32+Math.sin(i*2.4+phase)*20;
+   c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',7+(i%3)*4);
+   c.setAttribute('opacity',p>.06&&p<.96?.72:0);
+  });
+ }
+ const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+ const fillDuration=reduced?140:950;
+ const holdDuration=reduced?65:220;
+ const drainDuration=reduced?150:900;
+ const start=performance.now();
+ let swapped=false;
+ gate.showModal();gate.focus({preventScroll:true});
+ function frameInk(now){
+  if(!gate.open){inkTransitioning=false;return;}
+  const t=now-start;
+  if(t<fillDuration){paint(ease(t/fillDuration),t);}
+  else if(t<fillDuration+holdDuration){paint(1,t);if(!swapped){swapped=true;pendingMode='chaos';chaosArmed=false;renderMenu();sound(142,.12);}}
+  else if(t<fillDuration+holdDuration+drainDuration){
+   if(!swapped){swapped=true;pendingMode='chaos';chaosArmed=false;renderMenu();}
+   paint(1-ease((t-fillDuration-holdDuration)/drainDuration),t);
+  }else{paint(0,t);gate.close();inkTransitioning=false;$('#startBtn').focus({preventScroll:true});return;}
+  requestAnimationFrame(frameInk);
+ }
+ requestAnimationFrame(frameInk);
+}
+$('#inkTransitionDialog').addEventListener('cancel',e=>e.preventDefault());
+
+function showMenu(startScreen=false){
+ if(['running','countdown'].includes(state.phase)&&state.stage===1)pause('모드 선택을 열어 관측을 정지했습니다.');
+ labPlaying=false;for(const d of $$('dialog'))if(d.open)d.close();
+ // Always display the learning/home screen when opening the HTML file,
+ // even if the last saved run was in CHAOS. Preserve saved state for Resume.
+ const isInitialEntry=startScreen===true;
+ pendingMode=isInitialEntry?'learn':state.mode;
+ chaosArmed=false;
+ if(pendingMode==='ranked')$('#rankSpeed').value=String(state.speed);
+ if(pendingMode==='learn'&&state.mode==='learn'&&state.started)$('#learnSpeed').value=String(state.speed);
+ renderMenu();
+ if(isInitialEntry)document.body.dataset.mode='learn';
+ openDialog('#menuDialog',state.started?'#resumeBtn':'#startBtn');
+}
+function resumeExisting(){
+ closeDialog('#menuDialog');
+ if(state.stage===1&&state.started&&['paused','ready','countdown'].includes(state.phase)){
+  // Saved sessions restore as paused for safety. 'Continue' now enters a
+  // proper countdown, so the first screen never resembles a manual pause.
+  state.phase='countdown';countdown=3;lastStamp=0;lastShot=-Infinity;clearAim();
+  feedback('#observationMessage','이어서 관측합니다. 카운트다운이 끝나면 표적을 추적하세요.','good');
+  saveSoon();
+ }
+ refreshAll();
+ if(state.stage===1){focusCanvas();if(state.phase==='review')showResult();}
+ else $('#mainPanel').focus({preventScroll:true});
+ if(state.finished)completeResearch();
+}
+function applySettings(){
+ document.body.classList.toggle('reduce-motion',reducesMotion());$('#qualitySelect').value=profile.settings.quality;$('#motionToggle').checked=profile.settings.reduced;
+ text('#soundBtn',profile.settings.muted?'소리 끔':'소리 켬');$('#soundBtn').setAttribute('aria-pressed',String(!profile.settings.muted));
+ Render.invalidate();runBackground=null;requestPaint();
+}
+function refreshAll(){
+ ['stage1','stage2','stage3'].forEach((id,i)=>$('#'+id).hidden=i+1!==state.stage);
+ if(state.stage===2)renderAnalysis();if(state.stage===3){renderLabControls();renderChecks();}
+ refreshPlayControls();refreshNav();refreshSide();hydrateNotes();applySettings();if(state.stage===1)renderHUD();requestPaint();
+}
+function download(filename,content,mime){
+ const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+function reportText(){
+ const rows=Astro.analysisRows(isArena()?[]:state.scans),intervals=Astro.intervals(rows);
+ const lines=['ASTRA-7 / 화성 역행 탐구 보고서','========================================',
+ '생성 시각: '+new Date().toISOString()+' (UTC)','활동 상태: '+(state.finished?'탐구 완료':'진행 중'),'플레이 모드: '+currentModeLabel(),
+ '모형: 황경은 등속 원운동, 황위는 화성 궤도면 기울기 약 1.85°를 근사 적용; 지구 365.256일, 화성 686.980일, 반지름비 1 : 1.524',
+ '좌표: 임의의 대립 방향을 0°로 삼은 상대 황경. 실제 날짜나 천문력의 절대 황경이 아님.','',
+ '[1] 관측 전 나의 예측',INITIAL_LABELS[state.notes.initial]||'작성하지 않음','',
+ '[2] 관측 자료와 출처','직접 촬영·보조 촬영 모두 게임의 모형에서 얻은 자료. 모형 보완은 촬영하지 않은 목표일의 계산값.',
+ ...rows.map((r,i)=>`${i+1}. 목표 ${dayLabel(r.checkpoint,0)} / 기록 ${dayLabel(r.day,3)}일 / 상대 황경 ${degree(r.lambda,5)} / ${SOURCE_LABELS[r.source]}`),'',
+ '[3] 두 기록 사이의 평균 변화',
+ ...intervals.map(r=>`${r.index+1}→${r.index+2}: ${dayLabel(r.start,3)} ~ ${dayLabel(r.end,3)} / Δλ ${degree(r.delta,5)} / Δt ${r.days.toFixed(3)}일 / 평균 ${num(r.rate,5)}°/일 / ${r.retro?'평균적으로 황경 감소':'평균적으로 황경 증가'}`),
+ '두 점 사이의 평균 변화는 그 사이 모든 순간의 운동과 같지 않을 수 있음. 7장의 자료만으로 정확한 정지점 날짜를 측정할 수 없음.',
+ '자료 해석 확인: '+(state.analysisVerified?'완료':'미완료'),'내가 작성한 관측 근거: '+(state.notes.evidence||'작성하지 않음'),'',
+ '[4] 공전주기 비교 실험 · 궤도 반지름과 화성 조건은 고정',
+ ...(state.experiments.length?state.experiments.map(e=>`지구 ${e.period}일 / 처음 예측: ${PREDICTIONS[e.prediction]} / D−30 ${degree(Astro.longitude(-30,e.period),5)} → D+30 ${degree(Astro.longitude(30,e.period),5)} / Δλ ${degree(e.delta,5)}`):['실험 기록 없음']),
+ '같은 각속도에서는 상대 배치는 유지되지만 관측선은 함께 회전하므로, 배경별에 대해 정지하지 않고 순행함.',
+ '실제 태양계에서는 공전주기와 궤도 크기가 연결됨. 이 비교는 주기만 독립적으로 바꾸는 가상 실험임.','',
+ '[5] 개념 확인',...QUESTIONS.map((q,i)=>`${q.title} / ${state.checks[i]===null?'미응답':q.options[state.checks[i]]} / ${state.checks[i]===q.correct?'확인 완료':'추가 확인 필요'}`),
+ '참고: 게임의 문항 확인 결과이며, 서술 설명이나 실제 학습 성취를 자동 평가한 점수는 아님.','',
+ '[6] 나의 설명과 성찰','최종 설명: '+(state.notes.conclusion||'작성하지 않음'),'처음 생각에서 달라진 점: '+(state.notes.reflection||'작성하지 않음'),'',
+ '[7] 과학적 해석과 모형의 한계',
+ '화성은 태양 주위를 계속 같은 방향으로 공전한다. 관측자인 지구의 운동 때문에 관측선의 방향이 바뀌며, 배경별 기준 황경이 감소하는 구간이 겉보기 역행이다.',
+ `이 모형의 정지점: ${Astro.stationary().map(x=>dayLabel(x,3)).join(', ')}일. 대립일 D0과 구별해야 한다.`,
+ `기본 공전주기로 계산한 회합주기: 약 ${Astro.synodic().toFixed(2)}일. 역행의 지속기간이 아니라 유사한 상대 배치의 반복 간격이다.`,
+ '실제 타원궤도·정확한 교점 방향·밝기·각지름 변화·일주운동·관측 장소·실제 별자리·정밀 천문력은 재현하지 않는다. 황위는 기울기 근사값이며 표시용 화성과 별은 실제 축척이 아니다.','',
+ '[8] 에임 기록 · 학습 확인과 별도',
+ '직접 촬영 '+state.scans.filter(r=>r.source==='manual').length+'장 / 보조 촬영 '+state.scans.filter(r=>r.source==='assisted').length+'장',
+ '입력 방식: '+(state.inputType||'보조 또는 미기록'),'수동 촬영 시도: '+state.shots+' / 최고 콤보: '+state.bestCombo,
+ isRanked()?`선택 배속 ${state.speed}× / 에임 ${rankMetrics().score}/100 / ${rankMetrics().tier} / ${state.interrupted?'중단 후 완주 가능':'도전 기록'} / 명중 포인트 ${state.points}P`:'자유 탐구이므로 랭크 평가 없음','',
+ '[9] 참고 자료',...Astro.source_urls.map(s=>typeof s==='string'?s:(s.url||JSON.stringify(s)))];
+ return lines.join('\r\n');
+}
+function exportReport(){saveNow();download('ASTRA7_화성역행_탐구보고서.txt','\ufeff'+reportText(),'text/plain;charset=utf-8');}
+function exportCSV(){
+ const rows=Astro.analysisRows(state.scans),intervals=Astro.intervals(rows);
+ const quote=v=>'"'+String(v).replaceAll('"','""')+'"';
+ const header=['번호','목표일_D','기록일_D','모형_상대황경_deg','자료출처','이전기록부터_Δt_day','이전기록부터_Δλ_deg','이전기록부터_평균변화율_deg_per_day'];
+ const data=rows.map((r,i)=>[i+1,r.checkpoint,r.day.toFixed(5),r.lambda.toFixed(6),SOURCE_LABELS[r.source],i?intervals[i-1].days.toFixed(5):'',i?intervals[i-1].delta.toFixed(6):'',i?intervals[i-1].rate.toFixed(6):'']);
+ download('ASTRA7_모형관측자료.csv','\ufeff'+[header,...data].map(row=>row.map(quote).join(',')).join('\r\n'),'text/csv;charset=utf-8');
+}
+function exportBackup(){saveNow();download('ASTRA7_진행백업.json',JSON.stringify(bundle(),null,2),'application/json;charset=utf-8');text('#backupStatus','현재 진행과 메모를 JSON 파일로 내보냈습니다. 다른 브라우저에서 이 파일을 불러올 수 있습니다.');}
+async function importBackup(file){
+ if(!file)return false;
+ try{
+  if(file.size>500000)throw new Error('파일 크기가 너무 큽니다. ASTRA-7에서 내보낸 JSON 백업을 골라주세요.');
+  const b=JSON.parse(await file.text());if(!b||b.app!=='ASTRA7'||b.version!==VERSION||!b.state||!b.profile)throw new Error('이 버전의 ASTRA-7 백업 파일이 아닙니다.');
+  const next=normalizeState(b.state),nextProfile=normalizeProfile(b.profile);
+  if((next.mode==='rush'||next.mode==='chaos')&&!nextProfile.unlocked)throw new Error('외전 해금 정보가 없는 백업입니다.');
+  if(state.started&&!window.confirm('현재 진행을 백업 파일의 기록으로 바꿀까요? 현재 기록이 필요하면 먼저 JSON 백업을 내려받으세요.'))return false;
+  state=next;profile=nextProfile;labPlaying=false;clearAim();Render.invalidate();runBackground=null;hydrateNotes();saveNow();refreshAll();
+  text('#backupStatus','백업을 불러왔습니다. 게임 도중의 기록은 일시정지 상태로 복원됩니다.');
+  text('#resumeDescription',currentModeLabel()+' · '+state.stage+'단계');return true;
+ }catch(e){text('#backupStatus','불러오기 실패: '+(e.message||'파일 형식을 확인해 주세요.'));return false;}
+ finally{$('#restoreInput').value='';}
+}
+
+// Event bindings. Canvas keys never intercept text fields or native button keys.
+$('#startBtn').addEventListener('click',()=>{
+ if(state.started&&!window.confirm('새 임무를 시작하면 현재 관측·분석·메모가 초기화됩니다. 새로 시작할까요?'))return;
+ const speed=pendingMode==='ranked'?Number($('#rankSpeed').value):pendingMode==='learn'?Number($('#learnSpeed').value):30;startSession(pendingMode,speed);
+});
+$('#modeChoices').addEventListener('click',ev=>{const b=ev.target.closest('[data-mode]');if(b)selectMode(b.dataset.mode);});
+$('#resumeBtn').addEventListener('click',resumeExisting);
+$('#chaosBackBtn').addEventListener('click',()=>selectMode('learn'));
+$('#menuBtn').addEventListener('click',showMenu);
+$('#menuDialog').addEventListener('cancel',ev=>{if(!state.started){ev.preventDefault();return;}ev.preventDefault();resumeExisting();});
+$('#initialChoices').addEventListener('click',ev=>{const b=ev.target.closest('[data-initial]');if(!b)return;state.notes.initial=b.dataset.initial;hydrateNotes();text('#initialPredictionStatus','예측을 기록했습니다. 마지막에 관측·실험 결과와 비교해보세요.');saveSoon();});
+$('#pauseBtn').addEventListener('click',togglePause);
+$('#resumePlayBtn').addEventListener('click',resume);
+$('#rewindBtn').addEventListener('click',rewind);
+$('#fireBtn').addEventListener('click',()=>scan('assisted'));
+$('#speedSelect').addEventListener('change',ev=>{const v=Number(ev.target.value);if(state.mode==='learn'&&LEARN_SPEEDS.includes(v)&&!state.analysisVerified){state.speed=v;lock=0;renderHUD();saveSoon();}});
+$('#rankSpeedInGame').addEventListener('change',ev=>{
+ const requested=Number(ev.target.value);
+ if(state.mode!=='ranked'||!SPEEDS.includes(requested)||requested===state.speed)return;
+ // Ranked leaderboards compare fixed-speed rounds; never alter an ongoing round in-place.
+ if(!window.confirm(`${requested}×로 바꾸면 현재 화성 랭크 도전이 초기화됩니다. ${requested}× 새 도전을 시작할까요?`)){
+  ev.target.value=String(state.speed);return;
+ }
+ $('#rankSpeed').value=String(requested);
+ startSession('ranked',requested);
+});
+$('#assistToggle').addEventListener('change',ev=>{if(state.mode!=='learn')return;state.assist=ev.target.checked;feedback('#observationMessage',state.assist?'앞으로 지나는 목표일에 자동 기록합니다. 이미 지난 목표일은 되감기로 다시 관측할 수 있습니다. 자료에 보조 촬영으로 표시됩니다.':'촬영 보조를 껐습니다. 표적을 추적하고 잠금이 차면 직접 촬영하세요.');saveSoon();});
+$('#largeTargetToggle').addEventListener('change',ev=>{state.largeTarget=ev.target.checked;requestPaint();saveSoon();});
+$('#toAnalysisBtn').addEventListener('click',toAnalysis);
+$('#resultNextBtn').addEventListener('click',()=>isArena()?showMenu():toAnalysis());
+$('#resultMenuBtn').addEventListener('click',showMenu);
+$('#retryBtn').addEventListener('click',()=>startSession(state.mode,state.speed));
+$('#resultDialog').addEventListener('cancel',ev=>{ev.preventDefault();closeDialog('#resultDialog','#resumePlayBtn');});
+$('#stepNav').addEventListener('click',ev=>{const b=ev.target.closest('[data-stage]');if(b&&!b.disabled)showStage(Number(b.dataset.stage));});
+$('#intervalChoices').addEventListener('click',ev=>{const b=ev.target.closest('[data-interval]');if(b)toggleInterval(Number(b.dataset.interval));});
+$('#checkAnalysisBtn').addEventListener('click',verifyAnalysis);
+$('#analysisHintBtn').addEventListener('click',()=>{feedback('#analysisFeedback','뒤의 상대 황경에서 앞의 상대 황경을 빼보세요. 예: +4°에서 −1°로 바뀌면 Δλ=−5°이므로 감소입니다. −7°에서 −6°로 바뀌면 Δλ=+1°이므로 증가입니다.','warn');$('#rateDetails').open=true;});
+$('#toLabBtn').addEventListener('click',()=>{if(state.analysisVerified)showStage(3);});
+$('#periodOptions').addEventListener('click',ev=>{const b=ev.target.closest('[data-period]');if(b)changePeriod(Number(b.dataset.period));});
+$('#experimentPrediction').addEventListener('click',ev=>{const b=ev.target.closest('[data-prediction]');if(b&&Object.hasOwn(PREDICTIONS,b.dataset.prediction)){state.experimentPrediction=b.dataset.prediction;renderLabControls();saveSoon();}});
+$('#experimentBtn').addEventListener('click',experiment);
+$('#labSlider').addEventListener('input',ev=>setLabDay(ev.target.value));
+$('#labPlayBtn').addEventListener('click',toggleLabPlayback);
+$$('[data-jump]').forEach(b=>b.addEventListener('click',()=>setLabDay(b.dataset.jump)));
+$('#stationBeforeBtn').addEventListener('click',()=>{const s=Astro.stationary(state.period);if(s.length)setLabDay(s[0]);});
+$('#stationAfterBtn').addEventListener('click',()=>{const s=Astro.stationary(state.period);if(s.length)setLabDay(s[1]);});
+$('#conceptChecks').addEventListener('click',ev=>{const b=ev.target.closest('[data-check]');if(b)answerCheck(Number(b.dataset.check),Number(b.dataset.option));});
+$('#completeBtn').addEventListener('click',completeResearch);
+$('#completeBackBtn').addEventListener('click',()=>{closeDialog('#completeDialog','#completeBtn');renderLabControls();});
+$('#completeDialog').addEventListener('cancel',ev=>{ev.preventDefault();closeDialog('#completeDialog','#completeBtn');});
+for(const [id,key]of [['evidenceInput','evidence'],['conclusionInput','conclusion'],['reflectionInput','reflection']])$('#'+id).addEventListener('input',ev=>{state.notes[key]=ev.target.value.slice(0,3500);saveSoon();});
+$('#csvBtn').addEventListener('click',exportCSV);$('#finalCsvBtn').addEventListener('click',exportCSV);$('#reportBtn').addEventListener('click',exportReport);
+$('#soundBtn').addEventListener('click',()=>{profile.settings.muted=!profile.settings.muted;applySettings();sound(580,.09);saveSoon();});
+$('#helpBtn').addEventListener('click',()=>{pause('도움말을 열어 관측을 정지했습니다.');labPlaying=false;applySettings();openDialog('#helpDialog','#closeHelpBtn');});
+$('#closeHelpBtn').addEventListener('click',()=>closeDialog('#helpDialog','#helpBtn'));
+$('#helpDialog').addEventListener('cancel',ev=>{ev.preventDefault();closeDialog('#helpDialog','#helpBtn');});
+$('#qualitySelect').addEventListener('change',ev=>{profile.settings.quality=ev.target.value==='low'?'low':'standard';applySettings();saveSoon();});
+$('#motionToggle').addEventListener('change',ev=>{profile.settings.reduced=ev.target.checked;applySettings();saveSoon();});
+if(mediaMotion?.addEventListener)mediaMotion.addEventListener('change',applySettings);
+$('#backupBtn').addEventListener('click',exportBackup);
+$('#restoreLabel').addEventListener('click',()=>$('#restoreInput').click());
+$('#restoreInput').addEventListener('change',ev=>importBackup(ev.target.files?.[0]));
+
+const canvas=$('#skyCanvas');
+canvas.addEventListener('pointerdown',ev=>{
+ if(state.stage!==1||state.phase!=='running'||isDialogOpen()||(ev.pointerType==='mouse'&&ev.button!==0))return;
+ ev.preventDefault();focusCanvas();aimAt(ev);
+ if(ev.pointerType==='mouse'||isArena()){scan(ev.pointerType==='mouse'?'mouse':ev.pointerType||'touch');}
+ else {activePointer=ev.pointerId;try{canvas.setPointerCapture(ev.pointerId);}catch(e){}}
+});
+canvas.addEventListener('pointermove',ev=>{if(activePointer!==null&&ev.pointerId!==activePointer)return;aimAt(ev);});
+canvas.addEventListener('pointerup',ev=>{if(activePointer===ev.pointerId){aimAt(ev);scan(ev.pointerType||'touch');activePointer=null;try{canvas.releasePointerCapture(ev.pointerId);}catch(e){}clearAim();}});
+canvas.addEventListener('pointerleave',()=>{if(activePointer===null)clearAim();});
+canvas.addEventListener('pointercancel',clearAim);
+canvas.addEventListener('lostpointercapture',()=>{activePointer=null;clearAim();});
+canvas.addEventListener('contextmenu',ev=>ev.preventDefault());
+canvas.addEventListener('keydown',ev=>{
+ if(!state.started||state.stage!==1||isDialogOpen())return;
+ if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Shift'].includes(ev.key)){ev.preventDefault();keys.add(ev.key);recordInput('keyboard');if(!reticle){const {w,h}=Render.surface(canvas,profile.settings.quality);reticle={x:w*.5,y:h*.5};}requestPaint();}
+ if((ev.code==='Space'||ev.key==='Enter')&&!ev.repeat){ev.preventDefault();scan('keyboard');}
+});
+window.addEventListener('keyup',ev=>keys.delete(ev.key));
+window.addEventListener('keydown',ev=>{
+ if(isDialogOpen()||ev.target?.matches?.('input,textarea,select,[contenteditable="true"]'))return;
+ if((ev.key==='p'||ev.key==='P'||ev.key==='Escape')&&!ev.repeat){ev.preventDefault();if(state.stage===3){labPlaying=false;renderLabControls();requestPaint();}else togglePause();}
+});
+canvas.addEventListener('blur',()=>{keys.clear();lock=0;});
+window.addEventListener('blur',()=>{keys.clear();lastStamp=0;/* 창 포커스만 잠깐 바뀌어도 시작/카운트다운을 중단하지 않습니다. */});
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden){
+  if(state.stage===1&&state.phase==='countdown'){countdown=3;lastStamp=0;}
+  else if(state.stage===1&&state.phase==='running')pause('탭을 떠나 관측이 자동으로 정지됐습니다. 이어서 완주하면 랭킹에 등록할 수 있습니다.');
+  if(labPlaying)pause('다른 탭으로 이동해 실험을 정지했습니다.');
+  if(raf){cancelAnimationFrame(raf);raf=0;}saveNow();
+ }else{lastStamp=0;requestPaint();}
+});
+window.addEventListener('pagehide',saveNow);
+function resized(){Render.invalidate();runBackground=null;clearAim();requestPaint();}
+window.addEventListener('resize',resized);
+if(typeof ResizeObserver!=='undefined'){const ro=new ResizeObserver(resized);$$('canvas').forEach(cv=>ro.observe(cv));}
+
+
+/* Leaderboard: zero network requests until configured and explicitly opened.
+   Firebase web config is public; service account private keys must NEVER be used in this file. */
+const ONLINE_SDK_VERSION='13.4.0';
+const LB_BOARD_OPTIONS=[['ranked_1','화성 랭크 1×'],['ranked_2','화성 랭크 2×'],['ranked_4','화성 랭크 4×'],['ranked_6','화성 랭크 6×'],['ranked_8','화성 랭크 8×'],['ranked_10','화성 랭크 10×'],['ranked_12','화성 랭크 12×'],['ranked_14','화성 랭크 14×'],['rush_30','TARGET RUSH 30×'],['chaos_35','CHAOS 35×']];
+const leaderboardRecordKey='astra7_precision_best_v1';
+const leaderboardNicknameKey='astra7_leader_nickname_v1';
+let firebaseClientPromise=null,leaderboardLoading=false,onlineUid=null,onlineConnectionStatus='',returnToMatchResult=false;
+function boardKey(mode=state.mode,speed=state.speed){return mode+'_'+speed;}
+function boardEnabled(){const c=window.ASTRA7_FIREBASE_CONFIG||{};return Boolean(c.apiKey&&c.projectId&&c.appId&&c.authDomain);}
+function safeRead(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback;}catch(e){return fallback;}}
+function safeWrite(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
+function getLocalPrecisionBests(){const saved=safeRead(leaderboardRecordKey,{});return saved&&typeof saved==='object'?saved:{};}
+function rememberPrecisionBest(result){
+ if(!result?.eligible)return;
+ const k=boardKey(result.mode,result.speed),records=getLocalPrecisionBests(),old=records[k];
+ if(!old||result.score>old.score){
+  records[k]={mode:result.mode,speed:result.speed,score:result.score,tier:result.tier,precision:result.centerPrecision,hits:result.hits,accuracy:result.accuracy,combo:result.combo,date:new Date().toISOString()};
+  safeWrite(leaderboardRecordKey,records);
+ }
+}
+function activeRankSubmission(){
+ // A completed round remains eligible after moving to the science analysis pages.
+ // Opening a leaderboard does not revoke a completed round.
+ if(!state.started||!['review','complete'].includes(state.phase)||!isRanked())return null;
+ const manuallyCaptured=state.scans.filter(x=>x.source==='manual');
+ if(!manuallyCaptured.every(x=>Number.isFinite(x.precision)))return null;
+ const r=rankMetrics();return r.eligible?r:null;
+}
+function savedRankSubmission(key){
+ const row=getLocalPrecisionBests()[key];
+ // Earlier builds did not keep bestCombo in the local snapshot; never invent it.
+ if(!row||!MODES.includes(row.mode)||row.mode==='learn'||!Number.isFinite(row.score)||!Number.isFinite(row.precision)||!Number.isInteger(row.combo)||!Number.isInteger(row.hits)||!Number.isInteger(row.accuracy)||!RANK_BADGES[row.tier])return null;
+ if(boardKey(row.mode,row.speed)!==key)return null;
+ return {mode:row.mode,speed:row.speed,score:row.score,tier:row.tier,centerPrecision:row.precision,hits:row.hits,accuracy:row.accuracy,combo:row.combo,eligible:true,saved:true};
+}
+function currentSubmission(key=boardKey()){
+ const recent=activeRankSubmission(),stored=savedRankSubmission(key);
+ const matching=recent&&boardKey(recent.mode,recent.speed)===key?recent:null;
+ // Prefer the best legitimate completed record, even if the user has moved on
+ // to a different game/analysis stage. Registration is still always opt-in.
+ return stored&&(!matching||stored.score>matching.score)?stored:matching;
+}
+function rankSubmissionMessage(){
+ if(state.mode==='learn')return '자유 탐구는 학습 전용이라 랭킹에 등록하지 않습니다. 화성 랭크 도전·외전·카오스를 선택하세요.';
+ if(!state.started||!['review','complete'].includes(state.phase))return '랭크 도전이 끝나야 기록을 등록할 수 있습니다.';
+ if(state.scans.some(x=>x.source==='manual'&&!Number.isFinite(x.precision)))return '이전 버전에서 기록된 조준 데이터에는 정밀도가 없습니다. 최신판으로 새 도전을 완료해 주세요.';
+ return '기본값은 비공개입니다. 온라인 등록을 선택하고 닉네임과 동의를 입력한 뒤 등록 버튼을 누르세요.';
+}
+function validRankNickname(nick){return /^[가-힣a-zA-Z0-9_ .-]{2,18}$/u.test(nick.trim().replace(/\s+/g,' '));}
+function refreshResultShareControls(){
+ const box=$('#resultSharing'),choice=$('#resultSharing [name="resultShareChoice"]:checked')?.value;
+ if(!box)return;
+ const eligible=Boolean(activeRankSubmission());
+ $('#resultSharing [value="online"]').disabled=!eligible;
+ $('#resultShareFields').hidden=choice!=='online'||!eligible;
+ const ready=eligible&&boardEnabled()&&choice==='online'&&$('#resultShareConsent').checked&&validRankNickname($('#resultShareNickname').value)&&!leaderboardLoading;
+ $('#resultShareSubmitBtn').disabled=!ready;
+ if(!eligible){text('#resultShareStatus',rankSubmissionMessage());return;}
+ if(choice==='online'&&!boardEnabled())text('#resultShareStatus','Firebase 연결값이 없어 온라인 등록할 수 없습니다.');
+ else if(choice==='local')text('#resultShareStatus','현재는 내 기기에만 저장됩니다. 다른 기기에 공개하려면 오른쪽의 온라인 등록을 선택하세요.');
+ else text('#resultShareStatus',!$('#resultShareConsent').checked?'닉네임을 입력하고 공개 동의를 선택해야 등록 버튼이 활성화됩니다.':!validRankNickname($('#resultShareNickname').value)?'닉네임은 한글·영문·숫자·공백·_·-·. 을 사용하여 2~18자로 입력하세요.':'준비됐습니다. 「이 기록 온라인 등록」을 눌러야 실제로 공개됩니다.');
+}
+function refreshLeaderboardSubmitState(){
+ const b=$('#leaderboardSubmitBtn');if(!b)return;
+ const key=$('#leaderboardMode')?.value,r=currentSubmission(key);
+ const matching=r&&boardKey(r.mode,r.speed)===key;
+ b.disabled=!matching||!boardEnabled()||leaderboardLoading||!$('#leaderboardConsent').checked||!validRankNickname($('#leaderboardNickname').value);
+ text('#leaderboardSubmitNote',!boardEnabled()?'온라인 연결 전: Firebase 웹 앱 설정 후 서로 다른 기기의 기록이 공유됩니다.':!r?'이 배속의 완주 기록이 없습니다. 7개 촬영 구간을 끝까지 진행하면 등록할 수 있습니다.':`${r.score.toFixed(2)}점 · 정밀도 ${r.centerPrecision.toFixed(1)}%${r.saved?' · 이 기기에 보관된 최고 기록':''} · 공개 동의 후 등록 버튼을 누르세요.`);
+}
+function openLeaderboard(selectRecent=false){
+ // Opening the leaderboard safely pauses gameplay; completion remains rank-eligible.
+ if(state.stage===1&&['running','countdown'].includes(state.phase))pause('랭킹을 여는 동안 관측이 일시정지됐습니다. 이후 완주하면 등록할 수 있습니다.');
+ const choice=$('#leaderboardMode');
+ if(selectRecent){
+  if(isRanked())choice.value=boardKey();
+  else{
+   const latest=Object.entries(getLocalPrecisionBests())
+    .filter(([k,v])=>LB_BOARD_OPTIONS.some(opt=>opt[0]===k)&&v&&typeof v.date==='string')
+    .sort((a,b)=>b[1].date.localeCompare(a[1].date))[0];
+   if(latest)choice.value=latest[0];
+  }
+ }
+ $('#leaderboardConsent').checked=false;
+ if(!$('#leaderboardDialog').open)openDialog('#leaderboardDialog','#leaderboardMode');
+ refreshLeaderboardSubmitState();void refreshLeaderboard();
+}
+function addBoardRow(body,rank,row,mine=false){
+ const tr=document.createElement('tr');if(mine)tr.classList.add('mine');
+ const cells=[String(rank),row.nickname||'내 기록',Number(row.score).toFixed(2),Number(row.precision||0).toFixed(1)+'%',String(row.hits??0)+'/7',row.tier||'—'];
+ cells.forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.append(td)});body.append(tr);
+}
+function renderLocalBoard(){
+ const key=$('#leaderboardMode').value,row=getLocalPrecisionBests()[key],tbody=$('#leaderboardRows');tbody.replaceChildren();
+ if(row)addBoardRow(tbody,'내 기록',row,true);else{const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.textContent='이 기기의 해당 모드 기록이 아직 없습니다.';tr.append(td);tbody.append(tr)}
+ text('#leaderboardCaption','기기 내 최고 기록 (온라인 미연결)');
+}
+async function ensureFirebaseClient(){
+ if(!boardEnabled())return null;
+ if(!firebaseClientPromise)firebaseClientPromise=(async()=>{
+   const cdn='https://www.gstatic.com/firebasejs/'+ONLINE_SDK_VERSION+'/';
+   const [appMod,authMod,dbMod]=await Promise.all([import(cdn+'firebase-app.js'),import(cdn+'firebase-auth.js'),import(cdn+'firebase-firestore.js')]);
+   const app=appMod.initializeApp(window.ASTRA7_FIREBASE_CONFIG,'ASTRA7-LEADERBOARD');
+   const auth=authMod.getAuth(app);let user=auth.currentUser;
+   if(!user)user=(await authMod.signInAnonymously(auth)).user;
+   onlineUid=user.uid;
+   return {db:dbMod.getFirestore(app),dbMod,user};
+ })().catch(e=>{firebaseClientPromise=null;throw e});
+ return firebaseClientPromise;
+}
+async function refreshLeaderboard(){
+ const body=$('#leaderboardRows');if(!$('#leaderboardDialog').open)return;
+ const key=$('#leaderboardMode').value;
+ if(!boardEnabled()){text('#leaderboardStatus','온라인 서버 미연결 · 아래는 이 기기에만 저장된 기록입니다.');renderLocalBoard();refreshLeaderboardSubmitState();return;}
+ text('#leaderboardStatus','온라인 랭킹 불러오는 중…');
+ try{
+  const client=await ensureFirebaseClient();if(!$('#leaderboardDialog').open||key!==$('#leaderboardMode').value)return;
+  const {dbMod,db}=client;
+  const list=dbMod.collection(db,'astra7_leaderboard_v1',key,'entries');
+  const q=dbMod.query(list,dbMod.orderBy('score','desc'),dbMod.limit(50));
+  const snap=await dbMod.getDocs(q);if(!$('#leaderboardDialog').open||key!==$('#leaderboardMode').value)return;
+  body.replaceChildren();let n=0;
+  snap.forEach(d=>{n++;addBoardRow(body,n,d.data(),d.id===client.user.uid)});
+  if(n===0){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.textContent='아직 등록된 기록이 없습니다. 첫 기록을 남겨 보세요!';tr.append(td);body.append(tr)}
+  text('#leaderboardCaption',`온라인 TOP 50 · ${LB_BOARD_OPTIONS.find(x=>x[0]===key)?.[1]||key}`);
+  text('#leaderboardStatus','온라인 연결됨 · 다른 기기와 공유되는 랭킹입니다. 새로고침을 누르면 최신 순위를 확인할 수 있습니다.');
+ }catch(e){text('#leaderboardStatus','온라인 랭킹 연결 실패: '+String(e?.code||e?.message||e).slice(0,120)+' · Firebase 설정·인증·보안 규칙을 확인하세요.');renderLocalBoard()}
+ refreshLeaderboardSubmitState();
+}
+async function submitLeaderboard(source='board'){
+ if(leaderboardLoading||!boardEnabled())return;
+ const fromResult=source==='result';
+ const key=fromResult?boardKey():$('#leaderboardMode').value;
+ const r=fromResult?activeRankSubmission():currentSubmission(key);
+ const statusEl=fromResult?'#resultShareStatus':'#leaderboardStatus';
+ if(!r||boardKey(r.mode,r.speed)!==key){text(statusEl,'현재 선택한 모드와 이번 판의 기록이 일치하지 않습니다.');return;}
+ const agreed=fromResult?($('#resultSharing [value="online"]').checked&&$('#resultShareConsent').checked):$('#leaderboardConsent').checked;
+ if(!agreed){text(statusEl,'닉네임과 기록의 공개에 동의한 다음 직접 등록해 주세요.');return;}
+ const nick=(fromResult?$('#resultShareNickname'):$('#leaderboardNickname')).value.trim().replace(/\s+/g,' ');
+ if(!validRankNickname(nick)){text(statusEl,'닉네임은 2~18자로 입력해 주세요. 한글·영문·숫자·공백·_·-·. 만 사용할 수 있습니다.');return;}
+ leaderboardLoading=true;refreshLeaderboardSubmitState();refreshResultShareControls();
+ let submissionMessage='';
+ text(statusEl,'온라인에 기록을 등록하는 중…');
+ try{
+  const c=await ensureFirebaseClient(),{dbMod,db,user}=c;
+  const ref=dbMod.doc(db,'astra7_leaderboard_v1',key,'entries',user.uid);
+  let written=false;
+  await dbMod.runTransaction(db,async tx=>{
+   const old=await tx.get(ref);
+   if(old.exists()&&Number(old.data().score)>=r.score)return;
+   const payload={nickname:nick,mode:r.mode,speed:r.speed,score:r.score,precision:r.centerPrecision,hits:r.hits,accuracy:r.accuracy,combo:r.combo,tier:r.tier,updatedAt:dbMod.serverTimestamp()};
+   tx.set(ref,payload);written=true;
+  });
+  safeWrite(leaderboardNicknameKey,nick);
+  $('#resultShareNickname').value=nick;$('#leaderboardNickname').value=nick;
+  if($('#leaderboardDialog').open)await refreshLeaderboard();
+  submissionMessage=written?`등록 완료! ${nick} · ${r.score.toFixed(2)}점이 온라인에 공개됐습니다.`:'이 익명 계정의 온라인 최고 기록이 같거나 더 높아 갱신하지 않았습니다.';
+  text(statusEl,submissionMessage);
+ }catch(e){submissionMessage='온라인 등록 실패: '+String(e?.code||e?.message||e).slice(0,150)+' · Firebase 설정·규칙을 확인하세요.';text(statusEl,submissionMessage);}
+ finally{leaderboardLoading=false;refreshLeaderboardSubmitState();refreshResultShareControls();if(fromResult&&submissionMessage)text(statusEl,submissionMessage);}
+}
+$('#leaderboardBtn').addEventListener('click',()=>openLeaderboard(true));
+$('#resultLeaderboardBtn').addEventListener('click',()=>{returnToMatchResult=true;closeDialog('#resultDialog');openLeaderboard(true);});
+$('#leaderboardDialog').addEventListener('close',()=>{if(returnToMatchResult){returnToMatchResult=false;if(state.phase==='review')queueMicrotask(()=>{if(!isDialogOpen())showResult();});}});
+$('#leaderboardCloseBtn').addEventListener('click',()=>closeDialog('#leaderboardDialog'));
+$('#leaderboardMode').addEventListener('change',()=>{refreshLeaderboardSubmitState();void refreshLeaderboard();});
+$('#leaderboardRefreshBtn').addEventListener('click',()=>void refreshLeaderboard());
+$('#leaderboardSubmitBtn').addEventListener('click',()=>void submitLeaderboard('board'));
+$('#leaderboardNickname').addEventListener('input',refreshLeaderboardSubmitState);
+$('#leaderboardConsent').addEventListener('change',refreshLeaderboardSubmitState);
+$('#resultSharing').addEventListener('change',refreshResultShareControls);
+$('#resultShareNickname').addEventListener('input',refreshResultShareControls);
+$('#resultShareSubmitBtn').addEventListener('click',()=>void submitLeaderboard('result'));
+$('#resultRankQuickBtn').addEventListener('click',()=>{
+ if(!activeRankSubmission())return;
+ $('#resultSharing [value="online"]').checked=true;
+ refreshResultShareControls();
+ $('#resultSharing').scrollIntoView({block:'center',behavior:reducesMotion()?'instant':'smooth'});
+ $('#resultShareNickname').focus({preventScroll:true});
+});
+$('#leaderboardNickname').value=safeRead(leaderboardNicknameKey,'');
+
+// Start safely: restored runs always wait for an explicit resume.
+load();
+if(isArena()&&!profile.unlocked){const notes=state.notes;state=freshState();state.notes=notes;}
+refreshAll();showMenu(true);
+if(storageFailed){$('#headerSave').classList.add('failed');text('#headerSave','저장 접근 제한 · JSON 백업 권장');}
+// Test hooks are opt-in and absent during ordinary file use.
+if(new URLSearchParams(location.search).has('qa'))window.ASTRA7_TEST={Astro,Render,get state(){return state;},get profile(){return profile;},freshState,normalizeState,normalizeProfile,scan,capture,eligibleCheckpoint,rankMetrics,startSession,finishRun,openLeaderboard,refreshLeaderboard,verifyAnalysis,completeResearch,toAnalysis,showStage,pause,resume,rewind,changePeriod,experiment,answerCheck,setLabDay,reportText,saveNow,load,frame,pointMultiplier,hitRadius,selectMode,clearAim,getAim:()=>({reticle,lock}),setAim:(r,l=1)=>{reticle=r;lock=l;},refreshAll};
+
+})();
+</script>
+</body>
+</html>
