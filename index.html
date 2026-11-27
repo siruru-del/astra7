@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#142b35"><title>별빛 사진관 | 19:47, 다시 움직이는 밤</title><meta name="description" content="아홉 장의 천체 기록을 복원하는 공동 탐험형 천문 수업. 별빛 사진관 V6.3.">
+<link rel="preload" as="image" href="assets/maps/lobby_forgotten.webp" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/studio.css">
+<link rel="stylesheet" href="assets/css/progression.css">
+<link rel="stylesheet" href="assets/css/corridor.css">
+<link rel="stylesheet" href="assets/css/effects.css"></head>
+<body>
+<div id="app">
+<header><div class="logo"><img class="brandArt" src="assets/ui/logo.png" alt="별빛 사진관 | Starlight Photo Studio" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="logoFallback" style="display:none"><strong>별빛 사진관</strong></div></div><div class="headerMeta"><span class="progressChip" id="topProgress">관측 도감 0 / 9</span><button class="tinyBtn" id="replayStory">프롤로그 다시 보기</button><button class="tinyBtn" id="reportBtn">기록장 · 보고서</button><button class="tinyBtn" id="resetBtn">처음부터</button></div></header>
+<div id="teacherBar" role="group" aria-label="수업 시연 도구"><span class="teacherTitle">▣ 교사용 시연 · 큰 화면</span><div class="teacherActions"><button id="teacherToggle" type="button" aria-pressed="true" class="active">TV 수업 모드 ON</button><button id="notesToggle" type="button" aria-pressed="false">관측 도감 펼치기</button><button id="teacherReplay" type="button">↺ 처음 이야기 다시 보기</button><button id="teacherFullscreen" type="button">⛶ 전체화면</button></div></div>
+<div class="teacherNav" id="teacherQuickNav" aria-label="교사용 장면 이동"><span class="teacherNavLabel">수업 장면 이동</span><button type="button" data-room="lobby">📷 사진관</button><button type="button" data-room="darkroom">🌘 암실</button><button type="button" data-room="roof">🔭 옥상</button><button type="button" data-room="archive">📚 자료실</button></div>
+<div class="layout"><div>
+<div class="worldShell"><div class="worldBar"><div><small id="worldCode">LOCATION 01 · PHOTO STUDIO</small><br><strong id="worldName">은하로 7번지 · 별빛 사진관</strong></div><span class="stamp" id="worldStamp">OPEN · 19:47</span></div>
+<div class="world" id="world"><canvas id="worldCanvas" width="1920" height="1080" tabindex="0" aria-label="WASD로 캐릭터를 움직여 조사하는 사진관의 2D 지도"></canvas><img class="roomArtLabel" id="roomArtLabel" src="assets/ui/sign_lobby.png" alt="사진관 로비" aria-hidden="true"><div id="worldHud"><div class="locationPill"><span id="locationEyebrow">01 / PHOTO STUDIO</span><strong id="locationTitle">별빛 사진관</strong></div><div class="worldHudActions"><button id="fieldNotebook" type="button">관측 수첩 <span id="fieldCount">0 / 9</span></button><button id="worldHelp" type="button" aria-label="탐험 조작 안내">?</button></div></div><section id="questHud" aria-label="현재 관측 목표">
+ <div class="questEyebrow"><span id="questPhase">다음 관측</span><span id="questCount">0 / 9</span></div>
+ <div class="questLive" aria-live="polite" aria-atomic="true"><strong id="questTitle"></strong><p id="questDestination"></p><p id="questAction"></p></div>
+ <button id="questJournalToggle" type="button" aria-controls="questJournal" aria-expanded="false">아홉 관측 원리 <span aria-hidden="true">＋</span></button>
+ <div id="questJournal" hidden><p class="questJournalNote">각 사진에서 얻은 원리가 천체 지도의 한 자리를 채워요.</p><ol id="questJournalList"></ol><button id="questOpenNotebook" type="button">발견한 기억 · 수첩 펼치기</button><button id="questJournalClose" type="button">목록 접기</button></div>
+</section><span id="worldClock" aria-label="사진관 시각">19:47</span><div id="memoryRecovery" hidden role="status" aria-live="polite"><strong id="memoryTitle"></strong><p id="memoryText"></p></div><div id="roomArrival" hidden aria-live="polite"><small id="arrivalCode"></small><strong id="arrivalName"></strong><span id="arrivalNote"></span></div><div id="journeyHint">WASD / 방향키로 걷기 · E 조사 · 클릭으로 이동</div><div id="hotspotLayer"></div><div id="tutorialHud" hidden><div class="th-top">FIRST NIGHT · TUTORIAL</div><strong id="tutorialTitle">기억을 되짚어 봅시다</strong><div class="th-steps" id="tutorialSteps"></div></div><div class="worldPrompt" id="worldPrompt" aria-live="off"><b>WASD</b><span>이동해서 사진과 사람 가까이 다가가세요</span></div></div>
+<div class="worldFooter"><div class="roomNav" id="roomNav"></div><div class="controls"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 자유 이동 · <kbd>E</kbd> 근처 물건 조사 · <kbd>Esc</kbd> 닫기</div><div class="bgmControls" role="group" aria-label="배경음악 설정"><button type="button" class="bgmSwitch" id="musicToggle" aria-pressed="true">♪ BGM 켜짐</button><label for="musicVolume">음량 <input type="range" id="musicVolume" min="0" max="100" step="1" value="35" aria-label="배경음악 음량"/></label><span class="bgmStatus" id="musicStatus" aria-live="polite">시작 후 재생</span></div></div>
+<div class="mobilePad" aria-label="모바일 이동 조작"><button class="padUp" data-step="0,-1" aria-label="위로 계속 이동">▲</button><button class="padLeft" data-step="-1,0" aria-label="왼쪽 계속 이동">◀</button><button class="padDown" data-step="0,1" aria-label="아래로 계속 이동">▼</button><button class="padRight" data-step="1,0" aria-label="오른쪽 계속 이동">▶</button><button class="padAction" id="interactButton" aria-label="가까운 대상 조사">E · 조사</button></div>
+</div>
+<div class="dialogue" id="dialogue"><div class="portrait" id="speakerPortrait"><img src="assets/portraits/manager.png" alt=""></div><div style="flex:1"><b id="speakerName">사진관 주인 · 윤</b><p id="speakerText">기록을 남기는 일에는 순서가 있어요. 먼저 관찰하고, 다음으로 설명하는 거죠.</p></div><div class="dialogueRight"><button id="dialogueNext">대화 ▸</button></div></div>
+</div>
+<aside class="notebook"><div class="noteEyebrow">FIELD NOTES / PERSONAL ARCHIVE</div><h2 class="noteTitle">나의 관측 도감</h2><p class="noteSub" id="noteSub">빛을 기록하면 보이지 않던 원리가 드러납니다.</p><div id="chapters"></div><div class="noteBottom"><strong>관측 기록</strong><div id="logInfo" class="shelf">아직 현상한 사진이 없습니다.</div><div class="row" style="margin-top:10px"><button class="action mini" id="openReport">도감 펼치기</button><button class="action mini ghost" id="openHint">진행 안내</button></div><div id="secretStatus" class="doorNotice" hidden>?</div></div></aside>
+</div><div class="footnote">교육용 천체운동 모형 · 실제 일식 예보 및 천문력 계산용이 아닙니다. 관측 도감의 진행 상황은 이 기기에 자동 저장됩니다.</div>
+</div>
+<div id="directorChrome" aria-label="교사용 숨김 조작 도구"><button type="button" id="directorToggle" title="교사용 메뉴 (F2)" aria-expanded="false" aria-controls="directorPanel">⚙</button><div id="directorPanel" hidden><div class="directorHeader"><strong>수업 진행 도구</strong><button type="button" id="directorClose" title="닫기">×</button></div><p class="directorHelp">F2 메뉴 열기 · WASD 이동 · E 대화 · Enter 다음</p></div></div>
+<div id="intro" class="overlay titleScreen" role="dialog" aria-modal="true" aria-label="별빛 사진관 시작 화면">
+  <div class="titleArt" aria-hidden="true"></div>
+  <div class="titleNebula" aria-hidden="true"></div>
+  <div class="titleContent">
+    <div class="titleSmall">✦ &nbsp; ASTRONOMY MYSTERY RPG &nbsp; ✦</div>
+    <div class="titleIcon" aria-hidden="true">✧ <span>◈</span> ✧</div>
+    <h1 class="titleName">별빛 사진관</h1>
+    <div class="titleEnglish">STARPHOTO STUDIO</div>
+    <p class="titleSubtitle">사라진 밤하늘의 기록을 찾아서</p>
+    <div class="titleRule" aria-hidden="true"><span>✦</span></div>
+    <p class="titleGoal">아홉 가지 관측 원리로 잊힌 기억을 되찾고<br>낡은 사진관에 다시 빛을 돌려주세요.</p>
+    <div class="titleMenu" aria-label="메인 메뉴">
+      <button id="startGame" class="titleOption" type="button"><span class="titleArrow">▶</span><span>새 게임</span></button>
+      <button id="resumeGame" class="titleOption" type="button" hidden><span class="titleArrow">▶</span><span>이어하기</span></button>
+      <button id="howTo" class="titleOption" type="button"><span class="titleArrow">▶</span><span>조작 안내</span></button>
+      <button id="titleSettingsOpen" class="titleOption" type="button"><span class="titleArrow">▶</span><span>설정</span></button>
+    </div>
+    <p id="resumeSnapshot" class="resumeSnapshot" hidden></p>
+  </div>
+  <div class="titleFooter"><span>✧ THE STUDIO OPENS AT 19:47 ✧</span><span id="assetStatus" role="status">관측 자료를 준비하고 있어요</span></div>
+  <div id="titleSettings" class="titlePop" hidden role="dialog" aria-label="게임 설정">
+    <h2>게임 설정</h2>
+    <p>수업 TV에 맞게 소리와 전체화면을 조절할 수 있어요.</p>
+    <button type="button" class="titleOption" id="titleMusicToggle">♪ 배경음악 켜짐</button>
+    <label class="titleRange">배경음악 음량 <input id="titleVolume" type="range" min="0" max="100" step="1" value="35"></label>
+    <button type="button" class="titleOption" id="titleFullscreen">전체화면 켜기 / 끄기</button>
+    <button type="button" class="titleOption titlePopBack" id="titleSettingsClose">← 돌아가기</button>
+  </div>
+  <div id="titleHelp" class="titlePop" hidden role="dialog" aria-label="조작 안내">
+    <h2>사진관을 탐험하는 법</h2>
+    <p><b>W A S D / 방향키</b>　사진관 걷기</p>
+    <p><b>E / 스페이스</b>　가까운 사람과 대화 · 물건 조사</p>
+    <p><b>바닥 · 장비 클릭</b>　걸어가서 이동 · 조사</p><p><b>Enter / Esc</b>　대화 진행 · 닫기</p>
+    <p><b>F2</b>　교사용 메뉴 열기 (수업 중 장면 이동 가능)</p>
+    <p class="titleHelpNote">화면의 ‘다음 관측’을 따라 아홉 기억을 되찾으세요. 모두 모아 메인홀로 돌아오면 사진관이 원래 모습을 되찾습니다.</p>
+    <button type="button" class="titleOption titlePopBack" id="titleHelpClose">← 돌아가기</button>
+  </div>
+</div>
+<div class="modal" id="missionModal" role="dialog" aria-modal="true" aria-label="천체 기록 복원" hidden><div class="modalPanel"><div class="modalHead"><div><small id="modalTag">CHAPTER 01 / EXPERIMENT</small><h2 id="modalTitle">활동 제목</h2></div><button class="modalClose" id="modalClose" aria-label="닫기">✕ 닫기</button></div><div class="modalContent"><div class="missionStageHeader" id="missionStageHeader">01 / 관측</div><div id="missionNpcNarration" class="missionNpcNarration"><img id="missionNpcPortrait" src="assets/portraits/manager.png" alt="" onerror="this.style.visibility='hidden'"><div><strong id="missionNpcName">사진관 관리인 · 윤</strong><p id="missionNpcText">사진을 천천히 살펴보세요.</p></div></div><div id="teacherQuestion" role="note"><b>수업 질문 · 먼저 예상해 보세요</b><span id="teacherQuestionText">어떤 조건에서 관측 결과가 달라질까요?</span></div><p class="instructions" id="modalDesc"></p><div class="modalTwo"><div class="diagram" id="missionDiagram"></div><div id="missionControls"></div></div><div class="observation" id="missionObservation"></div></div><div class="modalFoot"><span class="feedback" id="missionFeedback">조건을 조절해 보세요.</span><button class="action ghost" id="missionPrev" hidden>← 이전</button><button class="action" id="missionNext">다음 단서 →</button><button class="action ghost" id="tryReset">↻</button><button class="action" id="submitMission">천체 지도에 기록</button></div></div></div>
+<div class="modal" id="infoModal" role="dialog" aria-modal="true" aria-label="관측 수첩과 안내" hidden><div class="modalPanel"><div class="modalHead"><div><small id="infoTag">ARCHIVE</small><h2 id="infoTitle">기록장</h2></div><button class="modalClose" id="infoClose">✕ 닫기</button></div><div class="modalContent" id="infoBody"></div><div class="modalFoot"><button class="action" id="infoOkay">돌아가기</button></div></div></div>
+<div class="modal" id="secretModal" role="dialog" aria-modal="true" aria-label="숨은 기록실" hidden><div class="modalPanel"><div class="modalHead"><div><small>UNLISTED ARCHIVE / ????</small><h2 id="secretTitle">문패가 없는 방</h2></div><button class="modalClose" id="secretClose">✕ 나가기</button></div><div class="modalContent" id="secretContent"></div></div></div>
+
+<div class="overlay" id="storyScene" hidden role="dialog" aria-modal="true" aria-label="도입 이야기">
+ <div class="storyFrame"><div class="storyTop"><div class="storyPortrait" id="storyPortrait" aria-hidden="true">
+ <svg viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="220" height="260" fill="#243f47"/><path d="M0 245L220 245M0 30L220 30" stroke="#93aba1" opacity=".24"/><circle cx="109" cy="94" r="50" fill="#d6a881"/><path d="M55 96Q48 25 111 29Q172 22 165 99L152 67L140 60Q114 83 68 77Z" fill="#41333e"/><path d="M40 251Q44 175 86 163L134 163Q188 172 185 251Z" fill="#83654f"/><path d="M93 166L106 222L118 166" fill="#f4dfaf"/><path d="M105 166L113 219" stroke="#5a493e" stroke-width="5"/><circle cx="93" cy="99" r="4" fill="#2c3132"/><circle cx="130" cy="99" r="4" fill="#2c3132"/><path d="M98 124Q112 132 124 123" fill="none" stroke="#8d6454" stroke-width="4"/><rect x="14" y="14" width="192" height="233" rx="2" fill="none" stroke="#b8a17c" stroke-width="3"/><text x="110" y="236" text-anchor="middle" fill="#f5dab1" font-family="serif" font-size="12">STARLIGHT  /  19:47</text></svg>
+ </div><div style="flex:1"><div class="storyEyebrow" id="storyEyebrow">PROLOGUE / ???</div><h2 class="storyName" id="storyName">어둠 속의 셔터 소리</h2><p class="storyText" id="storyText"></p></div></div>
+ <div class="storyNextRow"><span class="storyCounter" id="storyCounter">01 / 07</span><div style="display:flex;gap:9px"><button class="storySkip" type="button" id="storySkip">건너뛰기</button><button type="button" id="storyNext">다음 대화 →</button></div></div></div>
+</div>
+<div id="finaleScene" hidden role="dialog" aria-modal="true" aria-labelledby="finaleTitle">
+ <section id="finaleSequence" class="finaleSequence" aria-live="polite">
+  <p class="finaleKicker">THE CELESTIAL CHART / RESTORATION</p>
+  <div id="finaleOrrery" class="finaleOrrery" aria-hidden="true"></div>
+  <p id="finaleTime" class="finaleTime">19:47</p>
+  <h2 id="finaleTitle">흩어진 기록이 하나의 하늘로</h2>
+  <p id="finaleCaption">아홉 가지 관측 원리가 천체 지도에 새겨집니다.</p>
+  <button id="finaleSkip" type="button">연출 건너뛰기 <span>Esc</span></button>
+ </section>
+ <section id="completionCard" class="completionCard" hidden aria-labelledby="completionTitle">
+  <div class="completionHeading"><p class="finaleKicker">STARPHOTO STUDIO / THE FIRST NIGHT</p><span class="completionTime">19:48</span></div>
+  <p class="completionLabel">본편 완료</p>
+  <h2 id="completionTitle">다시 움직이는 밤</h2>
+  <p class="completionLead">아홉 가지 관측 원리가 사진관의 기억을 되찾았어요.<br>익숙한 물건과 사람들의 이야기가 돌아왔고, 시간이 다시 흐릅니다.</p>
+  <div id="completionSeals" class="completionSeals" aria-label="획득한 아홉 가지 관측 인장"></div>
+  <p class="completionNote">관측 원리 하나가 기억 하나를 되돌렸어요. 아홉 현상이 동시에 일어나는 조건을 뜻하지는 않아요.</p>
+  <div class="completionActions"><button id="completionReport" class="completionPrimary" type="button">관측 수첩 · 보고서</button><button id="completionContinue" type="button">사진관에 머무르기</button></div>
+  <div class="completionOptional"><button id="completionBonus" type="button">외전 · 우주 회랑 너머로 →</button><button id="completionReplay" type="button">마지막 장면 다시 보기</button></div>
+ </section>
+</div>
+<div id="legacyPortal" hidden role="dialog" aria-label="원본 ASTRA-7 보너스 경기장"><div class="legacyBar"><div><strong id="legacyTitle">✦ ORIGINAL ARENA</strong> <span>· 7회 촬영 구간 · 원본 30×/35× 시스템</span></div><button type="button" id="legacyClose">✕ 사진관으로 돌아가기</button></div><iframe id="legacyFrame" title="외전 또는 카오스 원본 조준 경기장" allow="autoplay"></iframe>
+ <div id="arenaFinish" hidden role="status" aria-live="polite">
+  <div class="arenaFinishCard">
+   <div class="arenaFinishKicker">ARCHIVE / END OF RUN</div>
+   <h2 id="arenaFinishTitle">경기 종료</h2>
+   <div class="arenaFinishScore" id="arenaFinishScore">0 <small>/ 100</small></div>
+   <div class="arenaFinishTier" id="arenaFinishTier">ROOKIE</div>
+   <p id="arenaFinishDetails">0 / 7 명중</p>
+   <div class="arenaFinishActions"><button id="arenaReplay" type="button">↻ 같은 난이도 재도전</button><button id="arenaReturn" type="button">비밀방으로 돌아가기</button></div>
+  </div>
+ </div></div>
+<canvas id="inkScene" aria-hidden="true"></canvas>
+
+<div class="toast" id="toast" hidden></div>
+<audio id="starlightBgm" loop preload="none" playsinline aria-hidden="true" src="assets/audio/bgm.mp3"></audio>
+
+
+
+<div id="doorFade" hidden aria-hidden="true"><div class="transitionCard"><span aria-hidden="true">✦</span><strong id="transitionName"></strong><small id="transitionNote"></small></div></div>
+<script src="assets/js/corridor.js"></script>
+<script src="assets/js/world-data.js"></script>
+<script src="assets/js/world-effects.js"></script>
+<script src="assets/js/npc-animation.js"></script>
+<script src="assets/js/studio.js"></script>
+</body></html>
