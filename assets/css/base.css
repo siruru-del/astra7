@@ -1,0 +1,461 @@
+
+:root{--paper:#f5eedc;--ink:#19363d;--muted:#648087;--amber:#e5a75a;--red:#b46156;--teal:#357e83;--shadow:#14252f;--line:#cbbfa6;--card:#fff9eb;--green:#4c8566}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#142c34;color:var(--ink);font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif;min-width:320px}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f4ba68;outline-offset:3px}button:disabled{cursor:not-allowed;opacity:.5}#app{max-width:1510px;margin:auto;padding:24px 24px 38px}header{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:20px;color:#f3e7d0}.logo{display:flex;align-items:center;gap:14px}.mark{height:56px;width:56px;background:#f3c27b;color:#19363d;border-radius:17px 17px 5px 5px;display:grid;place-items:center;font-size:29px;transform:rotate(-5deg);box-shadow:5px 6px 0 #536a67}.logo strong{font-size:26px;letter-spacing:-.07em}.logo small{display:block;font-size:12px;letter-spacing:.22em;color:#b7d2c9;margin-bottom:2px}.headerMeta{display:flex;gap:12px;align-items:center}.progressChip{font-weight:800;border:1px solid #627d7c;background:#1d4146;padding:11px 17px;border-radius:999px;font-size:13px}.tinyBtn{border:1px solid #83918a;background:transparent;color:inherit;border-radius:10px;padding:10px 13px;font-size:13px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 338px;gap:20px}.worldShell{background:#f5ead4;padding:10px;border-radius:18px;box-shadow:0 16px 0 #0a1d24,0 28px 50px #09131c8c;position:relative}.worldBar{height:46px;display:flex;justify-content:space-between;align-items:center;padding:0 10px 8px;gap:8px}.worldBar strong{font-size:18px}.worldBar small{font-size:11px;letter-spacing:.12em;color:#657e7b}.stamp{border:2px solid #356f73;color:#356f73;padding:4px 12px;transform:rotate(-3deg);border-radius:4px;font-size:11px;white-space:nowrap;font-weight:900}.world{position:relative;aspect-ratio:960/540;overflow:hidden;background:#172d39;border:5px solid #132932;border-radius:9px;touch-action:none}.world canvas{display:block;width:100%;height:100%;image-rendering:auto}.mapHotspot{position:absolute;transform:translate(-50%,-50%);border:1.5px solid #fceac5;border-radius:12px;background:#1c3e42eb;color:#fff5dd;display:flex;align-items:center;gap:6px;padding:5px 9px;font-size:clamp(10px,1.08vw,14px);white-space:nowrap;box-shadow:0 4px 0 #10242988;max-width:52%;transition:transform .15s,background .15s;z-index:3}.mapHotspot:hover{transform:translate(-50%,-55%);background:#25666c}.mapHotspot.done{background:#31594c;border-color:#b6e7ac}.mapHotspot.lock{background:#383d40c9;border-color:#c6c0aa}.mapHotspot.secret{background:#311d47;border-color:#e9bbea;animation:doorGlow 1.4s ease-in-out infinite alternate}.mapHotspot .hicon{font-size:1.3em}.mapHotspot .status{font-size:10px;opacity:.8}.mapHotspot.hub{background:#73512b}.worldFooter{padding:11px 7px 5px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.roomNav{display:flex;flex-wrap:wrap;gap:7px}.roomBtn{border:1px solid #b7a884;background:#fff9ea;color:#355158;border-radius:9px;padding:9px 11px;font-size:13px;font-weight:800;white-space:nowrap}.roomBtn.active{background:#193f43;color:#fff9e8;border-color:#193f43}.controls{font-size:12px;color:#73847e;font-weight:700}.controls kbd{border:1px solid #c7b89e;padding:2px 5px;border-radius:3px;background:#fff}.footnote{font-size:12px;color:#b8c9c2;margin:22px 8px 0}.notebook{background:#f7f1e3;border-radius:7px 18px 18px 7px;position:relative;box-shadow:8px 9px 0 #0b2029,0 16px 22px #0a1721a0;padding:26px 24px 25px 33px;min-height:640px}.notebook::before{content:"";position:absolute;left:13px;top:0;bottom:0;width:6px;background:repeating-linear-gradient(to bottom,#9ea6a0 0 14px,transparent 14px 30px)}.noteEyebrow{font-size:11px;color:#78918d;letter-spacing:.15em;font-weight:900}.noteTitle{font-family:Georgia,'Noto Serif KR',serif;font-size:30px;letter-spacing:-.07em;margin:5px 0 4px}.noteSub{font-size:13px;line-height:1.6;color:#597378;margin:0 0 16px}.chapterNote{border-top:1px solid #c6bca6;padding-top:14px;margin-top:12px}.chapterHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.chapterHeader b{font-size:15px}.chapterHeader span{color:#a26d39;font-size:12px;font-weight:900}.quest{width:100%;text-align:left;display:flex;gap:9px;align-items:center;margin:5px 0;border:1px solid #ddd0b7;background:#fffaf0;border-radius:9px;padding:9px;color:#27494c}.quest:hover:not(:disabled){border-color:#438c8e;background:#f6fffa}.quest .num{width:23px;height:23px;flex:none;background:#deebe3;border-radius:5px;display:grid;place-items:center;font-family:Georgia,serif;font-size:13px}.quest .qt{flex:1;font-size:12px;line-height:1.35;font-weight:800}.quest .check{color:#258362;font-size:15px}.quest.complete{background:#edf4e8;border-color:#a1bda0}.noteBottom{margin-top:20px;border-top:2px solid #2f6b72;padding-top:14px;font-size:13px;line-height:1.55}.noteBottom .row{display:flex;gap:7px}.action{border:0;background:#2e7176;color:white;border-radius:9px;padding:11px 14px;font-weight:900;min-height:42px}.action.ghost{background:#e9dfca;color:#315961;border:1px solid #bbb298}.action.gold{background:#b3793f;color:#fff}.action.dark{background:#213844}.action.mini{font-size:12px;padding:8px}.action:hover:not(:disabled){filter:brightness(1.09)}.shelf{background:#e7e0cc;padding:10px;border-radius:9px;color:#49636a;font-size:12px;margin-top:8px}.dialogue{margin-top:16px;border-radius:2px;background:linear-gradient(180deg,#3d6770 0 12px,#17363d 12px 100%);color:#fff0d4;display:flex;gap:14px;padding:19px 18px 16px;min-height:108px;box-shadow:0 0 0 3px #08161b,0 0 0 7px #d9c29a,0 12px 0 #0b2029;position:relative;overflow:visible}.dialogue::before{content:"PHOTO LOG";position:absolute;left:14px;top:-13px;background:#efd49e;color:#17363d;border:3px solid #17363d;padding:2px 8px;font-size:11px;font-weight:900;letter-spacing:.12em;box-shadow:4px 4px 0 #0f252b}.portrait{width:64px;height:64px;background:#b78355;border:3px solid #f6e1bb;box-shadow:0 0 0 3px #17363d,4px 4px 0 #0b2029;display:grid;place-items:center;font-size:30px;flex:none;border-radius:2px;overflow:hidden}.dialogue b{color:#ffd28d;font-size:12px;letter-spacing:.08em}.dialogue p{margin:6px 0 0;font-size:14px;line-height:1.68;text-shadow:0 1px 0 #10252d}.dialogue .tip{font-size:12px;color:#a6c4bf}.dialogueRight{margin-left:auto;align-self:center}.dialogueRight button{border:3px solid #d9c29a;background:#204d54;color:#fff9e9;border-radius:2px;padding:8px 11px;box-shadow:3px 3px 0 #0d2228;font-weight:800}.overlay{position:fixed;inset:0;background:rgba(6,18,25,.82);z-index:50;display:grid;place-items:center;padding:18px;overflow:auto}.overlay[hidden],.modal[hidden],.toast[hidden]{display:none!important}.introCard{max-width:790px;width:100%;padding:45px;background:linear-gradient(155deg,#fdf3d9,#e6d6b6);border:9px double #254851;box-shadow:0 30px 100px #0009;position:relative;overflow:hidden}.introCard::before{content:"";position:absolute;right:-90px;top:-90px;height:290px;width:290px;border:2px solid #bd9d73;border-radius:50%;box-shadow:0 0 0 28px #bd9d7333,0 0 0 56px #bd9d7322}.introCard .ey{letter-spacing:.24em;font-size:12px;font-weight:900;color:#708785}.introCard h1{font-family:Georgia,'Noto Serif KR',serif;line-height:1.15;font-size:clamp(42px,7vw,71px);letter-spacing:-.08em;margin:18px 0 12px;position:relative}.introCard p{font-size:17px;line-height:1.8;position:relative;max-width:540px}.introTag{font-size:13px;background:#305e62;color:white;padding:8px 12px;display:inline-block;margin-top:8px}.introActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:29px}.modal{position:fixed;inset:0;background:#071820be;z-index:60;display:grid;place-items:center;padding:15px;overflow:auto}.modalPanel{position:relative;background:#f8f1e4;border:8px solid #234b54;outline:3px solid #deb879;width:min(1030px,100%);max-height:min(95vh,920px);overflow:auto;box-shadow:0 24px 65px #000b}.modalHead{display:flex;align-items:start;justify-content:space-between;gap:12px;background:#23464e;color:#fff5e3;padding:19px 23px}.modalHead small{font-size:11px;letter-spacing:.14em;color:#c9d6c8}.modalHead h2{font-size:23px;margin:4px 0}.modalClose{background:transparent;color:#fff;border:1px solid #d7d2b4;border-radius:8px;padding:5px 10px}.modalContent{padding:23px 26px}.modalTwo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(250px,.9fr);gap:24px}.diagram{background:#19313b;color:#eaf9ed;border:7px solid #d7c9a9;border-radius:10px;padding:12px;min-height:280px;display:flex;flex-direction:column;justify-content:center;gap:6px}.diagram svg{width:100%;max-height:285px;min-height:230px}.diagCaption{font-size:11px;color:#a5c5c2;text-align:center;line-height:1.5}.instructions{color:#3b6063;line-height:1.65;font-size:14px;margin:0 0 12px}.field{border-bottom:1px dashed #c3b59d;padding:9px 0}.field label{display:block;font-size:12px;color:#496b6e;font-weight:900;margin-bottom:7px}.field select,.field input[type=range],.field input[type=text]{width:100%;accent-color:#397c7b}.field select,.field input[type=text]{border:1px solid #b5aa95;border-radius:6px;padding:8px;background:#fffdf6;color:#17363b}.choiceGroup{display:flex;gap:7px;flex-wrap:wrap}.choiceGroup button{border:1px solid #bcaf94;background:white;color:#31595f;border-radius:8px;padding:9px 11px;font-size:13px}.choiceGroup button.picked{background:#2b777a;color:#fff;border-color:#2b777a}.observation{padding:13px;background:#e5ecdc;border-left:5px solid #69a37f;font-size:13px;line-height:1.65;margin-top:13px;min-height:56px}.observation strong{color:#285b4a}.modalFoot{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:15px 26px;background:#ede0c8;border-top:1px solid #d4c4ac;position:sticky;bottom:0;z-index:4}.feedback{font-size:13px;color:#456f63;flex:1;line-height:1.5}.feedback.error{color:#a0443c}.small{font-size:12px}.pill{display:inline-block;border:1px solid #b5ad94;border-radius:6px;padding:3px 8px;font-size:11px;margin:2px;color:#506b6a}.schematic{color:#f2dec5;font-size:13px;line-height:1.5}.chartGrid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}.chartGrid span{background:#273e4b;border:1px solid #536e70;padding:5px 8px;border-radius:5px;font-size:12px}.planetCards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.planetCard{border:1px solid #bfad90;background:#fffaf0;border-radius:7px;padding:10px 5px;text-align:center}.planetCard .picon{display:block;font-size:23px}.planetCard b{display:block;font-size:12px}.planetCard small{font-size:10px;color:#6e827b}.secretBig{font:900 42px Georgia,serif;text-align:center;color:#a99aee;text-shadow:0 0 20px #d0b9f5}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;background:#e9cb87;color:#233c41;border:3px solid #274a4f;border-radius:10px;padding:12px 18px;max-width:min(90vw,600px);font-size:14px;font-weight:800;box-shadow:0 16px 35px #0005}.screenReaderOnly{position:absolute;left:-9999px}.mobilePad{display:none;gap:6px;align-items:center;justify-content:center;margin-top:10px}.mobilePad button{width:44px;height:41px;border:1px solid #a3957c;background:#fff9e9;border-radius:9px;color:#30575b;font-weight:900}.glowDoor{font-weight:900;color:#e3b7f0}.modeGrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.secretMode{padding:23px;background:#1d303c;border:2px solid #556d75;border-radius:13px;color:#fff3de;text-align:left;min-height:170px}.secretMode b{display:block;font-size:23px;margin-bottom:7px}.secretMode small{display:block;color:#b8d0cb;line-height:1.6}.secretMode:last-child{background:linear-gradient(125deg,#141323,#392332);border-color:#b280ab}.arcadeStage{background:#091422;border:5px solid #d2c2a5;border-radius:11px;position:relative;height:340px;overflow:hidden;touch-action:manipulation}.arcadeTarget{position:absolute;width:64px;height:64px;transform:translate(-50%,-50%);border-radius:50%;border:5px solid #ffdd9e;background:radial-gradient(circle at 40% 40%,#ffffff 0 5%,#f3a55d 7% 25%,#aa3f46 45%,#311b3a 68%);box-shadow:0 0 24px #ffb85b;cursor:crosshair}.arcadeTarget.chaos{border-color:#e1dcea;background:radial-gradient(circle at 35% 35%,#fff 0 3%,#bbb 7% 26%,#585866 46%,#15151e 68%);box-shadow:0 0 25px #c2a0f5}.arcadeHud{display:flex;justify-content:space-between;gap:8px;font-size:15px;font-weight:900;margin-bottom:10px}.doorNotice{background:#312a3e;color:#edcfea;border:1px solid #c6a7d8;border-radius:10px;padding:10px;font-size:13px;margin-top:12px;line-height:1.5}@keyframes doorGlow{from{box-shadow:0 0 8px #eab2ec}to{box-shadow:0 0 29px #cf95ea}}
+@media(max-width:1100px){#app{padding:17px}.layout{grid-template-columns:1fr}.notebook{min-height:0}.mapHotspot{font-size:12px}.worldShell{box-shadow:0 12px 0 #0b2029}.chapterNote{display:inline-block;vertical-align:top;width:calc(50% - 8px);margin-right:5px}.chapterNote:last-of-type{margin-right:0}}
+@media(max-width:620px){#app{padding:9px 10px 26px}header{gap:4px;margin-bottom:12px}.logo strong{font-size:19px}.logo small{font-size:9px}.mark{width:39px;height:39px;font-size:23px}.headerMeta{gap:4px}.progressChip{font-size:11px;padding:8px}.tinyBtn{font-size:11px;padding:7px 8px}.worldShell{padding:5px}.worldBar{height:37px}.worldBar strong{font-size:13px}.worldBar small{font-size:8px}.stamp{font-size:9px;padding:3px 5px}.world{border-width:3px}.mapHotspot{font-size:9px;padding:4px 5px;border-radius:6px}.mapHotspot .status{display:none}.mapHotspot .hicon{font-size:1em}.roomBtn{font-size:11px;padding:8px 9px}.controls{display:none}.notebook{padding:20px 17px 18px 26px}.chapterNote{width:100%;display:block}.dialogue{padding:11px;gap:9px}.dialogue p{font-size:12px}.portrait{width:42px;height:42px;font-size:22px}.mobilePad{display:flex}.modalTwo{grid-template-columns:1fr}.modalContent{padding:14px}.modalHead{padding:14px}.modalHead h2{font-size:17px}.diagram{min-height:210px}.diagram svg{min-height:170px;max-height:210px}.modalFoot{padding:13px;flex-wrap:wrap}.planetCards{grid-template-columns:repeat(3,1fr)}.introCard{padding:27px 20px}.introCard p{font-size:14px}.modeGrid{grid-template-columns:1fr}.footnote{font-size:11px}}
+
+/* User supplied background music; standalone HTML, no outside audio requests. */
+.bgmControls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:4px 0}
+.bgmSwitch{border:1px solid #9e9c81;background:#244e50;color:#fff6d9;font-size:12px;font-weight:900;border-radius:9px;min-height:35px;padding:8px 12px;white-space:nowrap}
+.bgmSwitch[aria-pressed="false"]{background:#e6ddca;border-color:#b6a68b;color:#5c6662}
+.bgmControls label{display:flex;align-items:center;gap:8px;color:#526d70;font-size:12px;font-weight:800;white-space:nowrap}
+.bgmControls input{width:95px;accent-color:#326e76}
+.bgmStatus{font-size:11px;color:#607b7b}
+@media(max-width:620px){header{flex-wrap:wrap}.headerMeta{flex-wrap:wrap;justify-content:flex-end}.bgmControls{gap:7px;flex:1 1 100%;justify-content:flex-end}.bgmControls input{width:80px}.bgmStatus{font-size:10px}}
+
+/* 실제 탑다운 RPG 탐색 화면 */
+.world{background:#243c46;image-rendering:auto;cursor:default}
+.world canvas{image-rendering:pixelated}
+#hotspotLayer{display:none!important}
+.worldPrompt{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);min-width:280px;max-width:90%;display:flex;align-items:center;justify-content:center;gap:11px;color:#fff8df;background:#16323ce8;border:2px solid #d6ba88;border-radius:12px;padding:9px 15px;box-shadow:0 5px 0 #101e27a8,0 8px 18px #091a23a8;z-index:7;pointer-events:none;text-align:center;font-size:15px;font-weight:800;transition:background .14s}
+.worldPrompt b{display:grid;place-items:center;min-width:32px;height:28px;background:#f3c579;color:#213940;border-radius:6px;font:900 15px system-ui}
+.worldPrompt.near{background:#1b625fe8;border-color:#eac48a}
+.roomNav{font-size:13px;font-weight:900;color:#446469;line-height:1.6}
+.roomNav .walkRoute{display:inline-block;padding:5px 10px;background:#fff8e9;border:1px solid #c9b796;border-radius:8px}
+.mobilePad{touch-action:none;user-select:none;-webkit-user-select:none}
+.mobilePad button{touch-action:none;user-select:none;-webkit-user-select:none}
+.mobilePad button.held{background:#2f7579;color:#fff4dd;box-shadow:0 3px 0 #204b50 inset}
+.mobilePad .padAction{width:112px;background:#245b62;color:#fff8e6;border-color:#3a7a78}
+@media(max-width:620px){.worldPrompt{font-size:10px;padding:4px 7px;gap:4px;bottom:4px;min-width:195px;border-width:1px}.worldPrompt b{height:22px;min-width:22px;font-size:11px}.roomNav{font-size:10px}.mobilePad{display:grid;grid-template-columns:repeat(3,56px) 110px;grid-template-rows:repeat(3,41px);gap:4px;justify-content:center;margin:11px 0}.mobilePad button{width:56px;height:41px}.mobilePad .padUp{grid-column:2;grid-row:1}.mobilePad .padLeft{grid-column:1;grid-row:2}.mobilePad .padDown{grid-column:2;grid-row:3}.mobilePad .padRight{grid-column:3;grid-row:2}.mobilePad .padAction{grid-column:4;grid-row:2;width:100px;font-size:13px}.worldFooter{align-items:flex-start}}
+
+/* STARLIGHT RPG v2 | original mystery prologue, story / lesson HUD, genuine classic bonus arenas */
+:root{--paper:#f7efd9;--card:#fff8e8;--amber:#f4bf73;--ink:#162f38;--teal:#327d79}
+body{background:radial-gradient(ellipse at 26% -20%,#385d60 0%,#142c34 46%,#0a1d29 100%)}
+.worldShell{border:1px solid #ddbc83;box-shadow:0 20px 0 #081b24,0 28px 80px #061721bc,inset 0 0 0 3px #fff7df}
+.world{border:6px solid #20393b;box-shadow:inset 0 0 0 3px #dfbb7b,0 6px 0 #a58c68;border-radius:12px}
+.notebook{background:linear-gradient(135deg,#fff9e8,#e9dcc0);box-shadow:8px 9px 0 #0b2029,0 22px 32px #081923}
+.quest{transition:transform .16s,box-shadow .16s}
+.quest:hover:not(:disabled){transform:translateX(3px);box-shadow:0 4px 0 #c8cfba}
+.dialogue{border:2px solid #8da7a2;box-shadow:0 6px 0 #08232a;background:linear-gradient(120deg,#14323b,#1d4550)}
+.dialogueRight button{background:#efd4a3;color:#18343d;border-color:#efd4a3;font-weight:900}
+.dialogueRight button:hover{filter:brightness(1.11)}
+.modalPanel{box-shadow:0 12px 0 #102e33,0 32px 75px #000b}
+#storyScene{z-index:95;background:radial-gradient(ellipse at 50% 40%,#233d4abf,#04080df5 90%);backdrop-filter:blur(8px)}
+.storyFrame{position:relative;width:min(950px,100%);background:linear-gradient(160deg,#13242c 0%,#173841 68%,#0d222e 100%);border:1px solid #d2ae75;box-shadow:0 0 0 9px #14242b,0 0 0 11px #62706c,0 28px 110px #000c;padding:clamp(22px,4vw,43px);color:#f4ebd9;overflow:hidden}
+.storyFrame::before{content:'ST☆RLIGHT • 19:47';font:800 11px ui-monospace,monospace;letter-spacing:.28em;position:absolute;right:24px;top:17px;color:#aaafad}
+.storyFrame::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.09;background:repeating-linear-gradient(0deg,transparent 0 3px,#e1d0a5 4px 5px)}
+.storyTop{display:flex;align-items:center;gap:30px;min-height:280px;position:relative;z-index:1}
+.storyPortrait{width:224px;height:270px;flex:none;display:grid;place-items:center;border:9px solid #b89564;background:radial-gradient(circle at 50% 25%,#657d78,#18363d 65%);box-shadow:8px 9px 0 #071a24}
+.storyPortrait svg{width:100%;height:100%}
+.storyEyebrow{font:800 12px ui-monospace,monospace;letter-spacing:.25em;color:#eabf7d}
+.storyName{font-family:Georgia,'Malgun Gothic',serif;font-size:clamp(28px,4vw,50px);letter-spacing:-.04em;margin:8px 0 16px}
+.storyText{font-size:clamp(16px,2.1vw,23px);line-height:1.78;word-break:keep-all;min-height:130px}
+.storyNextRow{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1;border-top:1px solid #68817b;padding-top:20px;margin-top:15px}
+.storyNextRow button{padding:13px 24px;border:1px solid #dfca9b;background:#ebd2a4;color:#172e35;font-weight:900;border-radius:4px}
+.storyNextRow button:hover{filter:brightness(1.07)}
+.storyNextRow .storySkip{background:none;border:1px solid #7c9991;color:#d8dfd7}
+.storyCounter{font:800 12px ui-monospace,monospace;letter-spacing:.22em;color:#8ea9a7}
+#tutorialHud{position:absolute;right:14px;top:14px;z-index:4;width:min(284px,42%);background:#112c35e8;color:#f5e8cc;border:1px solid #b99662;border-left:5px solid #ffc97b;border-radius:7px;padding:9px 13px;pointer-events:none;box-shadow:0 6px 12px #0006;font-size:12px}
+#tutorialHud .th-top{font:900 10px ui-monospace,monospace;letter-spacing:.15em;color:#ffce88}
+#tutorialHud strong{display:block;margin:5px 0;color:#fff4df;font-size:14px;line-height:1.3}
+#tutorialHud .th-steps{display:flex;gap:6px;flex-wrap:wrap}
+#tutorialHud .th-steps em{font-style:normal;border-radius:5px;padding:2px 5px;border:1px solid #668984;color:#d0e4df;font-size:10px}
+#tutorialHud .th-steps em.done{background:#286047;border-color:#74bb94;color:white}
+#tutorialHud[hidden]{display:none}
+#legacyPortal{position:fixed;inset:0;z-index:115;display:flex;flex-direction:column;gap:0;padding:0;background:#070a12;overflow:hidden}
+#legacyPortal[hidden]{display:none!important}
+.legacyBar{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 18px;background:#161d2c;color:#e9e4df;border-bottom:1px solid #596577;font-size:13px;z-index:2}
+.legacyBar strong{letter-spacing:.08em}
+.legacyBar button{border-radius:5px;border:1px solid #a9a6bc;color:#faf8fc;background:#323348;padding:8px 15px}
+#legacyFrame{width:100%;flex:1;border:0;min-height:0;background:#04060b}
+.secretMode.armed{border-color:#f5ddf9!important;box-shadow:inset 0 0 38px #6d3688,0 0 20px #a75fc755;animation:cardCrack .45s steps(3)}
+.secretMode.armed::after{content:'✶  ╱╲  ╳  ╲╱  ✶';position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;letter-spacing:.4em;color:#e2bee7;font-size:42px;text-shadow:0 0 16px #dec2f3;opacity:.8}
+@keyframes cardCrack{0%{transform:none;filter:none}33%{transform:translate(-3px,0);filter:brightness(2)}66%{transform:translate(4px,2px)}100%{transform:none}}
+#inkScene{position:fixed;inset:0;pointer-events:none;z-index:125;display:none}
+#inkScene.active{display:block}
+.secretMode{position:relative;overflow:hidden}
+.secretMode .modeTitle{font-size:20px;display:block;margin-bottom:7px}
+@media(max-width:620px){#worldCanvas{will-change:transform;image-rendering:auto}.world{isolation:isolate}.controls{display:none}}
+@media(max-width:760px){#app{padding:12px}.storyTop{flex-direction:column;gap:14px;text-align:center}.storyPortrait{width:128px;height:126px;border-width:5px}.storyName{font-size:28px;margin:0}.storyText{min-height:0;font-size:15px}.storyFrame{padding:22px}.storyNextRow{margin-top:12px}.storyNextRow button{font-size:12px;padding:11px 13px}#tutorialHud{top:7px;right:7px;width:51%;font-size:10px;padding:5px 7px}.th-steps em{font-size:8px!important}#tutorialHud strong{font-size:11px}.legacyBar{font-size:10px;padding:8px 10px}.legacyBar button{font-size:10px}}
+
+/* Isolated arena: original movement & accuracy engine, without its surrounding menus */
+#legacyPortal{background:#07080d!important}
+#legacyPortal[hidden],#arenaFinish[hidden]{display:none!important}
+#legacyFrame{width:100%;height:100%;flex:1;border:0;background:#080910}
+#legacyPortal .legacyBar{position:absolute;right:12px;top:9px;padding:0!important;border:0!important;background:none!important;width:auto;z-index:8;pointer-events:none}
+#legacyPortal .legacyBar>div{display:none!important}
+#legacyPortal .legacyBar button{pointer-events:auto;font-size:12px!important;font-weight:700;padding:7px 13px!important;border-radius:7px!important;border:1px solid #ffffff50!important;background:#141620bb!important;color:#fff!important;backdrop-filter:blur(5px)}
+#arenaFinish{position:absolute;inset:0;z-index:9;display:grid;place-items:center;overflow:auto;padding:22px;background:radial-gradient(ellipse at 50% 44%,#161623d6,#030409f5 74%);color:#ebeaf0}
+.arenaFinishCard{width:min(92vw,540px);text-align:center;border:1px solid #9b9aa655;border-radius:20px;background:linear-gradient(160deg,#20202d,#090a12);box-shadow:0 24px 110px #000b;padding:clamp(22px,4vw,36px)}
+.arenaFinishKicker{font:700 11px Consolas,monospace;letter-spacing:.3em;color:#bfc2d3}
+#arenaFinishTitle{font-size:clamp(22px,3.4vw,36px);margin:10px 0}
+.arenaFinishScore{font:bold clamp(60px,10vw,100px)/1 Consolas,monospace;color:#faf7ff;text-shadow:0 0 32px #d9d8ea66}
+.arenaFinishScore small{font-size:20px;color:#9b9eaf}
+.arenaFinishTier{font:800 clamp(23px,3.4vw,34px) Consolas,monospace;letter-spacing:.09em;color:#f2d59b;margin:8px 0}
+#arenaFinishDetails{color:#c8cad7;margin:12px 0 22px;font-size:14px}
+.arenaFinishActions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.arenaFinishActions button{font:800 14px system-ui,sans-serif;border-radius:9px;border:1px solid #a8abb8;padding:12px 17px;background:#dedce9;color:#141521;cursor:pointer}
+.arenaFinishActions button+button{background:transparent;color:#ebeaf0}
+@media(max-width:600px){#legacyPortal .legacyBar{right:7px;top:5px}#legacyPortal .legacyBar button{font-size:10px!important;padding:6px 9px!important}}
+
+
+/* M01 : evidence-first experiment notebook */
+#missionModal.e1-active .modalPanel{width:min(1120px,100%)}
+#missionModal.e1-active .modalHead{background:linear-gradient(110deg,#254c53,#3c6c69)}
+#missionModal.e1-active #missionDiagram{justify-content:flex-start;gap:10px}
+#missionModal.e1-active #missionDiagram svg{max-height:390px;min-height:285px}
+.e1-topline{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding-bottom:8px;border-bottom:1px solid #8baba3;color:#e1e4c4;font-size:12px}
+.e1-figurelabel{font-size:12px;color:#e9dab6;text-align:center;font-weight:800;letter-spacing:.06em}
+.e1-steps{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0 12px}
+.e1-steps span{font-size:11px;font-weight:800;padding:6px 8px;background:#f1e8d3;border:1px solid #c5b696;border-radius:6px;color:#637672}
+.e1-steps .ready{background:#dfefe4;color:#247453;border-color:#88b59a}
+.e1-steps .pending{background:#fff6e3;color:#8a652a;border-color:#d8be82}
+.e1-step{background:#fffdf6;border:1px solid #d3c8b1;border-left:5px solid #c7a166;padding:12px 13px;margin:10px 0;border-radius:8px}
+.e1-step h3{margin:0 0 6px;font-size:14px;line-height:1.45;color:#28575a}
+.e1-step p{font-size:12px;line-height:1.65;color:#5f6f6b;margin:5px 0 8px}
+.e1-step button{font-size:12px}
+.e1-step button.picked{background:#2b777a;color:#fff;border-color:#2b777a}
+.e1-captures{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0}
+.e1-capture{border:1px solid #d6c9b0;background:#f6f0df;padding:10px;border-radius:8px;min-width:0}
+.e1-capture.complete{border-color:#68a98f;background:#e3f1e8}
+.e1-capture b{display:block;font-size:12px;color:#2e5855;margin-bottom:4px}
+.e1-capture small{font-size:11px;color:#60756e;line-height:1.5;display:block}
+.e1-experiment{background:#e6eeec;border-radius:8px;padding:10px 12px;font-size:12px;color:#294e50;line-height:1.6;margin-top:8px}
+.e1-help{background:#f1e3c3;color:#6f5227;border:1px solid #c9ac6e;border-radius:7px;padding:7px 11px;margin-top:8px}
+.e1-record-btn{border:0;border-radius:7px;background:#2b777a;color:#fff;padding:9px 12px;font-weight:800;width:100%;margin-top:9px}
+.e1-record-btn:disabled{background:#aaa;opacity:.6}
+.e1-note{display:block;width:100%;min-height:78px;resize:vertical;padding:10px 11px;border:1px solid #b8c2b8;border-radius:7px;background:#fff;color:#1d464b;font-family:inherit;line-height:1.5}
+.e1-photo-note{margin-top:10px;padding:12px 14px;background:#15313b;color:#e8f4e7;border-radius:9px;font-size:12px;line-height:1.6}
+.e1-photo-note strong{color:#ffcb84}
+.e1-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.e1-result-grid>div{border:1px solid #a1bba7;padding:10px;border-radius:7px;background:#f7fcf5}
+.e1-result-grid b{font-size:12px;color:#285651}
+.e1-result-grid p{font-size:11px;color:#576e68;margin:4px 0 0}
+.e1-results-caption{font-size:12px;line-height:1.65;margin-top:11px;color:#3e635f}
+@media(max-width:720px){.e1-captures,.e1-result-grid{grid-template-columns:1fr}#missionModal.e1-active .modalContent{padding:14px}#missionModal.e1-active .modalTwo{grid-template-columns:1fr}#missionModal.e1-active .modalHead{padding:14px}#missionModal.e1-active .modalFoot{padding:12px}#missionModal.e1-active #missionDiagram svg{min-height:220px}#missionModal.e1-active .modalFoot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);align-items:stretch;gap:7px}#missionModal.e1-active .modalFoot .feedback{grid-column:1/-1;display:block;flex:none;width:100%;font-size:12px;overflow-wrap:anywhere;line-height:1.45}#missionModal.e1-active .modalFoot .action{min-width:0;font-size:12px;padding:9px 6px}}
+
+
+/* External asset renderer — GitHub Pages relative paths. */
+.logo .brandArt{height:76px;width:min(310px,33vw);object-fit:contain;object-position:left center;filter:drop-shadow(0 4px 3px rgba(0,0,0,.24))}
+.roomArtLabel{position:absolute;right:4.5%;top:1.2%;width:clamp(120px,21%,195px);height:85px;object-fit:contain;pointer-events:none;z-index:2;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
+.storyPortrait img.storyArt{height:100%;width:100%;object-fit:cover;object-position:center 28%;image-rendering:auto}
+#speakerPortrait img{height:100%;width:100%;object-fit:cover;object-position:center top;image-rendering:auto;border-radius:inherit}
+@media(max-width:620px){.logo .brandArt{height:55px;width:min(220px,52vw)}.roomArtLabel{top:0;right:3%;width:130px;height:57px}.storyPortrait img.storyArt{object-position:center top}}
+
+/* Classroom projection edition: deliberately large type and controls. */
+#teacherBar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 16px;padding:13px 18px;background:#102f39;border:2px solid #bca473;border-radius:12px;color:#fff1d6;box-shadow:0 8px 0 #09212a}
+#teacherBar .teacherTitle{font-weight:900;font-size:19px;letter-spacing:.025em}
+#teacherBar .teacherActions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+#teacherBar button,.teacherNav button{border:2px solid #a5baae;background:#244e56;color:#fff9df;font-size:16px;font-weight:850;padding:10px 15px;border-radius:7px;min-height:45px;cursor:pointer}
+#teacherBar button:hover,.teacherNav button:hover{background:#366b70;border-color:#f0d7a0}
+#teacherBar button.active,.teacherNav button.active{background:#f4dba8;color:#17343d;border-color:#f4dba8}
+.teacherNav{display:none;gap:9px;align-items:center;flex-wrap:wrap;justify-content:center;margin:0 auto 12px;max-width:1130px;padding:7px 10px;background:#173740;border:1px solid #6b938e;border-radius:9px}
+.teacherNav .teacherNavLabel{color:#f4d9a0;font-weight:850;font-size:15px;margin-right:4px}
+.teacherNav button{font-size:16px;padding:9px 14px}
+#intro .introTeacherNote{position:relative;font-size:15px;line-height:1.65;background:#e4eacf;padding:12px 15px;border-left:5px solid #3f7875;color:#1e4547;margin:16px 0 3px}
+#intro #resumeGame[hidden]{display:none}
+#teacherQuestion{display:none;background:#163c48;color:#fff2d5;border-left:8px solid #e5b864;padding:18px 22px;font-size:21px;font-weight:750;line-height:1.55;margin:0 0 18px;border-radius:7px}
+#teacherQuestion b{display:block;font-size:14px;letter-spacing:.15em;color:#ffd494;margin-bottom:6px}
+body.teacher-mode{background:#0d2028}
+body.teacher-mode #app{max-width:1900px;padding:13px 18px 26px}
+body.teacher-mode .layout{display:block}
+body.teacher-mode .notebook{display:none}
+body.teacher-mode.teacher-show-notes .layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(345px,400px);gap:17px}
+body.teacher-mode.teacher-show-notes .notebook{display:block}
+body.teacher-mode .worldShell{max-width:1140px;margin-left:auto;margin-right:auto}
+body.teacher-mode .dialogue{max-width:1140px;margin:18px auto 0;padding:22px 22px 18px;gap:19px;min-height:145px}
+body.teacher-mode .portrait{height:98px;width:98px}
+body.teacher-mode .dialogue b{font-size:18px}
+body.teacher-mode .dialogue p{font-size:clamp(20px,1.55vw,26px);line-height:1.52}
+body.teacher-mode .dialogueRight button{font-size:20px;padding:15px 17px;min-height:60px;white-space:nowrap}
+body.teacher-mode .worldBar strong{font-size:23px}
+body.teacher-mode .worldBar small{font-size:14px}
+body.teacher-mode .worldFooter .controls{font-size:15px;color:#334b4d}
+body.teacher-mode .roomNav{font-size:17px;font-weight:800}
+body.teacher-mode .bgmControls{font-size:15px}
+body.teacher-mode .bgmSwitch{font-size:16px;padding:9px 13px}
+body.teacher-mode .storyFrame{width:min(1300px,98vw);max-height:95vh;overflow:auto}
+body.teacher-mode .storyText{font-size:clamp(23px,2.25vw,34px);line-height:1.55;min-height:105px}
+body.teacher-mode .storyName{font-size:clamp(32px,3.2vw,52px)}
+body.teacher-mode .storyEyebrow{font-size:17px}
+body.teacher-mode .storyNextRow button{font-size:21px;padding:15px 24px;min-height:60px}
+body.teacher-mode .storyCounter{font-size:17px}
+body.teacher-mode .storyPortrait{min-width:150px}
+body.teacher-mode .introCard{max-width:990px}
+body.teacher-mode .introCard p{font-size:23px;line-height:1.62;max-width:840px}
+body.teacher-mode .introCard .action{font-size:21px;padding:15px 20px}
+body.teacher-mode .modalPanel{width:min(1320px,98vw);max-height:96vh}
+body.teacher-mode .modalHead h2{font-size:30px}
+body.teacher-mode .modalHead small{font-size:16px}
+body.teacher-mode .modalClose{font-size:19px;min-height:48px}
+body.teacher-mode #teacherQuestion{display:block}
+body.teacher-mode .instructions{font-size:21px;line-height:1.6}
+body.teacher-mode .field label{font-size:19px}
+body.teacher-mode .field select,body.teacher-mode .field input[type=text]{font-size:19px;min-height:47px}
+body.teacher-mode .choiceGroup button{font-size:19px;padding:12px 16px;min-height:48px}
+body.teacher-mode .observation{font-size:20px;line-height:1.6}
+body.teacher-mode .modalFoot .feedback{font-size:19px;line-height:1.5}
+body.teacher-mode .modalFoot .action{font-size:20px;min-height:52px}
+body.teacher-mode .diagram .diagCaption{font-size:17px}
+body.teacher-mode .e1-step h3{font-size:21px}
+body.teacher-mode .e1-step p,body.teacher-mode .e1-capture small,body.teacher-mode .e1-result-grid p{font-size:16px;line-height:1.6}
+body.teacher-mode .e1-step button,body.teacher-mode .e1-record-btn{font-size:18px;padding:12px}
+body.teacher-mode .e1-capture b,body.teacher-mode .e1-result-grid b,body.teacher-mode .e1-results-caption{font-size:18px}
+body.teacher-mode .e1-note{font-size:18px}
+body.teacher-mode .notebook .quest .qt{font-size:18px}
+body.teacher-mode .notebook .noteSub{font-size:17px}
+body.teacher-mode .notebook .chapterHeader b{font-size:18px}
+body.teacher-mode .mapHotspot{font-size:clamp(12px,1.2vw,18px)}
+body.teacher-mode #teacherBar{max-width:1700px;margin:0 auto 12px}
+body.teacher-mode .teacherNav{display:flex}
+body.teacher-mode .footnote{font-size:14px}
+body.teacher-mode header{margin-bottom:11px}
+body.teacher-mode .logo .brandArt{height:64px}
+@media (max-height:850px) and (min-width:830px){body.teacher-mode .worldShell,body.teacher-mode .dialogue{max-width:920px}body.teacher-mode .dialogue{min-height:110px;padding:15px 20px}body.teacher-mode .portrait{width:74px;height:74px}}
+@media (max-width:830px){#teacherBar .teacherTitle{font-size:15px}#teacherBar button,.teacherNav button{font-size:14px;padding:7px 10px;min-height:39px}body.teacher-mode.teacher-show-notes .layout{display:block}body.teacher-mode.teacher-show-notes .notebook{margin-top:20px}body.teacher-mode .dialogue{flex-wrap:wrap}body.teacher-mode .dialogue p{font-size:18px}body.teacher-mode .storyText{font-size:21px}body.teacher-mode .teacherNav{gap:4px}body.teacher-mode #app{padding:9px}}
+
+ 
+/* IMMERSIVE CLASSROOM EDITION · 2026-11-27
+   The world, characters and photography are the interface. Teacher controls are hidden. */
+html,body{height:100%;overflow:hidden}
+body,body.teacher-mode{background:#070f18!important;color:#f5ebd3}
+#app,body.teacher-mode #app{max-width:none!important;padding:0!important;width:100%;min-height:100dvh;margin:0!important}
+#app>header,#app>.footnote,#teacherBar,#teacherQuickNav,.worldBar,.worldFooter,.notebook,#tutorialHud,.roomArtLabel{display:none!important}
+.layout,body.teacher-mode .layout,body.teacher-mode.teacher-show-notes .layout{display:block!important;height:100dvh;width:100vw;max-width:none;margin:0!important}
+.layout>div:first-child{height:100%;width:100%}
+.worldShell,body.teacher-mode .worldShell{display:grid!important;place-items:center;width:100%;height:100%;max-width:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:#08111c!important;box-shadow:none!important;overflow:hidden}
+.world,body.teacher-mode .world{position:relative;display:block;width:min(100vw,177.77778dvh)!important;height:min(100dvh,56.25vw)!important;max-width:none!important;max-height:none!important;aspect-ratio:16/9;border:0!important;border-radius:0!important;box-shadow:0 0 55px #0008!important;margin:auto;overflow:hidden;background:#13242d}
+.world canvas{width:100%;height:100%;image-rendering:auto;display:block}
+#worldPrompt{position:absolute;top:auto;bottom:12px;left:50%;transform:translateX(-50%);background:#101d26db;border:1px solid #ead09caa;color:#fdf3e0;z-index:6;border-radius:8px;padding:10px 20px;min-width:0;width:auto;max-width:85%;gap:13px;font-size:clamp(16px,1.42vw,27px);line-height:1.24;font-weight:800;pointer-events:none;white-space:nowrap;box-shadow:0 5px 30px #0008}
+#worldPrompt b{font-size:clamp(17px,1.5vw,29px);height:auto;min-width:2em;padding:5px 9px}
+#worldPrompt:not(.near),#worldPrompt[hidden]{display:none!important}
+/* NPC dialogue floats in the photographed room, not in an external HUD. */
+.world .dialogue,body.teacher-mode .world .dialogue{position:absolute;bottom:2.6%;left:3%;width:94%;max-width:none!important;z-index:12;display:flex;align-items:center;gap:clamp(12px,1.5vw,28px);padding:clamp(13px,1.5vw,23px) clamp(17px,2vw,34px)!important;min-height:0!important;margin:0!important;border:3px solid #e1c38e!important;border-radius:15px;background:linear-gradient(115deg,#10242aee,#152f37f5)!important;box-shadow:0 12px 0 #07131b77,0 0 80px #0008!important;color:#fff4de;max-height:46%;overflow:auto}
+.world .dialogue[hidden]{display:none!important}
+.world .dialogue .portrait{width:clamp(82px,7.5vw,142px)!important;height:clamp(85px,7.5vw,142px)!important;flex:0 0 auto;border:3px solid #dcb981;background:#324e4d;border-radius:11px;overflow:hidden}
+.world .dialogue b{font-size:clamp(19px,1.65vw,32px)!important;line-height:1.3;color:#ffd89b}
+.world .dialogue p{font-size:clamp(20px,1.68vw,34px)!important;line-height:1.52!important;margin:6px 0 0;color:#fff5e1;word-break:keep-all;text-wrap:pretty}
+.world .dialogueRight{align-self:flex-end}
+.world .dialogueRight button{font-size:clamp(15px,1.2vw,23px)!important;min-height:50px!important;border-radius:8px!important;padding:11px 17px!important;background:#e7ca9b!important;color:#26353b!important;white-space:nowrap}
+/* Cutscene dialogues keep the room visible and occupy only the lower edge. */
+#storyScene,#storyScene:not([hidden]){align-items:flex-end!important;justify-content:center!important;padding:20px 2.3vw 2.7vh!important;background:linear-gradient(to bottom,#02071145 0%,#0a151e13 35%,#07121a95 68%,#03060ed0 100%)!important;backdrop-filter:none!important}
+#storyScene[hidden]{display:none!important}
+#storyScene .storyFrame,body.teacher-mode #storyScene .storyFrame{width:min(1690px,96vw)!important;max-height:51dvh!important;overflow:auto;background:linear-gradient(110deg,#112c38f5,#0f2731f7)!important;border:3px solid #d4b781!important;border-radius:15px!important;box-shadow:0 8px 0 #071823,0 0 65px #0009!important;padding:clamp(15px,1.55vw,29px)!important;color:#fcefd5}
+#storyScene .storyFrame::before{content:'✧ 별빛 사진관 / 19:47';font-size:clamp(10px,.75vw,15px);top:9px;right:14px}
+#storyScene .storyTop{min-height:0;display:flex!important;flex-direction:row!important;align-items:center!important;text-align:left!important;gap:clamp(15px,2vw,38px)!important}
+#storyScene .storyPortrait{height:clamp(110px,11.5vw,195px)!important;width:clamp(105px,10vw,175px)!important;min-width:0!important;border:4px solid #e3c696;box-shadow:4px 6px 0 #07161b;flex:0 0 auto}
+#storyScene .storyEyebrow{font-size:clamp(12px,1vw,19px)!important;color:#e4c18e}
+#storyScene .storyName{font-size:clamp(24px,2.1vw,41px)!important;line-height:1.13;margin:5px 0 10px;color:#ffdfa6}
+#storyScene .storyText,body.teacher-mode #storyScene .storyText{font-size:clamp(20px,1.74vw,35px)!important;line-height:1.5!important;min-height:0!important;margin:0;color:#fff5df;word-break:keep-all}
+#storyScene .storyNextRow{margin-top:10px;padding-top:9px;gap:12px}
+#storyScene .storyNextRow button,body.teacher-mode #storyScene .storyNextRow button{min-height:45px!important;font-size:clamp(16px,1.1vw,22px)!important;padding:9px 18px!important}
+#storyScene .storySkip{opacity:.35}
+#storyScene .storyCounter{font-size:clamp(12px,1vw,17px)!important}
+/* Diegetic photo inspection: educational controls are an opened contact sheet. */
+#missionModal,#infoModal,#secretModal{background:#07101acb!important;backdrop-filter:blur(4px)}
+#missionModal .modalPanel,body.teacher-mode #missionModal .modalPanel,#infoModal .modalPanel,#secretModal .modalPanel{width:min(1520px,96vw)!important;max-height:94dvh!important;background:#faf0d9!important;border:3px solid #d0b37a!important;border-radius:14px!important;overflow-y:auto;box-shadow:0 0 0 6px #1d3540,0 20px 70px #000b!important}
+#missionModal .modalContent{padding:clamp(12px,1.3vw,22px)!important}
+#missionModal .modalHead h2{font-size:clamp(24px,2.2vw,40px)!important}
+#missionModal .modalHead small{font-size:clamp(13px,.95vw,18px)!important}
+#missionModal .instructions{font-size:clamp(17px,1.3vw,24px)!important;line-height:1.55}
+#missionModal .field label{font-size:clamp(17px,1.23vw,24px)!important}
+#missionModal .choiceGroup button{font-size:clamp(15px,1.1vw,23px)!important;padding:11px 15px!important;min-height:48px}
+#missionModal .field select,#missionModal .field input[type=text]{font-size:clamp(17px,1.1vw,23px)!important}
+#missionModal .observation{font-size:clamp(17px,1.2vw,24px)!important;line-height:1.6}
+#missionModal .modalFoot .feedback{font-size:clamp(16px,1.1vw,22px)!important;line-height:1.5}
+#missionModal .modalFoot .action{font-size:clamp(16px,1.2vw,24px)!important;min-height:50px}
+#missionModal #teacherQuestion{display:none!important}
+#missionModal .missionNpcNarration{display:flex;gap:16px;align-items:center;background:linear-gradient(110deg,#1c3d43,#234c4a);color:#fff2d8;border-left:6px solid #f1c47c;padding:10px 15px;margin:0 0 13px;border-radius:8px}
+#missionModal .missionNpcNarration img{width:clamp(65px,6.8vw,112px);height:clamp(65px,6.8vw,112px);object-fit:cover;border:2px solid #f0d29e;background:#3e5150;flex:none}
+#missionModal .missionNpcNarration strong{font-size:clamp(16px,1.22vw,24px);color:#ffd49a}
+#missionModal .missionNpcNarration p{margin:4px 0 0;font-size:clamp(17px,1.3vw,25px);line-height:1.5;word-break:keep-all}
+/* Small, discoverable but unobtrusive teacher console. */
+#directorChrome{position:fixed;top:10px;right:14px;z-index:150;pointer-events:none;color:#faefdc}
+#directorToggle{pointer-events:auto;display:grid;place-items:center;margin-left:auto;width:42px;height:42px;border-radius:50%;border:1px solid #e3c8996e;background:#142e3a70;color:#f6e5cb;opacity:.24;transition:opacity .16s,background .16s;font-size:24px;cursor:pointer}
+#directorToggle:hover,#directorToggle:focus-visible,#directorToggle[aria-expanded="true"]{opacity:1;background:#1e4551}
+#directorPanel{pointer-events:auto;display:flex;flex-direction:column;gap:12px;width:min(630px,93vw);max-height:min(86dvh,780px);overflow:auto;margin-top:10px;padding:16px;border:2px solid #c8a97a;border-radius:12px;background:#102c37f5;box-shadow:0 18px 48px #000c;color:#fff3df}
+#directorPanel[hidden]{display:none!important}
+#directorPanel .directorHeader{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:21px}
+#directorClose{font-size:25px;background:#294f58;color:#fff;border:1px solid #758f90;border-radius:6px;min-width:38px}
+#directorPanel .directorHelp{margin:0;font-size:15px;color:#d7cbaa}
+#directorPanel #teacherBar{display:block!important;background:none;border:0;border-radius:0;box-shadow:none;padding:0;margin:0}
+#directorPanel #teacherBar .teacherTitle{display:none!important}
+#directorPanel #teacherBar .teacherActions{gap:8px}
+#directorPanel #teacherBar button{font-size:15px;min-height:42px;padding:8px 12px}
+#directorPanel #teacherQuickNav{display:flex!important;margin:0;max-width:none;background:#24464e}
+#directorPanel #teacherQuickNav button{font-size:15px;min-height:40px;padding:7px 11px}
+#directorPanel .headerMeta,#directorPanel .bgmControls{display:flex!important;gap:8px;justify-content:flex-start;align-items:center;flex-wrap:wrap}
+#directorPanel .headerMeta button{border:1px solid #94a49a;background:#25434a;color:#f8efdf;padding:10px 12px;border-radius:8px;font-size:15px}
+#directorPanel .progressChip{font-size:15px}
+#directorPanel .bgmControls label{font-size:15px;color:#f5e1c3}
+#directorPanel .bgmStatus{font-size:14px;color:#ddd3bd}
+/* Cinematic entry page; choice is the only non-world menu before visiting the studio. */
+#intro{background:radial-gradient(ellipse at 50% 30%,#324a526e,#050d17f7 80%)!important;backdrop-filter:blur(7px)}
+#intro .introCard{width:min(960px,94vw);max-width:none!important}
+#intro .introCard h1{font-size:clamp(38px,4.1vw,80px)}
+#intro .introCard p{font-size:clamp(18px,1.5vw,26px)!important;line-height:1.58}
+#intro .introTeacherNote{font-size:clamp(14px,1vw,19px)!important;background:#e2e6d6}
+#intro .introActions button{font-size:clamp(17px,1.4vw,24px);min-height:52px;padding:12px 19px}
+#intro .resumeSnapshot{font-size:clamp(15px,1.1vw,22px)!important;color:#325e61;background:#ecede0;border-radius:8px;padding:9px 14px}
+#intro .resumeSnapshot[hidden]{display:none!important}
+#toast{z-index:180}
+@media(max-width:750px){
+ .world,body.teacher-mode .world{width:100vw!important;height:min(75dvh,56.25vw)!important;align-self:start;margin-top:max(7vh,30px)}
+ .world .dialogue{left:2%!important;width:96%!important;bottom:2%!important;padding:8px 10px!important;gap:7px!important;max-height:78%}
+ .world .dialogue .portrait{width:50px!important;height:52px!important}
+ .world .dialogue b{font-size:14px!important}
+ .world .dialogue p{font-size:13px!important;line-height:1.4!important}
+ .world .dialogueRight button{font-size:11px!important;min-height:33px!important;padding:6px 8px!important}
+ #worldPrompt{font-size:11px;bottom:5px;padding:5px 8px}#worldPrompt b{font-size:12px}
+ #storyScene .storyFrame{max-height:70dvh!important}
+ #storyScene .storyPortrait{height:85px!important;width:78px!important}
+ #storyScene .storyText{font-size:16px!important}
+ #storyScene .storyName{font-size:20px!important}
+ #directorToggle{opacity:.65}
+ .mobilePad{display:grid!important;position:fixed;z-index:30;bottom:6px;left:50%;transform:translateX(-50%);max-width:360px;width:96vw}
+}
+
+/* Make the bright opening panel legible even when the world has light-colored text. */
+#intro .introCard,#intro .introCard h1,#intro .introCard p{color:#19393d!important}
+#intro .introCard strong{color:#17393b!important}
+/* 19:47 SEALED STUDIO — gameplay layout and TV-scale one-question-at-a-time interface */
+#world #missionModal{position:absolute!important;inset:0!important;z-index:22!important;display:flex!important;align-items:flex-end!important;justify-content:center!important;overflow:hidden!important;background:linear-gradient(180deg,transparent 0%,#07141b28 35%,#05101894 100%)!important;backdrop-filter:none!important;padding:0!important;touch-action:auto}
+#world #missionModal[hidden]{display:none!important}
+#world #missionModal .modalPanel,body.teacher-mode #world #missionModal .modalPanel{width:94%!important;max-height:82%!important;min-height:0!important;position:relative!important;overflow:auto!important;margin:0 auto 1.4%!important;border:3px solid #dcb979!important;background:linear-gradient(135deg,#f8edcf,#efe0c0)!important;border-radius:13px!important;box-shadow:0 0 0 5px #0d2636,0 17px 48px #0009!important;outline:0!important;scrollbar-width:thin}
+#world #missionModal .modalHead{padding:7px 15px!important;background:#244650!important;align-items:center!important}
+#world #missionModal .modalHead h2,body.teacher-mode #world #missionModal .modalHead h2{font-size:clamp(20px,1.6vw,32px)!important;line-height:1.1!important;margin:2px 0!important}
+#world #missionModal .modalHead small{font-size:clamp(10px,.75vw,15px)!important}
+#world #missionModal .modalContent{padding:clamp(8px,.8vw,15px)!important}
+#world #missionModal .modalTwo{grid-template-columns:minmax(0,1fr) minmax(275px,1.05fr)!important;gap:clamp(11px,1.1vw,22px)!important;align-items:center!important}
+#world #missionModal .missionStageHeader{margin:0 0 8px;color:#18484a;font-size:clamp(17px,1.15vw,24px);font-weight:900;letter-spacing:.02em}
+#world #missionModal .missionNpcNarration{padding:7px 10px!important;gap:12px!important;margin-bottom:9px!important}
+#world #missionModal .missionNpcNarration img{width:clamp(45px,4.4vw,82px)!important;height:clamp(45px,4.4vw,82px)!important}
+#world #missionModal .missionNpcNarration strong{font-size:clamp(15px,1.1vw,22px)!important}
+#world #missionModal .missionNpcNarration p{font-size:clamp(16px,1.13vw,23px)!important;line-height:1.35!important;margin:2px 0!important}
+#world #missionModal .instructions{display:none!important}
+#world #missionModal #missionDiagram{min-height:0!important;border:4px solid #a69778!important;padding:6px!important;gap:3px!important}
+#world #missionModal #missionDiagram svg{max-height:min(27dvh,300px)!important;min-height:0!important;height:min(27dvh,300px)!important;flex:1!important}
+#world #missionModal.e1-active #missionDiagram svg{max-height:min(29dvh,310px)!important;min-height:0!important;height:min(29dvh,310px)!important}
+#world #missionModal #missionControls>.field{padding:clamp(5px,.5vw,10px) 0!important}
+#world #missionModal #missionControls>.field label{font-size:clamp(15px,1.12vw,22px)!important}
+#world #missionModal .choiceGroup button,body.teacher-mode #world #missionModal .choiceGroup button{font-size:clamp(15px,1.04vw,21px)!important;min-height:clamp(39px,3.0vw,56px)!important;line-height:1.3!important}
+#world #missionModal .e1-steps{display:none!important}
+#world #missionModal .e1-step[hidden],#world #missionModal .field[hidden],#world #missionModal .shelf[hidden],#world #missionModal .observation[hidden],#world #missionModal .e1-steps[hidden]{display:none!important}
+#world #missionModal .e1-step{padding:clamp(6px,.6vw,12px)!important;margin:0!important}
+#world #missionModal .e1-step h3{font-size:clamp(17px,1.2vw,25px)!important}
+#world #missionModal .e1-step p{font-size:clamp(14px,1vw,19px)!important;line-height:1.35!important}
+#world #missionModal .e1-step button{font-size:clamp(13px,.94vw,19px)!important;padding:7px 11px!important}
+#world #missionModal .observation{max-height:15dvh;overflow:auto;margin:6px 0!important;padding:5px 10px!important;font-size:clamp(14px,.9vw,18px)!important}
+#world #missionModal .modalFoot{padding:8px 13px!important;gap:8px!important;background:#ecdbc0!important;position:sticky!important;bottom:0!important;flex-wrap:nowrap!important}
+#world #missionModal .modalFoot .feedback{font-size:clamp(13px,.91vw,18px)!important;line-height:1.35!important;max-height:70px;overflow:auto}
+#world #missionModal .modalFoot .action,body.teacher-mode #world #missionModal .modalFoot .action{font-size:clamp(13px,1vw,21px)!important;min-height:40px!important;padding:8px 13px!important;white-space:nowrap!important}
+#world #missionModal #tryReset{min-width:40px!important}
+#world #missionModal #missionPrev[hidden],#world #missionModal #missionNext[hidden],#world #missionModal #submitMission[hidden]{display:none!important}
+#directorPanel .sfxToggle{display:block;background:#234a49;border:1px solid #ddc398;border-radius:8px;color:#fff4dd;padding:10px 14px;font-size:15px;max-width:220px}
+@media (max-width:900px){
+ #world #missionModal .modalPanel{max-height:95%!important;width:98%!important}
+ #world #missionModal .modalTwo{grid-template-columns:1fr!important}
+ #world #missionModal #missionDiagram{min-height:0!important}
+ #world #missionModal #missionDiagram svg{height:140px!important;max-height:145px!important}
+ #world #missionModal .modalFoot{flex-wrap:wrap!important}
+ #world #missionModal .modalFoot .feedback{flex-basis:100%!important}
+ #world #missionModal .missionNpcNarration img{display:none!important}
+ #world #missionModal .missionNpcNarration p{font-size:14px!important}
+}
+
+
+/* ST★RPHOTO 2026: high-definition screen / RPG title scene / accessible classroom stage */
+#intro.titleScreen{isolation:isolate;overflow:hidden;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;background:#070d1f!important;backdrop-filter:none!important;color:#fff6e3!important}
+#intro.titleScreen[hidden]{display:none!important}
+#intro .titleArt{position:absolute;inset:0;background:url('../title/title_backdrop.webp') center center/cover no-repeat;z-index:-3;filter:saturate(1.1) contrast(1.08);}
+#intro .titleNebula{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#06102217 0%,#07102575 30%,#060f25b9 50%,#07102575 71%,#06102214 100%),linear-gradient(0deg,#070e1abe,transparent 17%,transparent 80%,#060c1799);}
+#intro .titleContent{color:#fff6e5!important;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;position:relative;z-index:1;width:min(790px,92vw);max-height:94dvh;overflow:auto;padding:clamp(12px,2vh,26px) clamp(16px,3vw,44px) clamp(18px,3vh,34px);text-shadow:0 3px 12px #000b,0 1px 3px #000;scrollbar-width:thin}
+#intro .titleSmall{font-size:clamp(11px,.9vw,16px);font-weight:900;letter-spacing:.27em;color:#f9dca5;margin-bottom:clamp(6px,1vh,14px)}
+#intro .titleIcon{font-size:clamp(18px,2vw,28px);line-height:1;color:#eeca8f;margin:4px 0 1vh;letter-spacing:.4em}
+#intro .titleIcon span{font-size:1.8em;color:#ffe1a8}
+#intro .titleName{font-family:'Noto Serif KR','Batang','Malgun Gothic',serif!important;font-size:clamp(51px,5.5vw,104px)!important;font-weight:900!important;letter-spacing:-.055em;line-height:1.1;margin:0;color:#fff6d8!important;-webkit-text-stroke:.45px #f8d6a6;text-shadow:0 1px 0 #fff1cc,0 4px 0 #ab7c52,0 10px 22px #000a,0 0 35px #e9ad5488;white-space:nowrap}
+#intro .titleEnglish{font-size:clamp(12px,1.05vw,19px);font-weight:900;letter-spacing:.42em;color:#f9d6a0;margin-top:clamp(11px,1.3vh,20px)}
+#intro .titleSubtitle{color:#ffedcc!important;font-size:clamp(14px,1.3vw,22px)!important;line-height:1.3!important;letter-spacing:.1em;margin:clamp(9px,1.3vh,18px) 0 0;font-weight:900}
+#intro .titleRule{display:flex;align-items:center;gap:20px;width:min(440px,80%);margin:clamp(10px,1.2vh,15px) auto 0;color:#e8bb79;opacity:.95}
+#intro .titleRule::before,#intro .titleRule::after{content:'';height:1px;flex:1;background:linear-gradient(to right,transparent,#d8ab79 35%,#d8ab79 65%,transparent)}
+#intro .titleGoal{color:#f8ecda!important;font-size:clamp(15px,1.24vw,22px)!important;line-height:1.5!important;font-weight:750;margin:clamp(7px,1vh,14px) 0 clamp(16px,2vh,24px);text-shadow:0 2px 9px #000}
+#intro .titleMenu{display:flex;flex-direction:column;width:min(390px,100%);gap:clamp(8px,1.25vh,13px)}
+#intro .titleOption{font-family:inherit;display:flex;justify-content:center;align-items:center;position:relative;min-height:clamp(51px,5.5vh,70px);border:2px solid #c69e67;color:#fff0d0!important;background:linear-gradient(100deg,#08162bdb,#1a2a49ec,#08162bdb);box-shadow:inset 0 0 0 2px #3a3052,0 4px 0 #030714,0 8px 20px #000a;clip-path:polygon(0 12px,12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px));font-size:clamp(20px,1.65vw,31px);font-weight:900;letter-spacing:.05em;padding:8px 22px;transition:background .14s,transform .14s,box-shadow .14s;text-shadow:0 2px 3px #000a}
+#intro .titleOption[hidden]{display:none!important}
+#intro .titleOption:hover,#intro .titleOption:focus-visible{background:linear-gradient(95deg,#604420e8,#86602ff5,#604420e8);box-shadow:inset 0 0 0 2px #f9d697,0 0 24px #f3c37788,0 4px 0 #030714;transform:translateY(-1px)}
+#intro .titleArrow{position:absolute;left:clamp(14px,1.6vw,27px);font-size:.75em;opacity:0;color:#ffd78b;transition:opacity .14s}
+#intro .titleOption:hover .titleArrow,#intro .titleOption:focus-visible .titleArrow,#intro .titleOption:first-child .titleArrow{opacity:1}
+#intro .resumeSnapshot{color:#ecd7b0!important;background:#091b32d9;border:1px solid #d1a76e8c;border-radius:6px;padding:8px 16px;margin:14px 0 0;font-size:clamp(12px,.97vw,17px)!important;line-height:1.5!important}
+#intro .titleFooter{position:absolute;bottom:15px;left:3%;right:3%;display:flex;justify-content:space-between;align-items:center;z-index:1;color:#e6c9a2b8;font-weight:700;letter-spacing:.14em;font-size:clamp(10px,.8vw,14px);text-shadow:0 2px 7px #000b;pointer-events:none}
+#intro .titlePop{position:absolute;z-index:10;inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,94vw);max-height:92dvh;overflow:auto;display:flex;flex-direction:column;gap:13px;padding:clamp(22px,3vw,35px);color:#fff6e4;background:linear-gradient(145deg,#0d2038f7,#102d3af8);border:2px solid #d5ad79;border-radius:12px;box-shadow:0 0 0 9999px #010714ad,0 0 50px #000d}
+#intro .titlePop[hidden]{display:none!important}
+#intro .titlePop h2{margin:0;font-size:clamp(26px,2.7vw,40px);color:#ffdfab}
+#intro .titlePop p{margin:3px 0;font-size:clamp(16px,1.18vw,23px)!important;color:#f8e9d5!important;line-height:1.6!important}
+#intro .titlePop p b{color:#ffdc92}
+#intro .titlePop .titleOption{font-size:clamp(17px,1.25vw,22px);min-height:50px}
+#intro .titleRange{display:flex;flex-direction:column;gap:8px;color:#e9d7b6;font-size:20px;font-weight:800}
+#intro .titleRange input{width:100%;accent-color:#ffca7b}
+#intro .titleHelpNote{color:#ffdca3!important;font-weight:900}
+/* Render HTML overlay exactly once; prompt is never allowed to collide with NPC speech. */
+#world:has(.dialogue:not([hidden])) #worldPrompt{display:none!important}
+#world .dialogue:not([hidden]){position:absolute!important;bottom:2.4%!important;left:3.2%!important;width:93.6%!important;max-height:min(36%,330px)!important;min-height:0!important;display:grid!important;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:clamp(12px,1.3vw,22px);overflow-y:auto!important;overflow-x:hidden!important;border:2px solid #f2d3a5!important;background:linear-gradient(100deg,#0b1c28f7,#13313ff8 60%,#0b1a27f8)!important;box-shadow:0 0 0 5px #07121a99,0 16px 50px #000a!important;isolation:isolate;padding:clamp(14px,1.35vw,23px) clamp(15px,2vw,30px)!important}
+#world .dialogue::before{display:none!important}
+#world .dialogue p{font-size:clamp(20px,1.65vw,30px)!important;line-height:1.4!important;margin-top:6px!important}
+#world .dialogue b{font-size:clamp(18px,1.4vw,25px)!important}
+#world .dialogueRight{align-self:center!important}
+#world .dialogueRight button{font-size:clamp(16px,1.1vw,21px)!important;padding:9px 13px!important;min-height:46px!important}
+/* Mission foot belongs to its own layout row; it cannot cover the last choice or explanation. */
+#world #missionModal{align-items:center!important;padding:1.1%!important;background:#020a15a5!important;}
+#world #missionModal .modalPanel,body.teacher-mode #world #missionModal .modalPanel{display:flex!important;flex-direction:column!important;justify-content:flex-start!important;height:min(92%,900px)!important;max-height:92%!important;margin:0!important;overflow:hidden!important;border:3px solid #e6c68b!important;background:#fff2d8!important;}
+#world #missionModal .modalHead{flex:0 0 auto!important;padding:9px 17px!important}
+#world #missionModal .modalContent{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding:12px 18px 16px!important;scrollbar-gutter:stable}
+#world #missionModal .modalFoot{position:static!important;flex:0 0 auto!important;z-index:2;display:flex!important;align-items:center!important;justify-content:flex-end!important;flex-wrap:wrap!important;gap:8px!important;margin:0!important;padding:10px 16px 12px!important;min-height:0!important;border-top:2px solid #d2b98e!important;background:#e9dbc0!important;box-shadow:0 -3px 10px #24363817!important}
+#world #missionModal .modalFoot .feedback{flex:1 1 100%!important;display:block!important;max-height:unset!important;overflow:visible!important;line-height:1.35!important;min-width:0}
+#world #missionModal .modalFoot .action{flex:0 0 auto;min-height:42px!important}
+#world #missionModal .observation{max-height:none!important;overflow:visible!important}
+#world #missionModal .modalTwo{align-items:start!important}
+@media(max-width:900px){
+  #world .dialogue:not([hidden]){grid-template-columns:auto minmax(0,1fr)!important;max-height:56%!important;gap:8px!important}
+  #world .dialogue .portrait{width:46px!important;height:50px!important}
+  #world .dialogueRight{grid-column:2!important;justify-self:end!important}
+  #world .dialogue p{font-size:clamp(12px,2.3vw,17px)!important}
+  #world #missionModal .modalPanel{height:95%!important;max-height:95%!important;width:98%!important}
+  #world #missionModal .modalContent{padding:7px 10px!important}
+  #intro .titleFooter{font-size:10px}
+  #intro .titleGoal{font-size:15px!important}
+  #intro .titleName{font-size:clamp(39px,8vw,64px)!important}
+}
+@media(max-height:760px){
+  #intro .titleContent{max-height:94dvh;padding:6px 18px!important}
+  #intro .titleSmall{margin-bottom:2px}
+  #intro .titleIcon{display:none}
+  #intro .titleRule{margin-top:7px}
+  #intro .titleGoal{margin:5px 0 9px!important;font-size:clamp(13px,1.25vw,17px)!important}
+  #intro .titleMenu{gap:7px}
+  #intro .titleOption{min-height:clamp(39px,7vh,52px);font-size:clamp(18px,1.7vw,25px)}
+  #intro .titleFooter{bottom:5px}
+}
+
+
+/* Title has no teacher chrome: reveal teacher menu only during play. */
+body:has(#intro:not([hidden])) #directorChrome{display:none!important}
+
+/* A photo-development console, not a full-screen workbook. Keep the room visible behind it. */
+#world:has(#missionModal:not([hidden])) #worldPrompt,
+#world:has(#missionModal:not([hidden])) #dialogue {display:none!important}
+#world #missionModal .modalPanel,body.teacher-mode #world #missionModal .modalPanel{
+ width:min(1460px,84%)!important;height:auto!important;min-height:0!important;max-height:87%!important;
+}
+#world #missionModal .modalContent{flex:1 1 auto!important;max-height:68dvh!important;overflow:auto!important}
+@media(max-width:900px){#world #missionModal .modalPanel{width:98%!important;max-height:96%!important}}
+
+/* Immersive game doors and grounded controls */
+#doorFade{position:fixed;inset:0;z-index:9998;background:radial-gradient(ellipse at 50% 48%,#1a2940 0%,#080c19 60%,#020306 100%);opacity:0;pointer-events:none;transition:opacity .36s ease;display:grid;place-items:center}
+#doorFade[hidden]{display:none!important}#doorFade.visible{opacity:1}
+.doorFadeStar{font-size:70px;color:#e4bd80;text-shadow:0 0 35px #e1be97}
+#roomNav,.worldFooter,.roomNav{display:none!important}
+#worldPrompt{max-width:min(620px,72vw);padding:8px 20px!important;bottom:15px!important;border:2px solid #b78957!important;border-radius:12px!important;background:rgba(20,24,37,.94)!important;box-shadow:0 7px 20px #0009!important}
+#worldPrompt[hidden]{display:none!important}
+#worldPrompt span{font-size:clamp(17px,1.35vw,25px)!important}
+#worldPrompt b{color:#f4d795}
+@media (max-width:700px){#worldPrompt{max-width:90vw;bottom:8px!important}}
