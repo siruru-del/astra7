@@ -1,0 +1,51 @@
+/* The optional record board belongs to the monochrome secret room. */
+#infoModal[data-kind="online-leaderboard"]{background:rgba(5,5,5,.82)!important}
+#infoModal[data-kind="online-leaderboard"] .modalPanel{display:flex;flex-direction:column;box-sizing:border-box;min-width:0;width:min(1000px,100%)!important;max-width:100%;overflow:hidden;background:#171717!important;color:#ededeb;border:1px solid #858585!important;outline:0;box-shadow:0 0 0 5px #101010,0 22px 70px #000a!important;border-radius:8px!important}
+#infoModal[data-kind="online-leaderboard"] .modalHead,#infoModal[data-kind="online-leaderboard"] .modalFoot{flex:0 0 auto;position:static;background:#202020;border-color:#555;color:#eee}
+#infoModal[data-kind="online-leaderboard"] .modalHead h2,#infoModal[data-kind="online-leaderboard"] .modalHead small{color:#ededeb}
+#infoModal[data-kind="online-leaderboard"] .modalContent{flex:1 1 auto;min-height:0;padding:clamp(15px,2.2vw,28px)}
+#infoModal[data-kind="online-leaderboard"] :is(.modalClose,.action){background:#333;color:#eee;border-color:#888}
+.onlineLeaderboard{font-size:14px;line-height:1.65;color:#e3e3df}
+.onlineLeaderboard p{word-break:keep-all;overflow-wrap:anywhere}
+.leaderboardIntro{margin:0 0 20px;color:#c2c2bf;font-size:15px}
+.leaderboardControls{display:grid;grid-template-columns:1fr 1.4fr auto;gap:14px;align-items:end;margin-bottom:15px}
+.leaderboardControls label{display:grid;gap:6px;font-size:12px;color:#bbb}
+.onlineLeaderboard select,.onlineLeaderboard input[type="text"]{box-sizing:border-box;min-width:0;min-height:42px;width:100%;padding:9px 11px;background:#292929;color:#f1f1ee;border:1px solid #777;border-radius:3px;font:inherit}
+.onlineLeaderboard button,#openOnlineLeaderboard{min-height:42px;padding:9px 15px;font-family:inherit;font-size:13px;font-weight:700;line-height:1.45;border-radius:3px;background:#ddddda;border:1px solid #ededeb;color:#232323;cursor:pointer}
+.onlineLeaderboard button:disabled{opacity:.48;cursor:default}
+#infoModal[data-kind="online-leaderboard"] :is(button,input,select):focus-visible{outline:2px solid #fff;outline-offset:3px}
+.leaderboardNotice{padding:13px 15px;background:#242424;border-left:2px solid #8c8c8c;color:#c6c6c2;font-size:13px;margin:14px 0}
+.leaderboardStatus{min-height:24px;margin:13px 0;color:#c5c5c0;font-size:13px}
+.leaderboardStatus[data-state="error"]{padding:12px;border:1px solid #838383;background:#333;color:#fff}
+.leaderboardTableWrap{overflow:auto;max-height:360px;scrollbar-width:thin;border:1px solid #555;border-radius:4px;background:#1c1c1c}
+.onlineLeaderboard table{width:100%;border-collapse:collapse;min-width:590px;font-variant-numeric:tabular-nums;font-size:13px;text-align:left}
+.onlineLeaderboard caption{text-align:left;padding:11px 13px;background:#242424;font-size:12px;color:#aaa}
+.onlineLeaderboard th,.onlineLeaderboard td{padding:12px 13px;border-bottom:1px solid #393939;white-space:nowrap}
+.onlineLeaderboard thead th{position:sticky;top:0;background:#303030;font-size:11px;letter-spacing:.03em;color:#c4c4bf;z-index:1}
+.onlineLeaderboard tbody th{width:42px;color:#b9b9b5;font-weight:500}
+.onlineLeaderboard td:nth-child(2){max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.onlineLeaderboard td:nth-child(3){font-weight:750;color:#fff;font-size:16px}
+.onlineLeaderboard td:last-child{font-size:10px;letter-spacing:.05em;color:#bbb}
+.onlineLeaderboard tr.is-own-record{background:#363636;box-shadow:inset 3px 0 #ddd}
+.leaderboardLocal{margin:15px 0 22px;color:#9e9e9b;font-size:12px}
+.leaderboardForm{border-top:1px solid #555;padding-top:18px}
+.leaderboardForm h3{margin:0 0 7px;color:#ecece9;font-size:17px}
+.leaderboardCandidate{margin:0 0 17px;color:#cececa;font-size:13px}
+.leaderboardNicknameRow{display:grid;grid-template-columns:70px minmax(0,310px);gap:10px;align-items:center}
+.leaderboardNicknameRow label{font-size:12px;color:#c2c2bf}
+.leaderboardConsent{display:flex;align-items:flex-start;gap:9px;max-width:650px;margin:15px 0 7px;font-size:13px;cursor:pointer}
+.leaderboardConsent input{width:17px;height:17px;flex:0 0 17px;margin:3px 0 0;accent-color:#c6c6c2}
+.leaderboardHint{color:#a3a39e;margin:7px 0 14px;font-size:12px}
+#leaderboardSubmitStatus{min-height:21px;margin:11px 0 0;color:#e1e1dc;font-size:13px}
+.secretOnlineAction{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:16px 0 22px;padding:15px 17px;background:#e0e0dc;border:1px solid #9b9b94;border-radius:5px;color:#3c3c38}
+.secretOnlineAction p{margin:0;font-size:13px;line-height:1.65}
+#openOnlineLeaderboard{flex:0 0 auto;background:#363636;color:#eee;border-color:#777}
+.arenaFinishActions{flex-wrap:wrap}
+#arenaLeaderboard{background:#e2e2dd;color:#222;border:1px solid #fff}
+@media(max-width:640px){
+ .leaderboardControls{grid-template-columns:1fr 1.2fr;gap:10px}.leaderboardControls>button{grid-column:1/-1;width:100%}
+ .leaderboardTableWrap{max-height:300px}.leaderboardNicknameRow{grid-template-columns:1fr;gap:5px}.leaderboardNicknameRow input{max-width:none}
+ .secretOnlineAction{align-items:stretch;flex-direction:column;gap:10px}.secretOnlineAction button{width:100%}
+ #infoModal[data-kind="online-leaderboard"] .modalHead h2{font-size:19px}
+}
+@media(max-height:500px){.leaderboardTableWrap{max-height:210px}.leaderboardIntro{margin-bottom:13px}.leaderboardControls{margin-bottom:8px}}
