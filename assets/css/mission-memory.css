@@ -1,0 +1,836 @@
+/* V6.3.2 · Open a damaged record beside its keeper.
+   All presentation stays inside this opt-in mission scene. The original
+   activity controls, diagrams, arena and ordinary dialogue keep their APIs. */
+
+body #world #missionModal.memory-mission {
+  --memory-ink: #3e382d;
+  --memory-muted: #786a55;
+  --memory-paper: #f5ead2;
+  --memory-light: #fff7e6;
+  --memory-edge: #c4ad82;
+  --memory-accent: #56694f;
+  --memory-accent-soft: #e2e6d4;
+  padding: 18px 22px !important;
+  align-items: center !important;
+  background: linear-gradient(180deg, #0e161746, #101917a6) !important;
+  backdrop-filter: none !important;
+  color: var(--memory-ink);
+  touch-action: pan-y;
+}
+
+body #world #missionModal.memory-mission:has(#missionMemoryCompanion[data-npc="technician"]) {
+  --memory-accent: #82564a;
+  --memory-accent-soft: #ece0d2;
+}
+
+body #world #missionModal.memory-mission:has(#missionMemoryCompanion[data-npc="guide"]) {
+  --memory-accent: #516b7b;
+  --memory-accent-soft: #e0e6df;
+}
+
+body #world #missionModal.memory-mission:has(#missionMemoryCompanion[data-npc="archivist"]) {
+  --memory-accent: #74633f;
+  --memory-accent-soft: #e9e1c8;
+}
+
+body #world #missionModal.memory-mission .modalPanel {
+  width: min(1340px, 96%) !important;
+  height: min(100%, 870px) !important;
+  max-height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  color: var(--memory-ink) !important;
+  background: var(--memory-paper) !important;
+  border: 2px solid #ddc69b !important;
+  border-radius: 2px !important;
+  box-shadow: 0 0 0 2px #423a2e, 0 0 0 5px #a68c63,
+    0 6px 0 5px #29261fe6, 0 18px 45px #0007 !important;
+}
+
+body #world #missionModal.memory-mission .modalHead {
+  position: relative;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  gap: 18px;
+  padding: 13px 24px 12px !important;
+  color: var(--memory-ink) !important;
+  background: #e4d2b0 !important;
+  border-bottom: 1px solid #bda47a !important;
+  box-shadow: inset 0 3px #f7e6c6;
+}
+
+body #world #missionModal.memory-mission .modalHead > div { min-width: 0; }
+body #world #missionModal.memory-mission .modalHead small {
+  display: block;
+  color: #796346;
+  font-size: 10px !important;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: .12em;
+}
+
+body #world #missionModal.memory-mission .modalHead h2 {
+  color: #39372e;
+  margin: 4px 0 0 !important;
+  font-family: 'Noto Serif KR', 'Batang', Georgia, serif;
+  font-size: clamp(20px, 1.7vw, 28px) !important;
+  font-weight: 700;
+  line-height: 1.35 !important;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+}
+
+body #world #missionModal.memory-mission .modalClose {
+  flex: none;
+  min-width: 70px;
+  min-height: 42px;
+  padding: 7px 13px;
+  border: 1px solid #a78f66;
+  border-radius: 1px;
+  color: #534631;
+  background: #f0dfbe;
+  box-shadow: 2px 2px 0 #b69b70;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+body #world #missionModal.memory-mission .modalClose:hover { background: #fff0cf; }
+body #world #missionModal.memory-mission .modalContent {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: auto !important;
+  padding: 23px 24px 25px !important;
+  background:
+    repeating-linear-gradient(0deg, #6d513703 0 1px, transparent 1px 4px),
+    linear-gradient(90deg, #e8d9b880, transparent 30%);
+  color: var(--memory-ink);
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #aa9268 #e8d8b8;
+  scrollbar-gutter: stable;
+  scroll-padding: 14px;
+  touch-action: pan-y;
+}
+
+body #world #missionModal.memory-mission .memory-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 26%) minmax(0, 1fr);
+  gap: 25px;
+  align-items: start;
+  min-width: 0;
+}
+
+body #world #missionModal.memory-mission #missionMemoryCompanion {
+  position: sticky;
+  top: 0;
+  min-width: 0;
+  padding-right: 23px;
+  border-right: 1px solid #c3ad845e;
+  color: var(--memory-ink);
+}
+
+body #world #missionModal.memory-mission .memory-npc {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: start;
+  gap: 13px;
+  min-width: 0;
+}
+
+body #world #missionModal.memory-mission .memory-npc-portrait {
+  width: 92px;
+  height: 92px;
+  padding: 2px;
+  background: #705a3e;
+  border: 1px solid #baa06f;
+  box-shadow: 0 0 0 1px #66533b, 3px 4px 0 #78604429;
+}
+
+body #world #missionModal.memory-mission .memory-npc-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  image-rendering: pixelated;
+}
+
+body #world #missionModal.memory-mission .memory-npc-caption { min-width: 0; padding-top: 3px; }
+body #world #missionModal.memory-mission .memory-location { display: block; color: #8b7554; font-size: 9px; line-height: 1.6; margin-bottom: 4px; word-break: keep-all; }
+body #world #missionModal.memory-mission .memory-npc-caption strong {
+  display: block;
+  color: var(--memory-accent);
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 750;
+  word-break: keep-all;
+}
+
+body #world #missionModal.memory-mission .memory-npc-caption p {
+  margin: 7px 0 0;
+  color: #574b3a;
+  font-size: 13px;
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+/* Torn quarters move toward one another; only a completed record seals shut. */
+body #world #missionModal.memory-mission .memory-fragment {
+  position: relative;
+  margin: 20px 0 0;
+  padding: 12px 13px 10px;
+  background: #dfccaa63;
+  border: 1px solid #c3ad835c;
+  box-shadow: inset 0 0 0 3px #f8ebcd55;
+}
+
+body #world #missionModal.memory-mission .memory-fragment-label {
+  display: block;
+  color: #8b704b;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: .12em;
+}
+
+body #world #missionModal.memory-mission .memory-fragment-title {
+  margin: 5px 0 0;
+  color: #4c432f;
+  font-family: 'Noto Serif KR', 'Batang', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: -.03em;
+}
+
+body #world #missionModal.memory-mission .memory-paper {
+  position: relative;
+  isolation: isolate;
+  height: 152px;
+  margin: 18px 8px 13px 2px;
+  color: #7b6747;
+}
+
+body #world #missionModal.memory-mission .memory-paper-piece {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  width: 51%;
+  height: 51%;
+  padding: 10px 9px;
+  border: 1px solid #c4ae83;
+  color: #8c7958;
+  background: #fff0ce;
+  font-size: 9px;
+  line-height: 1.3;
+  letter-spacing: .08em;
+  box-shadow: 2px 3px 0 #846a4521;
+  transition: transform .8s cubic-bezier(.2,.7,.2,1), opacity .5s, color .5s;
+}
+
+body #world #missionModal.memory-mission .memory-paper-piece[data-piece="0"] {
+  left: 0; top: 0;
+  clip-path: polygon(0 0, 100% 0, 98% 36%, 94% 45%, 100% 55%, 97% 100%, 56% 97%, 45% 100%, 35% 95%, 0 99%);
+  transform: translate(-5px, -4px) rotate(-3deg);
+}
+
+body #world #missionModal.memory-mission .memory-paper-piece[data-piece="1"] {
+  right: 0; top: 0;
+  justify-content: flex-end;
+  clip-path: polygon(0 0, 100% 0, 100% 99%, 60% 96%, 48% 100%, 38% 95%, 0 99%, 3% 56%, 0 45%, 5% 35%);
+  transform: translate(6px, -3px) rotate(3deg);
+}
+
+body #world #missionModal.memory-mission .memory-paper-piece[data-piece="2"] {
+  left: 0; bottom: 0;
+  align-items: flex-end;
+  clip-path: polygon(0 2%, 35% 0, 45% 6%, 57% 1%, 100% 4%, 97% 38%, 100% 49%, 95% 61%, 100% 100%, 0 100%);
+  transform: translate(-7px, 5px) rotate(-4deg);
+}
+
+body #world #missionModal.memory-mission .memory-paper-piece[data-piece="3"] {
+  right: 0; bottom: 0;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 30px;
+  clip-path: polygon(2% 3%, 39% 0, 49% 5%, 60% 0, 100% 3%, 100% 100%, 0 100%, 4% 62%, 0 50%, 5% 39%);
+  transform: translate(7px, 5px) rotate(4deg);
+}
+
+body #world #missionModal.memory-mission .memory-paper-piece[data-piece-state="waiting"] { opacity: .42; }
+body #world #missionModal.memory-mission .memory-paper-piece[data-piece-state="laid"] { opacity: .85; }
+body #world #missionModal.memory-mission .memory-paper-piece[data-piece-state="restored"] { opacity: 1; }
+body #world #missionModal.memory-mission .memory-paper-glyph {
+  position: absolute;
+  inset: 13% 10%;
+  z-index: 2;
+  display: block;
+  width: 80%;
+  height: 74%;
+  max-height: none;
+  color: #796544;
+  opacity: .33;
+  pointer-events: none;
+  transition: opacity .7s, color .7s;
+}
+
+body #world #missionModal.memory-mission .memory-fragment[data-state="sorting"] .memory-paper-piece { transform: translate(0, 0) rotate(-1deg); }
+body #world #missionModal.memory-mission .memory-fragment[data-state="sorting"] .memory-paper-piece:nth-of-type(even) { transform: translate(2px, 1px) rotate(1.5deg); }
+body #world #missionModal.memory-mission .memory-fragment[data-state="sorting"] .memory-paper-glyph { opacity: .48; }
+body #world #missionModal.memory-mission .memory-fragment[data-state="linked"] .memory-paper-piece { transform: translate(0, 0) rotate(.4deg); }
+body #world #missionModal.memory-mission .memory-fragment[data-state="linked"] .memory-paper-glyph { opacity: .68; }
+body #world #missionModal.memory-mission .memory-fragment[data-state="restored"] .memory-paper-piece { transform: none; color: #6f643f; box-shadow: none; }
+body #world #missionModal.memory-mission .memory-fragment[data-state="restored"] .memory-paper-glyph { opacity: 1; color: var(--memory-accent); }
+body #world #missionModal.memory-mission .memory-fragment[data-state="restored"] { border-color: #a79b72; background: #e7e1c57d; }
+
+body #world #missionModal.memory-mission .memory-fragment-stamp {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 3px 8px;
+  color: #8b795e;
+  border-top: 1px solid #b69b6b7d;
+  border-bottom: 1px solid #b69b6b7d;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: .06em;
+  text-align: center;
+}
+
+body #world #missionModal.memory-mission .memory-fragment[data-state="restored"] .memory-fragment-stamp {
+  color: var(--memory-accent);
+  border-color: var(--memory-accent);
+  font-weight: 800;
+}
+
+body #world #missionModal.memory-mission .memory-progress-note {
+  margin: 7px 0 0;
+  color: #7d6e55;
+  font-size: 10px;
+  line-height: 1.65;
+  text-align: center;
+  word-break: keep-all;
+}
+
+body #world #missionModal.memory-mission .memory-npc-sprite {
+  position: absolute;
+  z-index: 3;
+  right: -13px;
+  bottom: -7px;
+  width: 66px;
+  height: 88px;
+  overflow: hidden;
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 0 #58472c30);
+}
+
+body #world #missionModal.memory-mission .memory-npc-sprite img {
+  display: block;
+  width: 400%;
+  max-width: none;
+  height: 100%;
+  image-rendering: pixelated;
+  transform: translateX(0);
+  transform-origin: 12.5% 93%;
+}
+
+body #world #missionModal.memory-mission .memory-npc-sprite[data-pose="1"] img { transform: translateX(-25%); }
+body #world #missionModal.memory-mission .memory-npc-sprite[data-pose="2"] img { transform: translateX(-50%); }
+body #world #missionModal.memory-mission .memory-npc-sprite[data-pose="3"] img { transform: translateX(-75%); }
+body #world #missionModal.memory-mission .memory-npc-sprite[data-pose="1"] { animation: memory-acknowledge .45s ease-out; }
+body #world #missionModal.memory-mission .memory-npc-sprite[data-pose="3"] { animation: memory-recollect .7s ease-out; }
+
+body #world #missionModal.memory-mission .memory-ledger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 5px 8px;
+  margin-top: 16px;
+  padding: 0 2px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--memory-muted);
+}
+
+body #world #missionModal.memory-mission .memory-ledger-title { color: #776344; font-size: 10px; font-weight: 650; }
+body #world #missionModal.memory-mission .memory-ledger > div { display: flex; grid-column: 1 / -1; gap: 9px; align-items: baseline; justify-content: space-between; }
+body #world #missionModal.memory-mission .memory-ledger-count { color: var(--memory-accent); font: 600 11px/1.7 ui-monospace, monospace; }
+body #world #missionModal.memory-mission .memory-ledger-text { grid-column: 1 / -1; margin: 0; word-break: keep-all; }
+
+/* Four story beats remain distinct from the existing lesson's actual steps. */
+body #world #missionModal.memory-mission .memory-activity { min-width: 0; }
+body #world #missionModal.memory-mission .memory-flow-label { margin: 0 0 10px; color: #89734f; font-size: 9px; font-weight: 650; line-height: 1.5; letter-spacing: .06em; }
+body #world #missionModal.memory-mission .memory-flow-number { display: none; }
+body #world #missionModal.memory-mission .memory-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  list-style: none;
+  counter-reset: memory-step;
+  padding: 0 0 15px;
+  margin: 0 0 17px;
+  border-bottom: 1px solid #c5b08a;
+}
+
+body #world #missionModal.memory-mission .memory-flow li {
+  position: relative;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  min-width: 0;
+  color: #8b806b;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.5;
+  counter-increment: memory-step;
+}
+
+body #world #missionModal.memory-mission .memory-flow li::before {
+  content: counter(memory-step, decimal-leading-zero);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  background: #e9ddc3;
+  border: 1px solid #cbb999;
+  color: #978569;
+  font: 600 10px/1 ui-monospace, monospace;
+}
+
+body #world #missionModal.memory-mission .memory-flow li.is-done { color: var(--memory-accent); }
+body #world #missionModal.memory-mission .memory-flow li.is-done::before { color: var(--memory-accent); border-color: #a7ad8a; background: var(--memory-accent-soft); }
+body #world #missionModal.memory-mission .memory-flow li[aria-current="step"],
+body #world #missionModal.memory-mission .memory-flow li.is-current { color: #453d2e; font-weight: 800; }
+body #world #missionModal.memory-mission .memory-flow li[aria-current="step"]::before,
+body #world #missionModal.memory-mission .memory-flow li.is-current::before { color: #fff6df; background: var(--memory-accent); border-color: var(--memory-accent); box-shadow: 2px 2px 0 #b9a57e; }
+
+body #world #missionModal.memory-mission .memory-workspace { min-width: 0; }
+body #world #missionModal.memory-mission #missionNpcNarration { display: none !important; }
+body #world #missionModal.memory-mission .missionStageHeader {
+  margin: 0 0 14px;
+  color: #756348;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+body #world #missionModal.memory-mission .modalTwo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(245px, 1fr) !important;
+  gap: 19px !important;
+  align-items: start !important;
+}
+
+body #world #missionModal.memory-mission #missionDiagram {
+  min-width: 0;
+  min-height: 0 !important;
+  padding: 10px !important;
+  border: 5px solid #e7d7b1 !important;
+  border-radius: 1px;
+  outline: 1px solid #a99268;
+  background: #172e37;
+  box-shadow: 3px 4px 0 #79614226;
+  overflow: hidden;
+}
+
+body #world #missionModal.memory-mission #missionDiagram svg,
+body #world #missionModal.memory-mission.e1-active #missionDiagram svg {
+  width: 100%;
+  height: clamp(175px, 22dvh, 245px) !important;
+  max-height: 245px !important;
+  min-height: 0 !important;
+  flex: none !important;
+}
+
+body #world #missionModal.memory-mission #missionControls { min-width: 0; }
+body #world #missionModal.memory-mission #missionControls > .field { margin: 0; padding: 9px 0 14px !important; border-bottom-color: #c9b891; }
+body #world #missionModal.memory-mission .field label,
+body #world #missionModal.memory-mission #missionControls > .field label {
+  color: #4b4938;
+  font-size: 15px !important;
+  font-weight: 650;
+  line-height: 1.65;
+}
+
+body #world #missionModal.memory-mission .choiceGroup { gap: 7px; }
+body #world #missionModal.memory-mission .choiceGroup button {
+  min-height: 42px !important;
+  padding: 9px 12px !important;
+  border: 1px solid #bcaa86 !important;
+  border-radius: 1px !important;
+  color: #514a38;
+  background: #fff7e4;
+  box-shadow: 0 2px 0 #c4af89;
+  font-size: 14px !important;
+  font-weight: 600;
+  line-height: 1.45 !important;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+body #world #missionModal.memory-mission .choiceGroup button:hover { background: #f5efda; border-color: var(--memory-accent) !important; }
+body #world #missionModal.memory-mission .choiceGroup button.picked {
+  color: #fff7e5 !important;
+  background: var(--memory-accent) !important;
+  border-color: var(--memory-accent) !important;
+  box-shadow: 0 2px 0 #4d4935;
+}
+
+body #world #missionModal.memory-mission .field select,
+body #world #missionModal.memory-mission .field input[type="text"],
+body #world #missionModal.memory-mission textarea {
+  width: 100%;
+  max-width: 100%;
+  color: #403e32;
+  background: #fff9eb;
+  border: 1px solid #b9a987;
+  border-radius: 1px;
+  font-size: 15px !important;
+  min-height: 42px;
+}
+
+body #world #missionModal.memory-mission input[type="range"] { accent-color: var(--memory-accent); min-height: 32px; max-width: 100%; }
+body #world #missionModal.memory-mission .shelf { border-radius: 1px; color: #6c6048; background: #e8dcc1; line-height: 1.7; font-size: 13px; }
+body #world #missionModal.memory-mission .observation {
+  margin: 14px 0 0 !important;
+  padding: 11px 13px !important;
+  color: #4b5d46;
+  background: #e5e5cf;
+  border-left: 2px solid #9a9e75;
+  border-radius: 1px;
+  font-size: 13px !important;
+  line-height: 1.75 !important;
+}
+
+body #world #missionModal.memory-mission .e1-step {
+  padding: 13px !important;
+  background: #fff8e6;
+  border: 1px solid #c7b58e;
+  border-left: 2px solid #b99860;
+  border-radius: 1px;
+}
+
+body #world #missionModal.memory-mission .e1-step h3 { color: #51563d; font-size: 16px !important; line-height: 1.6; }
+body #world #missionModal.memory-mission .e1-step p { color: #6b634e; font-size: 13px !important; line-height: 1.75 !important; }
+body #world #missionModal.memory-mission .e1-step button { min-height: 40px; font-size: 13px !important; }
+body #world #missionModal.memory-mission .e1-capture { border-radius: 1px; background: #f0e5ca; border-color: #c9b68e; }
+body #world #missionModal.memory-mission .e1-capture.complete { background: #e2e7d0; border-color: #9dAD82; }
+body #world #missionModal.memory-mission .e1-capture b { color: #546348; }
+body #world #missionModal.memory-mission .e1-capture small { color: #6f6b54; }
+body #world #missionModal.memory-mission .e1-experiment { color: #535b47; background: #e4e5d2; border-radius: 1px; }
+body #world #missionModal.memory-mission .e1-record-btn { color: #fff6df; background: var(--memory-accent); border-radius: 1px; }
+body #world #missionModal.memory-mission .e1-note { padding: 10px; font-size: 14px !important; line-height: 1.7; }
+body #world #missionModal.memory-mission .e1-help { color: #745b32; background: #f1e2bd; border-radius: 1px; }
+body #world #missionModal.memory-mission .e1-photo-note { color: #e8dec2; background: #283c3c; border-radius: 1px; }
+body #world #missionModal.memory-mission .e1-result-grid > div { border-radius: 1px; background: #f8f3df; border-color: #b7b48d; }
+
+/* Keep the astronomical plots dark for their original ink colours; the
+   surrounding apparatus becomes a paper observation log, not a dashboard. */
+body #world #missionModal.memory-mission.mars-active .modalTwo { grid-template-columns: 1fr !important; gap: 17px !important; }
+body #world #missionModal.memory-mission.mars-active #missionDiagram { border: 0 !important; outline: 0; box-shadow: none; padding: 0 !important; overflow: visible; }
+body #world #missionModal.memory-mission .marsExperiment { color: var(--memory-ink); background: #eee2c7; border: 1px solid #bba77e; border-radius: 1px; }
+body #world #missionModal.memory-mission .marsLabHead { padding: 12px 14px; background: #e5d4b1; border-color: #c1ac80; gap: 9px; }
+body #world #missionModal.memory-mission .marsLabHead h3 { color: #4f4936; font-size: 17px; }
+body #world #missionModal.memory-mission .marsLabHead p { color: #7a6b50; font-size: 11px; }
+body #world #missionModal.memory-mission .marsPhase { color: #4a6449; background: #e2e7cc; border-color: #a2aa82; border-radius: 1px; font-size: 13px; }
+body #world #missionModal.memory-mission .marsPhase[data-phase="retro"] { color: #825329; background: #f3e0b8; border-color: #c6a26b; }
+body #world #missionModal.memory-mission .marsPhase[data-phase="still"] { color: #655c44; background: #ede5cf; border-color: #b6a886; }
+body #world #missionModal.memory-mission .marsViews { gap: 2px; background: #b4a17b; }
+body #world #missionModal.memory-mission .marsView { background: #172e37; padding: 11px 7px 5px; }
+body #world #missionModal.memory-mission .marsView h4 { font-size: 12px; color: #ddccaa; }
+body #world #missionModal.memory-mission.mars-active #missionDiagram .marsView svg { height: 215px !important; max-height: 215px !important; }
+body #world #missionModal.memory-mission.mars-active #missionDiagram .marsGraph svg { height: auto !important; max-height: 170px !important; }
+body #world #missionModal.memory-mission .marsLabMetrics { color: #625c48; background: #e5d9bd; padding: 8px 12px; font-size: 12px; gap: 4px 16px; }
+body #world #missionModal.memory-mission .marsLabMetrics strong { color: var(--memory-accent); }
+body #world #missionModal.memory-mission .marsTimeline { padding: 13px 14px 8px; }
+body #world #missionModal.memory-mission .marsTimeline label { color: #59533f; font-size: 13px; }
+body #world #missionModal.memory-mission .marsTimelineEnds { color: #8b7a5d; }
+body #world #missionModal.memory-mission .marsExperiment button { color: #544c36; background: #fff5db; border-color: #bba57a; border-radius: 1px; box-shadow: 0 2px 0 #c3ab7e; font-size: 12px; }
+body #world #missionModal.memory-mission .marsExperiment button:hover { background: #fcf2d8; border-color: var(--memory-accent); }
+body #world #missionModal.memory-mission .marsExperiment button[data-mars-play] { color: #fff5df; background: var(--memory-accent); border-color: var(--memory-accent); }
+body #world #missionModal.memory-mission .marsPresets button { font-size: 11px; min-height: 36px; }
+body #world #missionModal.memory-mission .marsPeriod { color: #6e6249; font-size: 12px; padding: 9px 14px 13px; }
+body #world #missionModal.memory-mission .marsPeriod select { color: #4e503c; background: #fff8e5; border-color: #bcae8b; border-radius: 1px; font-size: 13px; }
+body #world #missionModal.memory-mission .marsPeriodNote { color: #82745a; font-size: 11px; }
+body #world #missionModal.memory-mission .marsGraph { color: #e8dfc4; background: #192f36; border-color: #ad9a76; padding-top: 11px; }
+body #world #missionModal.memory-mission .marsGraph h4 { color: #dfceac; font-size: 12px; }
+body #world #missionModal.memory-mission .marsCaptures { padding: 12px 14px; border-color: #c1ae88; }
+body #world #missionModal.memory-mission .marsCaptures h4 { color: #66553a; font-size: 13px; }
+body #world #missionModal.memory-mission .marsCaptureRows { color: #5b6549; }
+body #world #missionModal.memory-mission .marsCaptureRows span { color: #5b6549; background: #faf1db; border-color: #bfb48b; border-radius: 1px; }
+body #world #missionModal.memory-mission .marsCaptureRows p { color: #817256; font-size: 12px; }
+body #world #missionModal.memory-mission .marsModelNote { color: #7e7055; background: #dfd2b8; padding: 9px 14px; font-size: 11px; }
+
+/* The successful scene is a completed album leaf, never an answer preview. */
+body #world #missionModal.memory-mission .memory-restoration-card {
+  position: relative;
+  margin: 0;
+  padding: clamp(24px, 3vw, 44px);
+  border: 1px solid #b6a37a;
+  background: #fff7e4;
+  box-shadow: inset 0 0 0 5px #f0e4c9, inset 0 0 0 6px #d9c8a5, 4px 6px 0 #7a674326;
+  color: var(--memory-ink);
+  animation: memory-leaf-arrive .5s ease-out both;
+}
+
+body #world #missionModal.memory-mission .memory-restoration-kicker {
+  display: inline-block;
+  padding: 4px 10px;
+  color: var(--memory-accent);
+  border: 1px solid var(--memory-accent);
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.5;
+  letter-spacing: .08em;
+}
+
+body #world #missionModal.memory-mission .memory-restoration-title {
+  margin: 20px 0 20px;
+  color: #454732;
+  font: 700 clamp(25px, 2.3vw, 34px)/1.45 'Noto Serif KR', 'Batang', Georgia, serif;
+  letter-spacing: -.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+body #world #missionModal.memory-mission .memory-restoration-line { color: #514b37; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.95; word-break: keep-all; text-wrap: pretty; margin: 0 0 22px; }
+body #world #missionModal.memory-mission .memory-restoration-object { color: var(--memory-accent); background: var(--memory-accent-soft); border-left: 2px solid var(--memory-accent); font-size: 13px; line-height: 1.8; padding: 10px 13px; margin: 0 0 24px; word-break: keep-all; }
+body #world #missionModal.memory-mission .memory-restoration-principle { padding-top: 18px; border-top: 1px solid #cbbb96; }
+body #world #missionModal.memory-mission .memory-restoration-principle strong { color: #88704a; font-size: 11px; letter-spacing: .06em; }
+body #world #missionModal.memory-mission .memory-restoration-principle p { margin: 8px 0 0; color: #5f6049; font-size: 15px; line-height: 1.85; word-break: keep-all; }
+
+body #world #missionModal.memory-mission .modalFoot {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  position: relative !important;
+  flex-wrap: wrap !important;
+  gap: 9px !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  padding: 12px 23px 13px !important;
+  border-top: 1px solid #bca67d !important;
+  background: #e4d6b8 !important;
+  box-shadow: inset 0 2px #f7edda !important;
+}
+
+body #world #missionModal.memory-mission .modalFoot .feedback {
+  flex: 1 1 260px !important;
+  min-width: 0;
+  max-height: 70px !important;
+  overflow: auto !important;
+  color: #706344 !important;
+  font-size: 13px !important;
+  font-weight: 500;
+  line-height: 1.65 !important;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+body #world #missionModal.memory-mission .modalFoot .feedback.error { color: #8d5137 !important; }
+body #world #missionModal.memory-mission .modalFoot .action {
+  min-height: 43px !important;
+  padding: 10px 16px !important;
+  color: #fff5df;
+  background: var(--memory-accent);
+  border: 1px solid #4f5b43;
+  border-radius: 1px;
+  box-shadow: 0 3px 0 #414a35;
+  font-size: 13px !important;
+  font-weight: 750;
+}
+
+body #world #missionModal.memory-mission .modalFoot .action.ghost { color: #6f5f40; background: #f2e6cb; border-color: #b5a07a; box-shadow: 0 3px 0 #b29a72; }
+body #world #missionModal.memory-mission #tryReset { min-width: 43px !important; padding-inline: 10px !important; }
+body #world #missionModal.memory-mission .modalFoot .action:active { translate: 0 2px; box-shadow: 0 1px 0 #8d7957; }
+body #world #missionModal.memory-mission.memory-retry .memory-npc-caption p { color: #80573a; }
+body #world #missionModal.memory-mission.memory-complete .modalFoot .feedback { color: var(--memory-accent) !important; }
+
+body #world #missionModal.memory-mission :is(button, input, select, textarea, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid #2b7478 !important;
+  outline-offset: 3px;
+}
+
+body #world #missionModal.memory-mission button:disabled { cursor: not-allowed; opacity: .5; }
+body #world #missionModal.memory-mission :is(#modalTitle, #missionStageHeader):focus { outline: none !important; }
+body #world #missionModal.memory-mission.memory-complete .memory-workspace { display: none !important; }
+body #world #missionModal.memory-mission [hidden] { display: none !important; }
+body #world #missionModal.memory-mission[data-memory-paused="true"] *,
+body #world #missionModal.memory-mission[data-memory-paused="true"] *::before,
+body #world #missionModal.memory-mission[data-memory-paused="true"] *::after { animation-play-state: paused !important; }
+
+/* Smaller desks keep the same single scroll area and a permanently visible
+   footer. The companion becomes a narrow open-book heading. */
+@media (max-width: 1150px) {
+  body #world #missionModal.memory-mission { padding: 13px 17px !important; }
+  body #world #missionModal.memory-mission .modalPanel { width: 97% !important; }
+  body #world #missionModal.memory-mission .modalContent { padding: 19px !important; }
+  body #world #missionModal.memory-mission .memory-layout { grid-template-columns: 228px minmax(0, 1fr); gap: 20px; }
+  body #world #missionModal.memory-mission #missionMemoryCompanion { padding-right: 18px; }
+  body #world #missionModal.memory-mission .memory-npc { grid-template-columns: 76px minmax(0, 1fr); gap: 10px; }
+  body #world #missionModal.memory-mission .memory-npc-portrait { width: 76px; height: 76px; }
+  body #world #missionModal.memory-mission .memory-npc-caption strong { font-size: 12px; }
+  body #world #missionModal.memory-mission .memory-npc-caption p { font-size: 12px; line-height: 1.75; }
+  body #world #missionModal.memory-mission .memory-fragment { padding-inline: 11px; }
+  body #world #missionModal.memory-mission .memory-fragment-title { font-size: 16px; }
+  body #world #missionModal.memory-mission .memory-paper { height: 134px; }
+  body #world #missionModal.memory-mission .modalTwo { grid-template-columns: minmax(0, 1fr) !important; }
+  body #world #missionModal.memory-mission .memory-flow { gap: 3px; }
+  body #world #missionModal.memory-mission .memory-flow li { gap: 5px; font-size: 11px; }
+  body #world #missionModal.memory-mission .memory-flow li::before { width: 21px; height: 21px; font-size: 9px; }
+  body #world #missionModal.memory-mission .modalFoot { padding: 10px 18px 12px !important; }
+}
+
+@media (max-width: 900px) {
+  body #world #missionModal.memory-mission .memory-layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  body #world #missionModal.memory-mission #missionMemoryCompanion {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 170px;
+    gap: 7px 20px;
+    padding: 0 0 16px;
+    border-right: 0;
+    border-bottom: 1px solid #c3ad8480;
+  }
+  body #world #missionModal.memory-mission .memory-npc { grid-column: 1; }
+  body #world #missionModal.memory-mission .memory-npc-caption p { font-size: 13px; }
+  body #world #missionModal.memory-mission .memory-fragment { grid-column: 2; grid-row: 1 / 3; margin: 0; padding: 8px 9px; }
+  body #world #missionModal.memory-mission .memory-fragment-label { font-size: 8px; }
+  body #world #missionModal.memory-mission .memory-fragment-title { font-size: 13px; margin-top: 2px; }
+  body #world #missionModal.memory-mission .memory-paper { height: 87px; margin: 12px 4px 9px; }
+  body #world #missionModal.memory-mission .memory-paper-piece { padding: 7px 5px; font-size: 7px; }
+  body #world #missionModal.memory-mission .memory-npc-sprite { width: 42px; height: 56px; right: -8px; bottom: -4px; }
+  body #world #missionModal.memory-mission .memory-fragment-stamp { font-size: 8px; padding: 2px 5px; }
+  body #world #missionModal.memory-mission .memory-progress-note { font-size: 9px; margin-top: 4px; }
+  body #world #missionModal.memory-mission .memory-ledger { grid-column: 1; margin-top: 0; align-content: end; }
+  body #world #missionModal.memory-mission .memory-flow { padding-bottom: 13px; margin-bottom: 13px; }
+  body #world #missionModal.memory-mission .modalTwo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: 16px !important; }
+  body #world #missionModal.memory-mission .memory-restoration-card { padding: 27px; }
+}
+
+@media (max-width: 650px) {
+  body #world #missionModal.memory-mission {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 110 !important;
+    padding: max(9px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)) !important;
+    background: #101c19c9 !important;
+  }
+  body #world #missionModal.memory-mission .modalPanel {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    box-shadow: 0 0 0 2px #423a2e, 0 0 0 4px #a68c63, 0 9px 24px #0007 !important;
+  }
+  body #world #missionModal.memory-mission .modalHead { padding: 11px 12px !important; gap: 8px; }
+  body #world #missionModal.memory-mission .modalHead small { font-size: 8px !important; letter-spacing: .06em; }
+  body #world #missionModal.memory-mission .modalHead h2 { font-size: 19px !important; }
+  body #world #missionModal.memory-mission .modalClose { min-width: 53px; min-height: 40px; padding: 7px 8px; font-size: 11px; }
+  body #world #missionModal.memory-mission .modalContent { padding: 14px 11px 20px !important; flex: 1 1 0 !important; }
+  body #world #missionModal.memory-mission .memory-layout { gap: 16px; }
+  body #world #missionModal.memory-mission #missionMemoryCompanion { grid-template-columns: minmax(0, 1fr) 112px; gap: 6px 12px; padding-bottom: 13px; }
+  body #world #missionModal.memory-mission .memory-npc { grid-template-columns: 54px minmax(0, 1fr); gap: 9px; }
+  body #world #missionModal.memory-mission .memory-npc-portrait { width: 54px; height: 54px; padding: 1px; }
+  body #world #missionModal.memory-mission .memory-npc-caption { padding-top: 0; }
+  body #world #missionModal.memory-mission .memory-npc-caption strong { font-size: 11px; line-height: 1.5; }
+  body #world #missionModal.memory-mission .memory-npc-caption p { font-size: 11px; line-height: 1.7; margin-top: 5px; }
+  body #world #missionModal.memory-mission .memory-fragment { padding: 6px 7px; }
+  body #world #missionModal.memory-mission .memory-fragment-label { font-size: 7px; letter-spacing: .03em; }
+  body #world #missionModal.memory-mission .memory-fragment-title { font-size: 11px; line-height: 1.5; }
+  body #world #missionModal.memory-mission .memory-paper { height: 69px; margin: 10px 2px 7px; }
+  body #world #missionModal.memory-mission .memory-paper-piece { font-size: 6px; padding: 5px; }
+  body #world #missionModal.memory-mission .memory-npc-sprite { width: 33px; height: 44px; right: -6px; bottom: -3px; }
+  body #world #missionModal.memory-mission .memory-fragment-stamp { font-size: 7px; letter-spacing: 0; padding: 1px 3px; }
+  body #world #missionModal.memory-mission .memory-progress-note { font-size: 8px; line-height: 1.5; }
+  body #world #missionModal.memory-mission .memory-ledger { font-size: 9px; gap: 3px 6px; line-height: 1.6; padding: 0; }
+  body #world #missionModal.memory-mission .memory-ledger-title { font-size: 9px; }
+  body #world #missionModal.memory-mission .memory-ledger-count { font-size: 9px; }
+  body #world #missionModal.memory-mission .memory-flow li { gap: 4px; font-size: 10px; }
+  body #world #missionModal.memory-mission .memory-flow li::before { width: 20px; height: 21px; font-size: 8px; }
+  body #world #missionModal.memory-mission .missionStageHeader { font-size: 12px; margin-bottom: 11px; }
+  body #world #missionModal.memory-mission .modalTwo { grid-template-columns: minmax(0, 1fr) !important; gap: 16px !important; }
+  body #world #missionModal.memory-mission #missionDiagram { padding: 8px !important; border-width: 4px !important; }
+  body #world #missionModal.memory-mission #missionDiagram svg,
+  body #world #missionModal.memory-mission.e1-active #missionDiagram svg { height: 200px !important; max-height: 200px !important; }
+  body #world #missionModal.memory-mission .field label,
+  body #world #missionModal.memory-mission #missionControls > .field label { font-size: 15px !important; }
+  body #world #missionModal.memory-mission .choiceGroup button { min-height: 44px !important; font-size: 14px !important; }
+  body #world #missionModal.memory-mission .e1-step { padding: 12px !important; }
+  body #world #missionModal.memory-mission .e1-step h3 { font-size: 16px !important; }
+  body #world #missionModal.memory-mission .e1-step p { font-size: 13px !important; }
+  body #world #missionModal.memory-mission .e1-captures { gap: 10px; }
+  body #world #missionModal.memory-mission .e1-note { font-size: 16px !important; }
+  body #world #missionModal.memory-mission .field select,
+  body #world #missionModal.memory-mission .field input[type="text"],
+  body #world #missionModal.memory-mission .marsPeriod select { font-size: 16px !important; }
+  body #world #missionModal.memory-mission .modalFoot { padding: 9px 11px 11px !important; gap: 8px !important; }
+  body #world #missionModal.memory-mission .modalFoot .feedback { flex: 1 1 100% !important; max-height: 58px !important; font-size: 11px !important; line-height: 1.6 !important; }
+  body #world #missionModal.memory-mission .modalFoot .action { min-height: 44px !important; padding: 9px 12px !important; font-size: 12px !important; }
+  body #world #missionModal.memory-mission .memory-restoration-card { padding: 22px 19px; }
+  body #world #missionModal.memory-mission .memory-restoration-title { font-size: 25px; margin-top: 17px; }
+  body #world #missionModal.memory-mission .memory-restoration-line { font-size: 16px; line-height: 1.9; }
+  body #world #missionModal.memory-mission .memory-restoration-object { font-size: 12px; padding: 9px 10px; }
+  body #world #missionModal.memory-mission .memory-restoration-principle p { font-size: 13px; }
+  body #world #missionModal.memory-mission .marsLabHead { padding: 11px; }
+  body #world #missionModal.memory-mission .marsLabHead h3 { font-size: 15px; }
+  body #world #missionModal.memory-mission .marsLabHead p { font-size: 10px; }
+  body #world #missionModal.memory-mission .marsPhase { padding: 5px 7px; font-size: 11px; }
+  body #world #missionModal.memory-mission .marsExperiment button { min-height: 42px; }
+  body #world #missionModal.memory-mission .marsPresets { gap: 7px; }
+  body #world #missionModal.memory-mission .marsPresets button { flex: 1 1 calc(50% - 7px); font-size: 12px; }
+}
+
+@media (max-height: 520px) and (min-width: 651px) {
+  body #world #missionModal.memory-mission { position: fixed !important; inset: 0 !important; z-index: 110 !important; padding: 8px 12px !important; }
+  body #world #missionModal.memory-mission .modalPanel { width: min(1120px, 100%) !important; height: 100% !important; max-height: 100% !important; }
+  body #world #missionModal.memory-mission .modalHead { padding: 7px 14px !important; }
+  body #world #missionModal.memory-mission .modalHead h2 { font-size: 18px !important; margin-top: 2px !important; }
+  body #world #missionModal.memory-mission .modalHead small { font-size: 8px !important; }
+  body #world #missionModal.memory-mission .modalClose { min-height: 38px; font-size: 12px; }
+  body #world #missionModal.memory-mission .modalContent { padding: 11px 14px 18px !important; }
+  body #world #missionModal.memory-mission .memory-layout { grid-template-columns: 185px minmax(0, 1fr); gap: 17px; }
+  body #world #missionModal.memory-mission #missionMemoryCompanion { display: block; position: relative; padding: 0 15px 0 0; border-bottom: 0; border-right: 1px solid #c3ad8470; }
+  body #world #missionModal.memory-mission .memory-npc { grid-template-columns: 55px minmax(0, 1fr); gap: 8px; }
+  body #world #missionModal.memory-mission .memory-npc-portrait { width: 55px; height: 55px; }
+  body #world #missionModal.memory-mission .memory-npc-caption strong { font-size: 10px; }
+  body #world #missionModal.memory-mission .memory-npc-caption p { font-size: 10px; line-height: 1.65; }
+  body #world #missionModal.memory-mission .memory-fragment { margin-top: 12px; padding: 8px 9px; }
+  body #world #missionModal.memory-mission .memory-fragment-title { font-size: 12px; }
+  body #world #missionModal.memory-mission .memory-paper { height: 78px; margin: 10px 4px 8px; }
+  body #world #missionModal.memory-mission .memory-npc-sprite { width: 39px; height: 52px; }
+  body #world #missionModal.memory-mission .memory-ledger { margin-top: 10px; font-size: 9px; }
+  body #world #missionModal.memory-mission .memory-ledger-title, body #world #missionModal.memory-mission .memory-ledger-count { font-size: 9px; }
+  body #world #missionModal.memory-mission .memory-flow { margin-bottom: 10px; padding-bottom: 10px; }
+  body #world #missionModal.memory-mission .memory-flow li { font-size: 10px; }
+  body #world #missionModal.memory-mission .missionStageHeader { margin-bottom: 10px; font-size: 11px; }
+  body #world #missionModal.memory-mission .modalTwo { grid-template-columns: minmax(0, 1fr) !important; gap: 13px !important; }
+  body #world #missionModal.memory-mission #missionDiagram svg,
+  body #world #missionModal.memory-mission.e1-active #missionDiagram svg { height: 170px !important; max-height: 170px !important; }
+  body #world #missionModal.memory-mission.mars-active #missionDiagram .marsView svg { height: 180px !important; max-height: 180px !important; }
+  body #world #missionModal.memory-mission .modalFoot { padding: 7px 14px 9px !important; gap: 7px !important; }
+  body #world #missionModal.memory-mission .modalFoot .feedback { flex: 1 1 220px !important; max-height: 43px !important; font-size: 11px !important; }
+  body #world #missionModal.memory-mission .modalFoot .action { min-height: 39px !important; padding: 8px 11px !important; font-size: 12px !important; }
+  body #world #missionModal.memory-mission .memory-restoration-card { padding: 23px; }
+  body #world #missionModal.memory-mission .memory-restoration-title { font-size: 25px; margin: 14px 0; }
+  body #world #missionModal.memory-mission .memory-restoration-line { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body #world #missionModal.memory-mission *,
+  body #world #missionModal.memory-mission *::before,
+  body #world #missionModal.memory-mission *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes memory-acknowledge { 0%,100% { translate: 0 0; } 45% { translate: 0 -1px; } }
+@keyframes memory-recollect { 0%,100% { opacity: 1; } 40% { opacity: .8; } }
+@keyframes memory-leaf-arrive { from { opacity: .25; translate: 0 5px; } to { opacity: 1; translate: 0 0; } }
